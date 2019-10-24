@@ -11,25 +11,34 @@
 		<style type="text/css">
 			#wrap{
 				width:100%;
-				height:100%;
+				height : 100vh;
+				display : flex;
+				flex-direction : column;
 			}
 			#header{
 				width:100%;
-				height:300px;
+				height:150px;
 				background-color:beige;
 			}
-			#content{
-				width:100%;
+			#logo{
+				height:150px;
+			}
+			#logo img{
 				height:100%;
+			}
+			#content {
+				flex-grow:1;
+				display:flex;
+				min-height:0;
 			}
 			#footer{
 				width:100%;
-				heigth:200px;
+				height:100px;
 				background-color:pink;
 			}
 			#fBar ul{
 				width:100%;
-				height:150px;
+				height:100%;
 				list-style:none;
 			    margin:0;
 			    padding:0;
@@ -43,7 +52,7 @@
 				margin-left:0px;
 			}
 			#fBar ul li a{
-				color: black;
+				color:black;
 				text-decoration:none;
 			}
 		</style>

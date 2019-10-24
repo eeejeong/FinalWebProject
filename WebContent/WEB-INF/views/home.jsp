@@ -88,7 +88,7 @@
 						<li><a href="#">회원 관리</a></li>
 					</ul>
 				</div>
-			<div id="center">
+				<div id="center">
 					<iframe name="iframe" src="http://tomcat.apache.org" frameborder="0"></iframe>
 				</div>
 			</div>
