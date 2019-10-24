@@ -6,8 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import com.medirone.web.dto.Blood;
 import com.medirone.web.service.ItemManagementService;
@@ -27,12 +29,13 @@ public class ItemManagementController {
 
 	@RequestMapping("/medicineList")
 	public String medicineList() {
-		return "/itemManagement/medicineList";
+		return "itemManagement/medicineList";
 	}
 
 	@RequestMapping("/bloodList")
 	public String bloodList(Model model) {
 
+		/*
 		// 한 페이지 표시 행 - 혈액 개수는 총 8개
 		int rowsPerPage = 8;
 		// 현재 페이지 번호
@@ -52,7 +55,7 @@ public class ItemManagementController {
 		// JSP로 데이터 전달
 		model.addAttribute("totalRowNum", totalRowNum);
 
-		/*
+		
 		 * 
 		 
 		 * 
@@ -66,8 +69,8 @@ public class ItemManagementController {
 		 * model.addAttribute("pageNo", pageNo);
 		 * 
 		 * model.addAttribute("boardList", boardList); // 현재 페이지 내용
-		 */
+		
+		*/
 		return "/itemManagement/bloodList";
 	}
-
 }
