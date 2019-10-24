@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.medirone.web.dto.Medicine;
+import com.medirone.web.dto.SupplyItems;
 import com.medirone.web.service.ItemManagementService;
 
 @Controller
@@ -61,7 +61,7 @@ public class ItemManagementController {
 		if(pageNo == totalPageNum) endRowNo = totalRowNum;
 		
 		//현재 페이지의 게시물 가져오기 
-		List<Medicine> medicineList = service.getMedicineList(startRowNo, endRowNo);
+		List<SupplyItems> medicineList = service.getMedicineList(startRowNo, endRowNo);
 		
 		//JSP로 페이지 정보 넘기기
 		model.addAttribute("pagesPerGroup", pagesPerGroup);

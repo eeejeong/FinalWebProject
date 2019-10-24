@@ -8,25 +8,26 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.medirone.web.dto.Medicine;
+import com.medirone.web.dto.SupplyItems;
+
 
 @Component
-public class MedicineDao {
+public class SupplyItemsDao {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public int selectTotalRowNo() {
-		int totalRowNum = sqlSessionTemplate.selectOne("medicine.selectTotalRowNum");
+		int totalRowNum = sqlSessionTemplate.selectOne("supplyItems.selectTotalRowNum");
 		return totalRowNum;
 	}
 
-	public List<Medicine> selectMedicineList(int startRowNo, int endRowNo) {
+	public List<SupplyItems> selectMedicineList(int startRowNo, int endRowNo) {
 		
 		Map<String, Integer> map = new HashMap<>();
 		map.put("startRowNo", startRowNo);
 		map.put("endRowNo", endRowNo);
-		List<Medicine> medicineList = sqlSessionTemplate.selectList("medicine.selectMedicineList", map);
+		List<SupplyItems> medicineList = sqlSessionTemplate.selectList("supplyItems.selectMedicineList", map);
 		return medicineList;
 	}
 

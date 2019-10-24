@@ -6,9 +6,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
-		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
-		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<h1>의약품 관리</h1>
@@ -16,11 +13,10 @@
 		  <thead>
 		    <tr style="background-color:#dcdcdc">
 		      <th scope="col">체크박스</th>
-		      <th scope="col">의약품 번호</th>
+		      <th scope="col">번호</th>
 		      <th scope="col">이름</th>
 		      <th scope="col">수량</th>
 		      <th scope="col">무게</th>
-		      <th scope="col">용도</th>
 		      <th scope="col">수정</th>
 		    </tr>
 		  </thead>
@@ -28,11 +24,10 @@
 			<c:forEach items="${medicineList}" var="med"> <!-- items들어있는 요소 수 만큼 반복... -->
 			    <tr>
 			      <th scope="row"><input type="checkbox" aria-label="Checkbox for following text input"></th>
-			      <td>${med.med_id}</td>
-			      <td>${med.med_name}</td>
-			      <td>${med.med_amount}</td>
-			      <td>${med.med_weight}</td>
-			      <td>${med.med_usage}</td>
+			      <td>${med.sup_id}</td>
+			      <td>${med.sup_name}</td>
+			      <td>${med.sup_amount}</td>
+			      <td>${med.sup_weight}</td>
 			      <td><button >수정</button></td>
 			    </tr>
 			</c:forEach>
@@ -68,6 +63,6 @@
 				<a href="addMedicine" class="btn btn-secondary">추가</a>
 				<button onclick="deleteMedicine" class="btn btn-outline-secondary">삭제</button> 
 			</div>
-		</div> 
+		</div> -->
 	</body>
 </html>

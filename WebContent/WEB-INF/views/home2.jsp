@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
-<!-- 병원 기본 템플릿 -->
+<!-- 좌측 메뉴바 없는 템플릿 -->
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -9,9 +9,6 @@
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
-			body, html {
-				height: 100%;
-			}
 			#wrap{
 				width:100%;
 				height:100%;
@@ -22,9 +19,6 @@
 				background-color:beige;
 			}
 			#content{
-				flex-grow: 1;
-				display: flex;
-				min-height: 0;
 				width:100%;
 				height:100%;
 			}
@@ -49,22 +43,8 @@
 				margin-left:0px;
 			}
 			#fBar ul li a{
-				color:black;
+				color: black;
 				text-decoration:none;
-			}
-			#con-left{
-				width:200px;
-				background-color : rgb(206,157,255);
-			}
-			#center {
-				flex-grow: 1;
-				padding: 10px;
-			}
-			
-			#center iframe {
-				margin-top: 0px;
-				width: 100%;
-				height: 100%;
 			}
 		</style>
 	</head>
@@ -77,17 +57,10 @@
 			</div>
 			
 			<div id="content">
-				<div id="con-left">
-					<ul>
-						<li><a href="#">요청 게시판</a></li>
-						<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
-						<li><a href="#">회원 관리</a></li>
-					</ul>
-				</div>
-				<div id="center">
-					<iframe name="iframe" src="http://tomcat.apache.org" frameborder="0"></iframe>
-				</div>
+				<!--  -->
+				<!-- page 내용 -->
 			</div>
+			
 			<div id="footer">
 				<div id="fBar">
 					<ul>
@@ -103,6 +76,5 @@
 				</div>
 			</div>
 		</div>
-
 	</body>
 </html>
