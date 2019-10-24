@@ -9,15 +9,22 @@
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
-		
 			#wrap{
 				width:100%;
-				height:100%;
+				height : 100vh;
+				display : flex;
+				flex-direction : column;
 			}
 			#header{
 				width:100%;
-				height:300px;
+				height:150px;
 				background-color:beige;
+			}
+			#logo{
+				height:150px;
+			}
+			#logo img{
+				height:100%;
 			}
 			#content {
 				flex-grow:1;
@@ -39,12 +46,12 @@
 			}
 			#footer{
 				width:100%;
-				heigth:200px;
+				height:100px;
 				background-color:pink;
 			}
 			#fBar ul{
 				width:100%;
-				height:150px;
+				height:100%;
 				list-style:none;
 			    margin:0;
 			    padding:0;
@@ -81,7 +88,7 @@
 						<li><a href="#">회원 관리</a></li>
 					</ul>
 				</div>
-			<div id="center">
+				<div id="center">
 					<iframe name="iframe" src="http://tomcat.apache.org" frameborder="0"></iframe>
 				</div>
 			</div>
