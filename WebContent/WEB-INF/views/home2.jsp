@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
-<!-- 병원 기본 템플릿 -->
+<!-- 좌측 메뉴바 없는 템플릿 -->
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -43,12 +43,8 @@
 				margin-left:0px;
 			}
 			#fBar ul li a{
-				color:black;
+				color: black;
 				text-decoration:none;
-			}
-			#con-left{
-				width:200px;
-				background-color : rgb(206,157,255);
 			}
 		</style>
 	</head>
@@ -61,15 +57,8 @@
 			</div>
 			
 			<div id="content">
-				<!-- page 내용 -->
 				<!--  -->
-				<div id="con-left">
-					<ul>
-						<li><a href="#">요청 게시판</a></li>
-						<li><a href="#">의약품 관리</a></li>
-						<li><a href="#">회원 관리</a></li>
-					</ul>
-				</div>
+				<!-- page 내용 -->
 			</div>
 			
 			<div id="footer">
@@ -87,6 +76,5 @@
 				</div>
 			</div>
 		</div>
-
 	</body>
 </html>
