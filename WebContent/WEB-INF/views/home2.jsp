@@ -14,34 +14,53 @@
 <style type="text/css">
 #wrap {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 #header {
 	width: 100%;
-	height: 300px;
+	height: 150px;
 	background-color: beige;
+}
+
+#logo {
+	height: 150px;
+}
+
+#logo img {
+	height: 100%;
 }
 
 #content {
 	width: 100%;
 	height: 100%;
+	flex-grow: 1;
+	display: flex;
+	min-height: 0;
 	text-align: center;
-	padding : 40px;
 	
 }
-    
+
+#login_form{
 	
+	width: 100%;
+	height: 100%;
+	margin-top : 10%;
+	text-align: center;
+
+}
 
 #footer {
 	width: 100%;
-	heigth: 200px;
+	height: 100px;
 	background-color: pink;
 }
 
 #fBar ul {
 	width: 100%;
-	height: 150px;
+	height: 100%;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -62,7 +81,9 @@
 	text-decoration: none;
 }
 
-
+#content {
+	
+}
 </style>
 </head>
 <body>
@@ -74,22 +95,25 @@
 					alt="로고" />
 			</div>
 		</div>
-
+  
 		<div id="content">
-					<h5>로그인</h5>
-			<form method="post" name="login" action="Login">
-				<div class="form-group">
-					<input type="text" name="member_id" placeholder="아이디" /> <span
+			<div id="login_form">
+			<h5>로그인</h5>
+			<form method="post"  action="login">
+				<label for="Agency_id"></label>
+				<div class="input-group">
+					<input id= Agency_id type="text" name="Agency_id" placeholder="아이디" /> <span
 						id="midError" class="error" style="color: red">${miderror }</span>
 				</div>
 				<div class="form-group">
-					<input type="password" name="member_password" placeholder="패스워드" />
+				<label for="Agency_password"></label>
+					<input id="Agency_password" type="password" name="Agency_password" placeholder="패스워드" />
 					<span id="mpasswordError" class="error" style="color: red">${mpassworderror }</span>
 				</div>
 				<button type="submit" class="btn btn-danger">로그인</button>
 				<br /> <a id="" href="https://www.youtube.com/?gl=KR&hl=ko">회원가입</a>
 			</form>
-			
+			</div>
 		</div>
 
 		<div id="footer">
