@@ -13,6 +13,7 @@
 		<property name="maxTotal" value="5"/>
 		<property name="maxIdle" value="1"/>
 	</bean>	
+
 	<!-- Maven에 의존성 추가 -->
 	<!-- sqlSessionTemplate을 만들어주는 공장 세우기 작업 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
