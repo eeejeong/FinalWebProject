@@ -11,47 +11,25 @@
 		<style type="text/css">
 			#wrap{
 				width:100%;
-				height : 100vh;
-				display : flex;
-				flex-direction : column;
+				height:100%;
 			}
 			#header{
 				width:100%;
-				height:150px;
+				height:300px;
 				background-color:beige;
 			}
-			#logo{
-				height:150px;
-			}
-			#logo img{
-				height:100%;
-			}
-			#content {
-				flex-grow:1;
-				display:flex;
-				min-height:0;
-			}
-			#content #con-left{
-				width:200px;
-				background-color : rgb(206,157,255);
-			}
-			#content #center {
-				flex-grow:1 ;
-				padding:10px;
-			}
-			#center iframe {
-				margin-top:0px;
+			#content{
 				width:100%;
 				height:100%;
 			}
 			#footer{
 				width:100%;
-				height:100px;
+				heigth:200px;
 				background-color:pink;
 			}
 			#fBar ul{
 				width:100%;
-				height:100%;
+				height:150px;
 				list-style:none;
 			    margin:0;
 			    padding:0;
@@ -68,7 +46,10 @@
 				color:black;
 				text-decoration:none;
 			}
-			
+			#con-left{
+				width:200px;
+				background-color : rgb(206,157,255);
+			}
 		</style>
 	</head>
 	<body>
@@ -81,15 +62,30 @@
 			
 			<div id="content">
 				<!-- page 내용 -->
+				<!--  -->
 				<div id="con-left">
 					<ul>
 						<li><a href="#">요청 게시판</a></li>
-						<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
+						<li><a href="#">의약품 관리</a></li>
 						<li><a href="#">회원 관리</a></li>
 					</ul>
 				</div>
-			<div id="center">
-					<iframe name="iframe" src="http://tomcat.apache.org" frameborder="0"></iframe>
+				<div id="con-right">
+					<div id="con-right-title">
+						<h5>가입신청 목록</h5>
+					</div>
+					<table>
+						<tr>
+							<th>요청 번호</th>
+							<th>보건소 명</th>
+							<th>보건소 주소</th>
+							<th>거리</th>
+							<th>접수 날짜</th>
+							<th>승인 상태</th>
+							<th>승인</th>
+							<th>거절</th>
+						</tr>
+					</table>
 				</div>
 			</div>
 			
