@@ -52,8 +52,7 @@
 				  		</c:if>
 				  	</c:forEach>
 				  </div>
-				</div>
-							
+				</div>							
 				<c:if test="${groupNo<totalGroupNum}">
 					<a href="medicineList?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
 				</c:if>
@@ -63,6 +62,6 @@
 				<a href="addMedicine" class="btn btn-secondary">추가</a>
 				<button onclick="deleteMedicine" class="btn btn-outline-secondary">삭제</button> 
 			</div>
-		</div> -->
+		</div> 
 	</body>
 </html>
