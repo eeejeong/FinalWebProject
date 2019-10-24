@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="medicine">
+	
+	<select id="selectTotalRowNum" resultType="int">
+		select count(*) from medicine
+	</select>
+	
+	<select id="selectMedicineList"  parameterType="map"  resultType="com.medirone.web.dto.Medicine">
+		select rn, med_id, med_name, med_weight, med_usage, med_amount, member_hospital_id
+		from(
+			select rownum as rn, med_id, med_name, med_weight, med_usage, med_amount, member_hospital_id
+			from(
+				select med_id, med_name, med_weight, med_usage, med_amount, member_hospital_id 
+				from medicine order by med_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+</mapper>
