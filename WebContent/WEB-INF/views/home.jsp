@@ -10,5 +10,8 @@
 	</head>
 	<body>
 		<h1>home.jsp test</h1>
+		<a href="itemManagement/">의약품 관리</a><br/>
+		<a href="itemManagement/medicineList">백신 관리</a><br/>
+		<a href="itemManagement/bloodList">혈액 관리</a><br/>
 	</body>
 </html>
