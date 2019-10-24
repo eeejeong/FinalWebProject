@@ -9,7 +9,11 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 	</head>
 	<body>
+
+		<h1>혈액 관리</h1>
+
 		<h3>혈액 관리</h3>
 		총 개수: ${totalRowNum}
+
 	</body>
 </html>

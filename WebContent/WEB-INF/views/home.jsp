@@ -12,6 +12,10 @@
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 <style type="text/css">
+body, html {
+	height: 100%;
+}
+
 #wrap {
 	width: 100%;
 	height: 100vh;
@@ -47,13 +51,6 @@
 #content #center {
 	flex-grow: 1;
 	padding: 10px;
-}
-
-#login_form {
-	width: 100%;
-	height: 100%;
-	margin-top: 10%;
-	text-align: center;
 }
 
 #center iframe {
@@ -104,13 +101,17 @@
 
 		<div id="content">
 			<!-- page 내용 -->
-
-
-			
+			<div id="con-left">
+				<ul>
+					<li><a href="#">요청 게시판</a></li>
+					<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
+					<li><a href="#">회원 관리</a></li>
+				</ul>
 			</div>
-
+			<div id="center">
+				<iframe name="iframe" src="http://tomcat.apache.org" frameborder="0"></iframe>
+			</div>
 		</div>
-
 		<div id="footer">
 			<div id="fBar">
 				<ul>
@@ -126,5 +127,32 @@
 		</div>
 	</div>
 
+	<div id="content">
+		<!-- page 내용 -->
+
+
+
+	</div>
+
+	</div>
+
+	<div id="footer">
+		<div id="fBar">
+			<ul>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="#">회사소개</a></li>
+				<li><a href="#">고객센터</a></li>
+				<li><a href="#">사이트맵</a></li>
+			</ul>
+		</div>
+		<div id="copyright">Copyright(c) Medirone All Rights Reserved.</div>
+	</div>
+	</div>
+
 </body>
+
+</div>
+</body>
+
 </html>

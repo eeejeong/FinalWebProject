@@ -31,7 +31,7 @@ public class HomeController {
 		}
 		session.setAttribute("agency_Id",Agency_id);
 		
-		return "redirect:/";
+		return "home";
 		
 	}
 	

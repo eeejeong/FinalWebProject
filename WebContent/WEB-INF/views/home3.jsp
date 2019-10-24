@@ -85,7 +85,7 @@
 				<div id="con-left">
 					<ul>
 						<li><a href="#">요청 게시판</a></li>
-						<li><a href="#">의약품 관리</a></li>
+						<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
 					</ul>
 				</div>
 				<div id="center">
