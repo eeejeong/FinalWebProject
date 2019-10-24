@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blood">
+	<select id="selectTotalNum" resultType="int">
+		select count(*) 
+		from blood
+	</select>
+	
+	<select id="selectBloodList" parameterType="map" resultType="com.medirone.web.dto.Blood">
+		select rownum as rn, bl_id, bl_type, bl_weight, bl_amount, member_hospital_id
+		from blood
+		order by bl_id
+	</select>
+</mapper>

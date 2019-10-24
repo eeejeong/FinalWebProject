@@ -5,15 +5,15 @@
 
 	<!-- Maven에서 의존성 라이브러리에 등록했음 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-      <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>   <!-- Oracle에서 lib으로 가져왔음(Maven을 통해 받을 수가 없어서) -->
-      <property name="url" value="jdbc:oracle:thin:@106.253.56.122:1521:orcl"/>
-      <property name="username" value="team4"/>
-      <property name="password" value="iot12345"/>
-      <property name="initialSize" value="1"/>
-      <property name="maxTotal" value="5"/>
-      <property name="maxIdle" value="1"/>
-   </bean>
-	
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>	
+		<property name="url" value="jdbc:oracle:thin:@106.253.56.122:1521:orcl"/>
+		<property name="username" value="team4"/>
+		<property name="password" value="iot12345"/>
+		<property name="initialSize" value="1"/>
+		<property name="maxTotal" value="5"/>
+		<property name="maxIdle" value="1"/>
+	</bean>	
+
 	<!-- Maven에 의존성 추가 -->
 	<!-- sqlSessionTemplate을 만들어주는 공장 세우기 작업 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

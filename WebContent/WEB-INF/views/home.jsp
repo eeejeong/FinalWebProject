@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
+		
 			#wrap{
 				width:100%;
 				height:100%;
@@ -18,7 +19,21 @@
 				height:300px;
 				background-color:beige;
 			}
-			#content{
+			#content {
+				flex-grow:1;
+				display:flex;
+				min-height:0;
+			}
+			#content #con-left{
+				width:200px;
+				background-color : rgb(206,157,255);
+			}
+			#content #center {
+				flex-grow:1 ;
+				padding:10px;
+			}
+			#center iframe {
+				margin-top:0px;
 				width:100%;
 				height:100%;
 			}
@@ -46,10 +61,7 @@
 				color:black;
 				text-decoration:none;
 			}
-			#con-left{
-				width:200px;
-				background-color : rgb(206,157,255);
-			}
+			
 		</style>
 	</head>
 	<body>
@@ -62,13 +74,15 @@
 			
 			<div id="content">
 				<!-- page 내용 -->
-				<!--  -->
 				<div id="con-left">
 					<ul>
 						<li><a href="#">요청 게시판</a></li>
-						<li><a href="#">의약품 관리</a></li>
+						<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
 						<li><a href="#">회원 관리</a></li>
 					</ul>
+				</div>
+			<div id="center">
+					<iframe name="iframe" src="http://tomcat.apache.org" frameborder="0"></iframe>
 				</div>
 			</div>
 			
