@@ -53,7 +53,6 @@
 		</style>
 	</head>
 	<body>
-<<<<<<< HEAD
 		<div id="wrap">
 			<div id="header">
 				<div id="logo">
