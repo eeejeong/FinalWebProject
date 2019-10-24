@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
-<!-- 병원 기본 템플릿 -->
+<!-- 보건소 기본 템플릿 -->
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -67,7 +67,6 @@
 					<ul>
 						<li><a href="#">요청 게시판</a></li>
 						<li><a href="#">의약품 관리</a></li>
-						<li><a href="#">회원 관리</a></li>
 					</ul>
 				</div>
 			</div>
@@ -87,6 +86,5 @@
 				</div>
 			</div>
 		</div>
-
 	</body>
 </html>
