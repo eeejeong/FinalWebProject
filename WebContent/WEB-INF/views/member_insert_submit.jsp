@@ -63,6 +63,30 @@
 			<div id="content">
 				<!-- page 내용 -->
 				<!--  -->
+				<div id="con-left">
+					<ul>
+						<li><a href="#">요청 게시판</a></li>
+						<li><a href="#">의약품 관리</a></li>
+						<li><a href="#">회원 관리</a></li>
+					</ul>
+				</div>
+				<div id="con-right">
+					<div id="con-right-title">
+						<h5>가입신청 목록</h5>
+					</div>
+					<table>
+						<tr>
+							<th>요청 번호</th>
+							<th>보건소 명</th>
+							<th>보건소 주소</th>
+							<th>거리</th>
+							<th>접수 날짜</th>
+							<th>승인 상태</th>
+							<th>승인</th>
+							<th>거절</th>
+						</tr>
+					</table>
+				</div>
 			</div>
 			
 			<div id="footer">
