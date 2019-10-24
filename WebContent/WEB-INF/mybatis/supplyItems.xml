@@ -19,4 +19,17 @@
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
+
+
+	<select id="selectBloodTotalNum" resultType="int">
+		select count(sup_id) 
+		from supply_items
+		where sup_class=2
+	</select>
+	
+	<select id="selectBloodList" parameterType="map" resultType="com.medirone.web.dto.SupplyItems">
+		select *
+		from supply_items
+	</select>
+	
 </mapper>

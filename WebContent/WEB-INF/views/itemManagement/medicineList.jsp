@@ -63,5 +63,7 @@
 				<button onclick="deleteMedicine" class="btn btn-outline-secondary">삭제</button> 
 			</div>
 		</div> 
+		<a href="bloodList">혈액 관리</a>
+
 	</body>
 </html>
