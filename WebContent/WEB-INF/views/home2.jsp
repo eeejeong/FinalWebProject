@@ -57,6 +57,7 @@
 			</div>
 			
 			<div id="content">
+				<!--  -->
 				<!-- page 내용 -->
 			</div>
 			

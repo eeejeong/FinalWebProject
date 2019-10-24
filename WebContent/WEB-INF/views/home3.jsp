@@ -62,6 +62,7 @@
 			
 			<div id="content">
 				<!-- page 내용 -->
+				<!--  -->
 				<div id="con-left">
 					<ul>
 						<li><a href="#">요청 게시판</a></li>
