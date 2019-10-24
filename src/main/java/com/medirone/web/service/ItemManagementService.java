@@ -5,22 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.medirone.web.dao.BloodDao;
-import com.medirone.web.dto.Blood;
+import com.medirone.web.dao.SupplyItemsDao;
+import com.medirone.web.dto.SupplyItems;
 
 @Service
 public class ItemManagementService {
 
 	@Autowired
-	private BloodDao bloodDao;
+	private SupplyItemsDao bloodDao;
 	
 	public int getTotalRowNo() {
-		int totalRowNo = bloodDao.selectTotalNum();
+		int totalRowNo = bloodDao.selectTotalBloodNum();
 		return totalRowNo;
 	}
 
-	public List<Blood> getBoardList(int startRowNo, int endRowNo) {
-		List<Blood> bloodList = bloodDao.selectBloodList(startRowNo, endRowNo);
+	public List<SupplyItems> getBloodList(int startRowNo, int endRowNo) {
+		List<SupplyItems> bloodList = bloodDao.selectBloodList(startRowNo, endRowNo);
 		return bloodList;
 	}
 

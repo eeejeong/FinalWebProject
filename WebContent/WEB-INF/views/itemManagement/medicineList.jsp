@@ -16,5 +16,6 @@
 	</head>
 	<body>
 		<h5>백신목록</h5>
+		<a href="bloodList">혈액 관리</a>
 	</body>
 </html>

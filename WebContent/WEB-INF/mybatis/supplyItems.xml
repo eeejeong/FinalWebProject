@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supplyItems">
+	<select id="selectBloodTotalNum" resultType="int">
+		select count(sup_id) 
+		from supply_items
+		where sup_class=2
+	</select>
+	
+	<select id="selectBloodList" parameterType="map" resultType="com.medirone.web.dto.SupplyItems">
+		select *
+		from supply_items
+	</select>
+	
+
+</mapper>
