@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="agency">
+	<select id="selectAgencyByMid"
+		resultMap="selectId">
+		select agency_id, agency_password, agency_name,agency_tel, agency_address, agency_latitude
+		,agency_longitude, mission_waypoint, mission_writer
+		
+		from agency where agency_id=#{Agency_id}
+	</select>
+
+	<resultMap type="com.medirone.web.dto.Agency" id="selectId">
+		<result column="agency_id" property="Agency_id" />
+		<result column="agency_password" property="Agency_password" />
+		<result column="agency_name" property="Agency_name" />
+		<result column="agency_tel" property="Agency_tel" />
+		<result column="agency_address" property="Agency_address" />
+		<result column="agency_latitude" property="Agency_latitude" />
+		<result column="agency_longitude" property="Agency_longitude" />
+		<result column="mission_waypoint" property="Mission_waypoint" />
+		<result column="mission_writer" property="Mission_writer" />		
+	</resultMap>
+</mapper>

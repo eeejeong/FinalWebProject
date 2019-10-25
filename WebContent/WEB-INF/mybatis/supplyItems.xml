@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="supplyItems">
+	
+	<select id="selectTotalRowNum" resultType="int">
+		select count(*) from supply_Items where sup_class = 1
+	</select>
+	
+	<select id="selectMedicineList"  parameterType="map"  resultType="com.medirone.web.dto.SupplyItems">
+		select rn, sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id 
+		from(
+			select rownum as rn, sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id
+			from(
+				select sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id 
+				from supply_Items where sup_class=1 order by sup_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+
+
 	<select id="selectBloodTotalNum" resultType="int">
 		select count(sup_id) 
 		from supply_items
@@ -8,9 +28,29 @@
 	</select>
 	
 	<select id="selectBloodList" parameterType="map" resultType="com.medirone.web.dto.SupplyItems">
-		select *
-		from supply_items
+		select rn, sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id 
+		from(
+			select rownum as rn, sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id
+			from(
+				select sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id 
+				from supply_Items where sup_class=2 order by sup_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
 	</select>
 	
-
+	<insert id="insertBlood" parameterType="com.medirone.web.dto.SupplyItems">
+		<selectKey keyProperty="sup_id" resultType="int" order="BEFORE">
+			select supply_items_id.nextval from dual
+		</selectKey>
+		insert into supply_items(sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id)
+		values(#{sup_id}, #{sup_name}, #{sup_weight}, 2, #{sup_amount}, 'admin')
+	</insert>
+	
+	<delete id="deleteBlood" parameterType="int">
+		delete from supply_items
+		where sup_id = #{deleteBloodNo}
+	</delete>
+	
 </mapper>
