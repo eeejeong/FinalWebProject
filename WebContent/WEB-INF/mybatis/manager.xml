@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manager">
+
+	<insert id="insert" parameterType="com.medirone.web.dto.Manager">
+			insert into manager (manager_id, manager_name, 
+			manager_tel, manager_email, manager_agency_id)
+			values(#{manager_id}, #{manager_name}, 
+			#{manager_tel}, #{manager_email}, #{manager_agency_id})
+			
+	</insert>
+
+</mapper>

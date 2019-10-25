@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="agency">
+
+	<insert id="insert" parameterType="com.medirone.web.dto.Agency">
+		insert into agency (agency_id, agency_password, agency_name, 
+		agency_tel, agency_address, agency_latitude, agency_longitude)
+		values(#{agency_id}, #{agency_password}, #{agency_name}, 
+		#{agency_tel}, #{agency_address}, #{agency_latitude}, #{agency_longitude})
+		
+	</insert>
+	
+	<select id="selectAgencyByAgencyid" parameterType="string" 
+		resultMap="resultMember">
+		select agency_id, agency_name, agency_password from agency where agency_id=#{agency_id}
+	</select>
+
+	<resultMap id="resultMember" 
+		type="com.medirone.web.dto.Agency" >
+		<result column="agency_id" property="agency_id"/>
+		<result column="agency_password" property="agency_password"/>
+		<result column="agency_tel" property="agency_tel"/>
+		<result column="agency_address" property="agency_address"/>
+		<result column="agency_latitude" property="agency_latitude"/>
+		<result column="agency_longitude" property="agency_longitude"/>		
+	</resultMap>
+	
+</mapper>
