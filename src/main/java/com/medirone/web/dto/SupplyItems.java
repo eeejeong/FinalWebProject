@@ -43,5 +43,4 @@ public class SupplyItems {
 	public void setSup_hospital_id(String sup_hospital_id) {
 		this.sup_hospital_id = sup_hospital_id;
 	}
-
 }

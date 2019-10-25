@@ -94,13 +94,15 @@ public class ItemManagementController {
 		int startRowNo = (pageNo - 1) * rowsPerPage + 1;
 		// 해당 페이지의 끝 행 번호
 		int endRowNo = pageNo * rowsPerPage;
-		
+
 		// 현재 페이지의 게시물 가져오기
+
 		List<SupplyItems> bloodList = service.getBloodList(startRowNo, endRowNo);
 
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("totalBloodRowNum", totalBloodRowNum);
 		model.addAttribute("bloodList", bloodList);
+
 		return "/itemManagement/bloodList";
 	}
 
@@ -115,7 +117,7 @@ public class ItemManagementController {
 
 		return "redirect:/itemManagement/medicineList";
 	}
-	
+
 	@RequestMapping("/addBloodForm")
 	public String addBloodForm() {
 		return "itemManagement/addBloodForm";
@@ -138,3 +140,4 @@ public class ItemManagementController {
 	
 
 }
+

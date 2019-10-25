@@ -10,7 +10,7 @@ import com.medirone.web.dto.SupplyItems;
 
 @Service
 public class ItemManagementService {
-	
+
 	@Autowired
 	private SupplyItemsDao medDao; 
 	
@@ -37,6 +37,7 @@ public class ItemManagementService {
 	// 혈액 목록 불러오기
 	public List<SupplyItems> getBloodList(int startRowNo, int endRowNo) {
 		List<SupplyItems> bloodList = bloodDao.selectBloodList(startRowNo, endRowNo);
+
 		return bloodList;
 	}
 
@@ -49,5 +50,5 @@ public class ItemManagementService {
 	public void deleteBlood(int deleteBloodNo) {
 		bloodDao.deleteBlood(deleteBloodNo);
 	}
-	
+
 }

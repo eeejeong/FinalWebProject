@@ -46,7 +46,6 @@ public class SupplyItemsDao {
 		List<SupplyItems> bloodList = sqlSessionTemplate.selectList("supplyItems.selectBloodList", map);
 		return bloodList;
 	}
-
 	public int insertBlood(SupplyItems blood) {
 		int rows = sqlSessionTemplate.insert("supplyItems.insertBlood", blood);
 		return rows;

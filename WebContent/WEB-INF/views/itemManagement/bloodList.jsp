@@ -90,6 +90,6 @@
 			<a href="addBloodForm" class="btn btn-dark pull-right">추가</a>
 			<button type="button" class="btn btn-outline btn-danger" id="deleteBtn">삭제</button>
 		</div>
-		
+
 	</body>
 </html>

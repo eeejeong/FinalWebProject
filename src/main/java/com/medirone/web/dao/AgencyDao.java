@@ -6,14 +6,32 @@ import org.springframework.stereotype.Component;
 
 import com.medirone.web.dto.Agency;
 
+import com.medirone.web.dto.Manager;
+
 @Component
 public class AgencyDao {
+	
 	@Autowired
-	private SqlSessionTemplate sqlSessiontemplate;
+	private SqlSessionTemplate sqlSessionTemplate;
 
-	public Agency selectiAgency(String Agency_id) {
-		Agency agency = sqlSessiontemplate.selectOne("agency.selectAgencyByMid",Agency_id);
+	public int insert(Agency agency, Manager manager) {
+		int rows = sqlSessionTemplate.insert("agency.insert", agency);
+		sqlSessionTemplate.insert("manager.insert", manager);
+		return rows;	
+	}
+
+	public Agency selectMember(String agency_id) {
+		Agency agency = sqlSessionTemplate.selectOne("agency.selectAgencyByAgencyid", agency_id);
 		return agency;
 	}
+	
+	public Agency selectAgency(String agency_id) {
+		Agency agency = sqlSessionTemplate.selectOne("agency.selectAgencyByAgencyid",agency_id);
+		return agency;
+	}
+
+	
+	
+
 
 }
