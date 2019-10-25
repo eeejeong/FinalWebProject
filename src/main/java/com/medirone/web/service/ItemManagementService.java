@@ -14,7 +14,7 @@ public class ItemManagementService {
 	@Autowired
 	private SupplyItemsDao bloodDao;
 	
-	public int getTotalRowNo() {
+	public int getTotalBloodRowNum() {
 		int totalRowNo = bloodDao.selectTotalBloodNum();
 		return totalRowNo;
 	}

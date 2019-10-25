@@ -38,7 +38,7 @@ public class ItemManagementController {
 		int pageNo = 1;
 
 		// 전체 게시물 수
-		int totalRowNum = service.getTotalRowNo();
+		int totalRowNum = service.getTotalBloodRowNum();
 
 		// 현재 페이지의 시작 행 번호
 		int startRowNo = (pageNo - 1) * rowsPerPage + 1;
