@@ -90,7 +90,6 @@ public class ItemManagementController {
 		// 해당 페이지의 끝 행 번호
 		int endRowNo = pageNo * rowsPerPage;
 
-
 		/*
 		 * // 현재 페이지의 게시물 가져오기 List<Ch10Board> boardList =
 		 * service.getBoardList(startRowNo, endRowNo); // JSP로 페이지 정보 넘기기
@@ -103,10 +102,9 @@ public class ItemManagementController {
 		 * 
 		 * model.addAttribute("boardList", boardList); // 현재 페이지 내용
 		*/
-
+		
 		// 현재 페이지의 게시물 가져오기
 		List<SupplyItems> bloodList = service.getBloodList(startRowNo, endRowNo);
-
 		return "/itemManagement/bloodList";
 	}
 
@@ -121,5 +119,4 @@ public class ItemManagementController {
 
 		return "redirect:/itemManagement/medicineList";
 	}
-
 }

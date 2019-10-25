@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="agency">
-
 	<insert id="insert" parameterType="com.medirone.web.dto.Agency">
 		insert into agency (agency_id, agency_password, agency_name, 
 		agency_tel, agency_address, agency_latitude, agency_longitude)

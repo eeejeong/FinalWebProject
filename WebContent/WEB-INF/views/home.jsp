@@ -86,6 +86,7 @@
 						<li><a href="#">요청 게시판</a></li>
 						<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
 						<li><a href="#">회원 관리</a></li>
+						${agency_Id}
 					</ul>
 				</div>
 				<div id="center">
@@ -106,8 +107,8 @@
 				<div id="copyright">
 					Copyright(c) Medirone All Rights Reserved.
 				</div>
+
 			</div>
 		</div>
-
-	</body>
+		</body>
 </html>

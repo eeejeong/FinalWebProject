@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.medirone.web.dto.Agency;
+
 import com.medirone.web.dto.Manager;
 
 @Component
@@ -31,5 +32,6 @@ public class AgencyDao {
 
 	
 	
+
 
 }

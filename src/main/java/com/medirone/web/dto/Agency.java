@@ -50,8 +50,5 @@ public class Agency {
 	}
 	public void setAgency_longitude(double agency_longitude) {
 		this.agency_longitude = agency_longitude;
-	}
-	
-	
-	
+	}	
 }

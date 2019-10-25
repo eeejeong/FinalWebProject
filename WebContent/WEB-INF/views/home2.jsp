@@ -12,6 +12,7 @@
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 <style type="text/css">
+
 #wrap {
 	width: 100%;
 	height: 100vh;
@@ -86,6 +87,7 @@ function checkForm(){
 	return result;
 	
 }
+
 </script>
 </head>
 <body>
@@ -103,6 +105,7 @@ function checkForm(){
 			<h5>로그인</h5>
 			<form method="post" action="login" onsubmit="return checkForm()">
 				<div class="form-group">
+
 					<label for="agency_id">ID</label> <input id="agency_id" type="text"
 						name="agency_id" class="form-control" placeholder="아이드를 입력" /> <span
 						id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
@@ -117,6 +120,7 @@ function checkForm(){
 				</div>
 				<button type="submit" class="btn btn-danger">로그인</button>
 				<br /> <a id="" href="join/">회원가입</a>
+
 			</form>
 		</div>
 

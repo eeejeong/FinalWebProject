@@ -10,7 +10,6 @@ import com.medirone.web.dto.SupplyItems;
 
 @Service
 public class ItemManagementService {
-	
 	@Autowired
 	private SupplyItemsDao medDao; 
 	
@@ -37,6 +36,7 @@ public class ItemManagementService {
 	public List<SupplyItems> getBloodList(int startRowNo, int endRowNo) {
 		List<SupplyItems> bloodList = bloodDao.selectBloodList(startRowNo, endRowNo);
 		return bloodList;
+
 	}
 	
 }

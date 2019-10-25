@@ -64,6 +64,5 @@
 			</div>
 		</div> 
 		<a href="bloodList">혈액 관리</a>
-
 	</body>
 </html>
