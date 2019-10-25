@@ -14,11 +14,13 @@ public class AgencyService {
 	public LoginResult login(String Agency_id, String Agency_password) {
 		Agency agency = aDao.selectiAgency(Agency_id);
 		if(agency==null) {
+			
 			return LoginResult.FAIL_MID;
 		}else {
 			if(Agency_password.equals(agency.getAgency_password())) {
 				return LoginResult.SUCCESS;
 			}else {
+				
 				return LoginResult.FAIL_MPASSWORD;
 			}
 			

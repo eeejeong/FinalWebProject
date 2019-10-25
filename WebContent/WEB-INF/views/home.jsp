@@ -96,6 +96,7 @@ body, html {
 				<img
 					src="<%=application.getContextPath()%>/resources/image/img_brand3.png"
 					alt="로고" />
+					
 			</div>
 		</div>
 
@@ -106,6 +107,7 @@ body, html {
 					<li><a href="#">요청 게시판</a></li>
 					<li><a href="itemManagement/" target="iframe">의약품 관리</a></li>
 					<li><a href="#">회원 관리</a></li>
+					${agency_Id}
 				</ul>
 			</div>
 			<div id="center">
