@@ -1,11 +1,13 @@
 
 package com.medirone.web.controller;
 
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +140,23 @@ public class ItemManagementController {
 		return "redirect:/itemManagement/bloodList";
 	}
 	
+	@RequestMapping("/updateBlood")
+	public String updateBlood(SupplyItems blood) {	
+		service.updateBlood(blood);		
+		return "redirect:/itemManagement/bloodList";
+	}
+	
+	@RequestMapping("/checkBloodName")
+	public void checkBloodName(String sup_name, HttpServletResponse response) throws Exception {
+		boolean result = service.checkBloodName(sup_name);
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", result);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+	}
 
 }
 

@@ -51,4 +51,14 @@ public class ItemManagementService {
 		bloodDao.deleteBlood(deleteBloodNo);
 	}
 
+	public void updateBlood(SupplyItems blood) {
+		bloodDao.updateBlood(blood);
+		
+	}
+
+	public boolean checkBloodName(String sup_name) {
+		boolean result = bloodDao.selectBloodName(sup_name);
+		return result;
+	}
+
 }

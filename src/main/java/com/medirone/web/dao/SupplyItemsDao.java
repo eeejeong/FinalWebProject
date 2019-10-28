@@ -12,7 +12,7 @@ import com.medirone.web.dto.SupplyItems;
 
 @Component
 public class SupplyItemsDao {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
@@ -23,14 +23,14 @@ public class SupplyItemsDao {
 	}
 
 	// 백신 리스트
-	public List<SupplyItems> selectMedicineList(int startRowNo, int endRowNo) {		
+	public List<SupplyItems> selectMedicineList(int startRowNo, int endRowNo) {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("startRowNo", startRowNo);
 		map.put("endRowNo", endRowNo);
 		List<SupplyItems> medicineList = sqlSessionTemplate.selectList("supplyItems.selectMedicineList", map);
 		return medicineList;
 	}
-	
+
 	// 혈액 총 개수
 	public int selectTotalBloodNum() {
 		int totalRowNum = sqlSessionTemplate.selectOne("supplyItems.selectBloodTotalNum");
@@ -42,10 +42,11 @@ public class SupplyItemsDao {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("startRowNo", startRowNo);
 		map.put("endRowNo", endRowNo);
-		
+
 		List<SupplyItems> bloodList = sqlSessionTemplate.selectList("supplyItems.selectBloodList", map);
 		return bloodList;
 	}
+
 	public int insertBlood(SupplyItems blood) {
 		int rows = sqlSessionTemplate.insert("supplyItems.insertBlood", blood);
 		return rows;
@@ -54,5 +55,18 @@ public class SupplyItemsDao {
 	public int deleteBlood(int deleteBloodNo) {
 		int rows = sqlSessionTemplate.delete("supplyItems.deleteBlood", deleteBloodNo);
 		return rows;
+	}
+
+	public void updateBlood(SupplyItems blood) {
+		int rows = sqlSessionTemplate.update("supplyItems.updateBlood", blood);
+	}
+
+	public boolean selectBloodName(String sup_name) {
+		int rows = sqlSessionTemplate.selectOne("supplyItems.selectBloodName", sup_name);
+		if (rows == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
