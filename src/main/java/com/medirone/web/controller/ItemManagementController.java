@@ -1,11 +1,14 @@
 
 package com.medirone.web.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,18 +109,26 @@ public class ItemManagementController {
 		return "/itemManagement/bloodList";
 	}
 
-	@RequestMapping("/addMedicine")
-	public String addMedicine() {
-
-		return "/itemManagement/addMedicine";
+	@RequestMapping("/addMedicineForm")
+	public String addMedicineForm() {
+		return "/itemManagement/addMedicineForm";
 	}
-
-	@RequestMapping("/deleteMedicine")
-	public String deleteMedicine() {
-
+	
+	@RequestMapping("/addMedicine")
+	public String addMedicine(SupplyItems medicine) {
+		service.addMedicine(medicine);
 		return "redirect:/itemManagement/medicineList";
 	}
 
+	@RequestMapping("/deleteMedicine")
+	public String deleteMedicine(String[] deleteMedicine) {	
+		for(int i = 0; i < deleteMedicine.length; i++) {
+			int deleteMedicineNo = Integer.parseInt(deleteMedicine[i]);
+			service.deleteMedicine(deleteMedicineNo);
+		}	
+		return "redirect:/itemManagement/medicineList";
+	}
+	
 	@RequestMapping("/addBloodForm")
 	public String addBloodForm() {
 		return "itemManagement/addBloodForm";
@@ -138,6 +149,22 @@ public class ItemManagementController {
 		return "redirect:/itemManagement/bloodList";
 	}
 	
-
+	@RequestMapping("/updateMedicine")
+	public String updateMedicine(SupplyItems medicine) {	
+		service.updateMedicine(medicine);
+		return "redirect:/itemManagement/medicineList";
+	}
+	
+	@RequestMapping("/checkMedName")
+	public void checkMedName(String sup_name, HttpServletResponse response) throws Exception {
+		boolean result = service.checkMedName(sup_name);
+		response.setContentType("application/json charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", result);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();	
+	}
 }
 

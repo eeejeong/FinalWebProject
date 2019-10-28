@@ -55,4 +55,24 @@ public class SupplyItemsDao {
 		int rows = sqlSessionTemplate.delete("supplyItems.deleteBlood", deleteBloodNo);
 		return rows;
 	}
+
+	public int insertMedicine(SupplyItems medicine) {
+		int rows = sqlSessionTemplate.insert("supplyItems.insertMedicine", medicine);
+		return rows;
+	}
+
+	public int deleteMedicine(int deleteMedicineNo) {
+		int rows = sqlSessionTemplate.delete("supplyItems.deleteMedicine", deleteMedicineNo);
+		return rows;
+	}
+
+	public int updateMedicine(SupplyItems medicine) {
+		int rows =  sqlSessionTemplate.update("supplyItems.updateMedicine", medicine);
+		return rows;
+	}
+
+	public int selectMedicine(String sup_name) {
+		int rows = sqlSessionTemplate.selectOne("supplyItems.selectMedicineByName", sup_name);
+		return rows;
+	}
 }

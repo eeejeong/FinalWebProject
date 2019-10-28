@@ -51,4 +51,25 @@ public class ItemManagementService {
 		bloodDao.deleteBlood(deleteBloodNo);
 	}
 
+	public void addMedicine(SupplyItems medicine) {
+		medDao.insertMedicine(medicine);
+	}
+
+	public void deleteMedicine(int deleteMedicineNo) {
+		medDao.deleteMedicine(deleteMedicineNo);
+	}
+
+	public void updateMedicine(SupplyItems medicine) {
+		medDao.updateMedicine(medicine);	
+	}
+
+	public boolean checkMedName(String sup_name) {
+		int rows = medDao.selectMedicine(sup_name);
+		if(rows == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }
