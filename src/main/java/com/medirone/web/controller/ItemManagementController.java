@@ -184,5 +184,13 @@ public class ItemManagementController {
 		pw.flush();
 		pw.close();
 	}
+	
+	@RequestMapping("/searchMedicine")
+	public String searchMedicine(String searchName, Model model) {
+		logger.debug(searchName);
+		List<SupplyItems> medicineList = service.searchMedicine(searchName);
+		model.addAttribute("medicineList", medicineList);
+		return "/itemManagement/searchMedicineList";
+	}
 }
 

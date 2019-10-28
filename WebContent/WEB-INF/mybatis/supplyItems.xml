@@ -88,4 +88,9 @@
 		where sup_class=2 and sup_name=#{sup_name}
 	</select>
 	
+	<select id="selectSearchMedicineList"  parameterType="String"  resultType="com.medirone.web.dto.SupplyItems">	
+		select sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id
+		from supply_Items where sup_class=1 and sup_name=#{sup_name} order by sup_id	
+	</select>
+	
 </mapper>

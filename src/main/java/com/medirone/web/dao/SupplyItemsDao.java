@@ -89,4 +89,9 @@ public class SupplyItemsDao {
 			return false;
 		}
 	}
+
+	public List<SupplyItems> selectSearchMedicineList(String sup_name) {
+		List<SupplyItems> medicineList = sqlSessionTemplate.selectList("supplyItems.selectSearchMedicineList", sup_name);
+		return medicineList;
+	}
 }
