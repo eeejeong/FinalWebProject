@@ -25,7 +25,7 @@
 		  <div class="form-group row">
 		    <label for="inputAmount" class="col-sm-2 col-form-label">의약품수량</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputAmount">
+		      <input type="number" class="form-control" id="inputAmount">
 		    </div>
 		  </div>
 		  <div class="form-group row">

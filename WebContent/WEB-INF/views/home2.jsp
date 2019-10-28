@@ -118,8 +118,8 @@ function checkForm(){
 						id="errorAgency_password" class="error" style="color: red">${errorAgency_password }</span>
 
 				</div>
-				<button type="submit" class="btn btn-danger">로그인</button>
-				<br /> <a id="" href="join/">회원가입</a>
+				<button type="submit" class="btn btn-danger">로 그 인</button>
+				<br /> <a id="" href="join/" class="btn btn-success">회원가입</a>
 
 			</form>
 		</div>
