@@ -67,7 +67,7 @@ function checkForm(){
 				<div class="form-group">
 
 					<label for="agency_id">ID</label> <input id="agency_id" type="text"
-						name="agency_id" class="form-control" placeholder="아이드를 입력" /> <span
+						name="agency_id" class="form-control" placeholder="아이디를 입력" /> <span
 						id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
 				</div>
 

@@ -75,4 +75,17 @@
 		from supply_Items 
 		where sup_class = 1 and sup_name =#{sup_name}
 	</select>
+	
+	<update id="updateBlood" parameterType="com.medirone.web.dto.SupplyItems">
+		update supply_items
+		set sup_name=#{sup_name}, sup_amount=#{sup_amount}, sup_weight=#{sup_weight}
+		where sup_id=#{sup_id}
+	</update>
+	
+	<select id="selectBloodName" parameterType="String" resultType="int">
+		select count(sup_id)
+		from supply_items
+		where sup_class=2 and sup_name=#{sup_name}
+	</select>
+	
 </mapper>

@@ -166,5 +166,23 @@ public class ItemManagementController {
 		pw.flush();
 		pw.close();	
 	}
+	
+	@RequestMapping("/updateBlood")
+	public String updateBlood(SupplyItems blood) {	
+		service.updateBlood(blood);		
+		return "redirect:/itemManagement/bloodList";
+	}
+	
+	@RequestMapping("/checkBloodName")
+	public void checkBloodName(String sup_name, HttpServletResponse response) throws Exception {
+		boolean result = service.checkBloodName(sup_name);
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", result);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+	}
 }
 

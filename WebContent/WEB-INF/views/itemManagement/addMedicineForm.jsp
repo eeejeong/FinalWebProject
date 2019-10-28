@@ -84,8 +84,8 @@
 				      <span id="sup_weightError" class="error" style="color:red"></span>
 				    </div>
 				  </div>
-				  <div class="form-group">
-				  	<input type="submit" class="btn btn-secondary" id="completeBtn" value="완료"/>
+				  <div class="form-group" style="float: right">
+				  	<input type="submit" class="btn btn-success" id="completeBtn" value="완료"/>
 				  </div>
 				</form>
 			</div>
