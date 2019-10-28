@@ -82,4 +82,9 @@ public class ItemManagementService {
 			return false;
 		}
 	}
+
+	public List<SupplyItems> searchMedicine(String sup_name) {
+		List<SupplyItems> medicineList = medDao.selectSearchMedicineList(sup_name);
+		return medicineList;
+	}
 }
