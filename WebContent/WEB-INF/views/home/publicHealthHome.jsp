@@ -24,9 +24,9 @@
 	</head>
 	<body>
 		<div id="wrap">
-			<jsp:include page="../common/header.jsp"></jsp:include>
+			<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
 			<div class="center">
-				<jsp:include page="../common/publicHealthMenubar.jsp"></jsp:include>
+				
 				<div class="content">
 				</div>
 			</div>

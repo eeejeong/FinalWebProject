@@ -44,20 +44,26 @@ public class HomeController {
 			return "redirect:/loginHome?error=fail_mpassword";
 		}
 		session.setAttribute("agency_Id", agency_id);
+		
 		if(agency_id.equals("admin")) {
 			return "redirect:/hopitalHome";
 		} else {	
 			return "redirect:/publicHealthHome";
 		}
 	}
-	
-	@RequestMapping("/hopitalHome")
+
+	@RequestMapping("/hospitalHome")
 	public String hospitalHome() {
-		return "home/publicHealthHome";
+		return "home/hospitalHome";
 	}
-	
 	@RequestMapping("/publicHealthHome")
 	public String publicHealthHome() {
 		return "home/publicHealthHome";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("agency_Id");
+		return "redirect:/";
 	}
 }
