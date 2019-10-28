@@ -18,10 +18,10 @@ public class HomeController {
 
 	@RequestMapping("/")
 	public String home() {
-		return "home2";
+		return "home/loginHome";
 	}
 
-	@RequestMapping("/home2")
+	@RequestMapping("/loginHome")
 	public String Logincheck(String error, Model model) {
 		if (error != null) {
 			if (error.equals("fail_mid")) {
@@ -32,20 +32,25 @@ public class HomeController {
 				System.out.println("비밀번호가 없다");
 			}
 		}
-		return "home2";
+		return "home/loginHome";
 	}
 
 	@PostMapping("/login")
 	public String Login(String agency_id, String agency_password, HttpSession session) {
 		LoginResult result = Aservice.login(agency_id, agency_password);
 		if (result == LoginResult.FAIL_MID) {
-			return "redirect:/home2?error=fail_mid";
+			return "redirect:/loginHome?error=fail_mid";
 		} else if (result == LoginResult.FAIL_MPASSWORD) {
-			return "redirect:/home2?error=fail_mpassword";
+			return "redirect:/loginHome?error=fail_mpassword";
 		}
 		session.setAttribute("agency_Id", agency_id);
-
-		return "home";
-
+		
+		if(agency_id.equals("admin")) {
+			return "home/hopitalHome";
+		} else {	
+			return "home/publicHealthHome";
+	}
+		
 	}
 }
+

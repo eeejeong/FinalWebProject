@@ -175,6 +175,7 @@
 			
 	</head>
 	<body>
+		<jsp:include page="../common/header.jsp"></jsp:include>
 		<h5>회원 가입</h5>
 		<form method="post" action="joinSuccess" onsubmit="return checkForm()">
   			<div class="form-row">
@@ -304,15 +305,19 @@
 	  		<div class="form-group">
 		  		<input type="submit" class="btn btn-success" value="회원가입"/>
 		  	</div>
+		  	
+		  	
     	</form>  
     	
     	<!-- 카카오 지도 API -->
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0cef5f118d942254be778baadfb2acb4&libraries=services"></script>
 			<script>
 			function SearchLatLng() {
-				var now_add = document.getElementById("agency_address").value;
+				
+				var searchedAdd = document.getElementById("agency_address").value;
 				
 				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				// 주소 검색을 하지 않은 경우, 기본으로 협회 주소 표시
 				mapOption = { 
 				    center: new kakao.maps.LatLng(37.4950924317002, 127.12253304316587), // 지도의 중심좌표
 				    level: 3 // 지도의 확대 레벨
@@ -332,7 +337,7 @@
 				var geocoder = new kakao.maps.services.Geocoder();
 
 				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch(now_add, function(result, status) {
+				geocoder.addressSearch(searchedAdd, function(result, status) {
 
 				    // 정상적으로 검색이 완료됐으면 
 				     if (status === kakao.maps.services.Status.OK) {
@@ -342,6 +347,7 @@
 				        map.setCenter(coords);
 				    } 
 				});
+				
 				// 지도에 클릭 이벤트를 등록합니다
 				// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
 				kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
@@ -361,5 +367,6 @@
 				});
 			}
 			</script> 
+			<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>
 </html>

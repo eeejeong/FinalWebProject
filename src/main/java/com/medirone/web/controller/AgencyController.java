@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,7 +59,7 @@ public class AgencyController {
 		manager.setManager_agency_id(agency_id);
 		
 		service.join(agency, manager);
-		return "home2";
+		return "redirect:/";
 	}
 	
 	/*

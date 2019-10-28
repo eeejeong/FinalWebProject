@@ -1,5 +1,7 @@
 package com.medirone.web.dto;
 
+import java.util.Date;
+
 public class Agency {
 	private String agency_id;
 	private String agency_password;
@@ -7,7 +9,16 @@ public class Agency {
 	private String agency_tel;
 	private String agency_address;
 	private double agency_latitude;
-	private double agency_longitude;	
+	private double agency_longitude;
+	private String agency_status;
+	
+	public String getAgency_status() {
+		return agency_status;
+	}
+	public void setAgency_status(String agency_status) {
+		this.agency_status = agency_status;
+	}
+	private Date agency_date;
 	
 	public String getAgency_id() {
 		return agency_id;
@@ -50,5 +61,13 @@ public class Agency {
 	}
 	public void setAgency_longitude(double agency_longitude) {
 		this.agency_longitude = agency_longitude;
-	}	
+	}
+	public Date getAgency_date() {
+		return agency_date;
+	}
+	public void setAgency_date(Date agency_date) {
+		this.agency_date = agency_date;
+	}
+	
+	
 }

@@ -10,6 +10,18 @@
 			href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript"
 			src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+		<style>
+			.content{
+				float:left;
+				width:80%;
+				position: absolute;
+    			left: 17%;
+			}
+			.center{
+				width:100%;
+				overflow:hidden;
+			}
+		</style>
 		<script type="text/javascript">
 			function checkForm() {
 				var result = true;
@@ -35,32 +47,40 @@
 		</script>
 	</head>
 	<body>
-		<h3>혈액 추가</h3>
-		<form method="post" action="addBlood" onsubmit="return checkForm()">
-		  <div class="form-group row">
-		    <label for="inputName" class="col-sm-2 col-form-label">혈액 종류</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="sup_name" name="sup_name">
-		       <span id="sup_nameError" class="error" style="color:red"></span>
-		    </div>
-		  </div>
-		  <div class="form-group row">
-		    <label for="inputAmount" class="col-sm-2 col-form-label">혈액 수량</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="sup_amount" name="sup_amount">
-		      <span id="sup_amountError" class="error" style="color:red"></span>
-		    </div>
-		  </div>
-		  <div class="form-group row">
-		    <label for="inputWeight" class="col-sm-2 col-form-label">혈액 무게</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="sup_weight" name="sup_weight">
-		      <span id="sup_weightError" class="error" style="color:red"></span>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		  	<input type="submit" class="btn btn-secondary" value="완료"/>
-		  </div>
-		</form>
+		<jsp:include page="../common/header.jsp"></jsp:include>
+		<div class="center">
+			<jsp:include page="../common/sidebar.jsp"></jsp:include>
+			<div class="content">
+				<h1>의약품 관리</h1>
+				<h3>혈액 추가</h3>
+				<form method="post" action="addBlood" onsubmit="return checkForm()">
+				  <div class="form-group row">
+				    <label for="inputName" class="col-sm-2 col-form-label">혈액 종류</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="sup_name" name="sup_name">
+				       <span id="sup_nameError" class="error" style="color:red"></span>
+				    </div>
+				  </div>
+				  <div class="form-group row">
+				    <label for="inputAmount" class="col-sm-2 col-form-label">혈액 수량</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="sup_amount" name="sup_amount">
+				      <span id="sup_amountError" class="error" style="color:red"></span>
+				    </div>
+				  </div>
+				  <div class="form-group row">
+				    <label for="inputWeight" class="col-sm-2 col-form-label">혈액 무게</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="sup_weight" name="sup_weight">
+				      <span id="sup_weightError" class="error" style="color:red"></span>
+				    </div>
+				  </div>
+				  <div class="form-group" style="float: right">
+				  	<input type="submit" class="btn btn-success" value="완료"/>
+				  </div>
+				</form>
+			</div>
+		</div>
+		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>
 </html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="management">
+
+	<select id="selectManagementList"  parameterType="map"  resultType="com.medirone.web.dto.Agency">
+      select rn, agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status
+      from(
+         select rownum as rn, agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status
+         from(
+            select agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status
+            from agency 
+            order by agency_date desc
+         )
+         where rownum &lt;= #{endRowNo}
+      )
+      where rn &gt;= #{startRowNo}
+   </select>
+   
+   <select id="selectTotalRowNum" resultType="int">
+      select count(*) from agency 
+   </select>
+
+	<delete id="deleteManager" parameterType="String">
+		delete from manager
+		where manager_agency_id=#{agency_id}			 		
+	</delete>
+	<delete id="deleteAgency" parameterType="String">
+		delete from agency
+		where agency_id=#{agency_id}		
+	</delete>
+	
+	<update id="updateManager" parameterType="String">
+		update agency set agency_status = 'Y'
+		where agency_id=#{agency_id}
+	</update>
+
+</mapper>
