@@ -57,8 +57,7 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="../common/header.jsp"></jsp:include>
-		<jsp:include page="../common/hospitalMenubar.jsp"></jsp:include>
+		<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
 			<div class="content">
 				<h1>의약품 관리</h1>
 				<h3>의약품 추가</h3>
