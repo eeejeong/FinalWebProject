@@ -20,22 +20,15 @@
 			}
 			/* 수정 */
 			.content{
-				float:left;
-				width:80%;
-				position: absolute;
-    			left: 17%;
-			}
-			.center{
-				width:100%;
-				overflow:hidden;
-			}
+				height: 700px;
+				padding-left: 30px;
+				padding-right: 30px;
+				}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
-		
-		<div class="center">
-		<jsp:include page="../common/sidebar.jsp"></jsp:include>
+		<jsp:include page="../common/hospitalMenubar.jsp"></jsp:include>
 		
 		<div class="content">
 		<h1>의약품 관리</h1>
@@ -107,7 +100,6 @@
 				<button onclick="deleteMedicine" class="btn btn-outline-secondary">삭제</button> 
 			</div>
 		</div> 
-		</div>
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>

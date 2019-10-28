@@ -10,6 +10,7 @@
 				width:100%;
 				height:100px;
 				background-color:pink;
+				text-align:center;
 			}
 			#fBar ul{
 				width:100%;
@@ -17,7 +18,7 @@
 				list-style:none;
 			    margin:0;
 			    padding:0;
-			    text-align:center
+			    
 			}
 			#fBar ul li{
 				margin-left:20px;
@@ -29,6 +30,7 @@
 			#fBar ul li a{
 				color:black;
 				text-decoration:none;
+				text-align:center;
 			}
 		</style>
 	</head>

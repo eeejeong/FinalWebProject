@@ -20,15 +20,10 @@
 			}
 			/* 수정 */
 			.content{
-				float:left;
-				width:80%;
-				position: absolute;
-    			left: 17%;
-			}
-			.center{
-				width:100%;
-				overflow:hidden;
-			}
+				height: 700px;
+				padding-left: 30px;
+				padding-right: 30px;
+				}
 		</style>
 		<script type="text/javascript">			
 		// 의약품 삭제
@@ -76,10 +71,8 @@
 	</head>
 	<body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
-	
-	<div class="center"> 
-		<jsp:include page="../common/sidebar.jsp"></jsp:include>
-		<div class="content">
+	<jsp:include page="../common/hospitalMenubar.jsp"></jsp:include>
+	<div class="content"> 
 			<h1>의약품 관리</h1>	
 			<div>
 				<div class="title">	<h3>혈액 관리</h3> </div>	
@@ -132,7 +125,6 @@
 				<a href="addBloodForm" class="btn btn-dark">추가</a>
 				<button type="button" class="btn btn-outline btn-danger" id="deleteBtn">삭제</button>
 			</div>
-		</div>
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>

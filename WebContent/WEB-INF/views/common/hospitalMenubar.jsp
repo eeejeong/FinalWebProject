@@ -5,16 +5,20 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>	
 		<style type="text/css">
-			#con-left{
-				width:15%;
+			#menu{
+				width:100%;
 				background-color : rgb(206,157,255);
-				float:left;
-				height: 700px;
+				height: 30px;
 			}
+			#menu ul li {
+			    list-style:none;
+			    float: left;
+			    margin-right: 20px;
+			    }
 		</style>
 	</head>
 	<body>
-		<div id="con-left">
+		<div id="menu">
 			<ul>
 				<li><a href="<%= request.getContextPath()%>/requestList/">요청 게시판</a></li>
 				<li><a href="<%= request.getContextPath()%>/itemManagement/">의약품 관리</a></li>

@@ -15,16 +15,20 @@
 				display : flex;
 				flex-direction : column;
 			}	
+			.content{
+				height: 700px;
+				padding-left: 30px;
+				padding-right: 30px;
+				}
 		</style>
 	</head>
 	<body>
 		<div id="wrap">	
 			<jsp:include page="../common/header.jsp"></jsp:include>
-			<div class="center">
-				<jsp:include page="../common/sidebar.jsp"></jsp:include>
-				<div class="content">
-				</div>
+			<jsp:include page="../common/hospitalMenubar.jsp"></jsp:include>
+			<div class="content">
 			</div>
+
 			<jsp:include page="../common/footer.jsp"></jsp:include>		
 		</div>
 	</body>

@@ -19,7 +19,6 @@
 		flex-direction: column;
 	}
 	
-	
 	#content {
 		width: 100%;
 		height: 100%;
@@ -80,7 +79,7 @@ function checkForm(){
 
 				</div>
 				<button type="submit" class="btn btn-danger">로그인</button>
-				<br /> <a id="" href="join/">회원가입</a>
+				<br/> <a style="margin: 10px;" id="" href="join/" class="btn btn-dark">회원가입</a>
 
 			</form>
 		</div>

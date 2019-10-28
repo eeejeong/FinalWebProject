@@ -58,7 +58,7 @@ public class AgencyController {
 		manager.setManager_agency_id(agency_id);
 		
 		service.join(agency, manager);
-		return "home2";
+		return "redirect:/";
 	}
 	
 	/*
