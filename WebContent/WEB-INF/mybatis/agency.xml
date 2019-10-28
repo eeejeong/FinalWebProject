@@ -13,6 +13,9 @@
 		resultMap="resultMember">
 		select agency_id, agency_name, agency_password from agency where agency_id=#{agency_id}
 	</select>
+	
+	<select parameterType="string" id="selectAllByAgencyid" resultMap="resultMember">
+	select * from agency where agency_id=#{agency_id} </select>
 
 	<resultMap id="resultMember" 
 		type="com.medirone.web.dto.Agency" >
@@ -22,7 +25,11 @@
 		<result column="agency_address" property="agency_address"/>
 		<result column="agency_latitude" property="agency_latitude"/>
 		<result column="agency_longitude" property="agency_longitude"/>		
-
 	</resultMap>
+	
+	<update parameterType="com.medirone.web.dto.Agency" id="updateAgencyByAgencyid"> 
+	update agency set agency_password = #{agency_password}, agency_name = #{agency_name}, agency_tel = #{agency_tel}, 
+	agency_address = #{agency_address}, agency_latitude = #{agency_latitude}, agency_longitude = #{agency_longitude} 
+	where agency_id=#{agency_id} </update>
 	
 </mapper>

@@ -22,7 +22,8 @@
 			<ul>
 				<li><a href="<%= request.getContextPath()%>/requestList/">요청 게시판</a></li>
 				<li><a href="<%= request.getContextPath()%>/itemManagement/">의약품 관리</a></li>
-				<li><a href="#">회원 관리</a></li> ${agency_Id}
+				<li><a href="#">회원 관리</a></li>
+				<li>${agency_Id}   <a href="update/up?agency_id=${agency_Id}">회원정보 수정</a></li>
 			</ul>
 		</div>
 	</body>

@@ -25,24 +25,30 @@ public class AgencyService {
 		}
 	}
 	
-	
-	
-	
 	public LoginResult login(String agency_id, String agency_password) {
 		Agency agency = agencyDao.selectAgency(agency_id);
 		if(agency==null) {
-			
 			return LoginResult.FAIL_MID;
 		}else {
 			if(agency_password.equals(agency.getAgency_password())) {
 				return LoginResult.SUCCESS;
 			}else {
-				
 				return LoginResult.FAIL_MPASSWORD;
 			}
-			
 		}
-		
+	}
+	
+	public Agency getAgency(String agency_id) {
+		Agency agency = agencyDao.selectAll(agency_id);
+		return agency;
 	}
 
+	public Manager getManager(String agency_id) {
+		Manager manager = agencyDao.selectManager(agency_id);
+		return manager;
+	}
+	
+	public void updateMember(Agency agency, Manager manager) {
+		agencyDao.updateMember(agency, manager);
+	}
 }

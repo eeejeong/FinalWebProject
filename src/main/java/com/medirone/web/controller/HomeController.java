@@ -45,9 +45,19 @@ public class HomeController {
 		}
 		session.setAttribute("agency_Id", agency_id);
 		if(agency_id.equals("admin")) {
-			return "home/hopitalHome";
+			return "redirect:/hopitalHome";
 		} else {	
-			return "home/publicHealthHome";
+			return "redirect:/publicHealthHome";
 		}
+	}
+	
+	@RequestMapping("/hopitalHome")
+	public String hospitalHome() {
+		return "home/publicHealthHome";
+	}
+	
+	@RequestMapping("/publicHealthHome")
+	public String publicHealthHome() {
+		return "home/publicHealthHome";
 	}
 }

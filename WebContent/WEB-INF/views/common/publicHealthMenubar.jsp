@@ -21,7 +21,7 @@
 		<div id="menu">
 			<ul>
 				<li><a href="#">요청 게시판</a></li>
-				${agency_Id}
+				<li>${agency_Id}   <a href="update/up?agency_id=${agency_Id}">회원정보 수정</a></li>
 			</ul>
 		</div>
 	</body>
