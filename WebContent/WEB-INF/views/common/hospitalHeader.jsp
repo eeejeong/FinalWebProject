@@ -42,15 +42,10 @@
 								<a class="nav-link" href="<%= request.getContextPath()%>/requestList/">요청 게시판<span class="sr-only">(current)</span></a>
 							</li>
 							
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="<%= request.getContextPath()%>/itemManagement/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								의약품 관리
-								</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<%= request.getContextPath()%>/itemManagement/medicineList/">백신</a>
-								<a class="dropdown-item" href="<%= request.getContextPath()%>/itemManagement/bloodList/">혈액</a>				
-							</div>
+							<li class="nav-item active">
+								<a class="nav-link" href="<%= request.getContextPath()%>/itemManagement/">의약품 관리<span class="sr-only">(current)</span></a>
 							</li>
+							
 							<li class="nav-item active">
 								<a class="nav-link" href="<%= request.getContextPath()%>/requestList/">회원 관리<span class="sr-only"></span></a>
 							</li>
