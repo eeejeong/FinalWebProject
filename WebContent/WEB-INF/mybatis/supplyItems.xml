@@ -13,7 +13,7 @@
 			select rownum as rn, sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id
 			from(
 				select sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id 
-				from supply_Items where sup_class=1 order by sup_id
+				from supply_Items where sup_class=1 order by sup_id desc
 			)
 			where rownum &lt;= #{endRowNo}
 		)
@@ -33,13 +33,21 @@
 			select rownum as rn, sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id
 			from(
 				select sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id 
-				from supply_Items where sup_class=2 order by sup_id
+				from supply_Items where sup_class=2 order by sup_id desc
 			)
 			where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
 	
+	<insert id="insertMedicine" parameterType="com.medirone.web.dto.SupplyItems">
+		<selectKey keyProperty="sup_id" resultType="int" order="BEFORE"> 
+			select SUPPLY_ITEMS_ID.nextval from dual
+		</selectKey> 
+		insert into supply_items(sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id)
+		values(#{sup_id}, #{sup_name}, #{sup_weight}, 1, #{sup_amount}, 'admin')
+	</insert>
+
 	<insert id="insertBlood" parameterType="com.medirone.web.dto.SupplyItems">
 		<selectKey keyProperty="sup_id" resultType="int" order="BEFORE">
 			select supply_items_id.nextval from dual
@@ -52,5 +60,37 @@
 		delete from supply_items
 		where sup_id = #{deleteBloodNo}
 	</delete>
+	
+	<delete id="deleteMedicine" parameterType="int">
+		delete from supply_items
+		where sup_id = #{deleteMedicineNo}
+	</delete>
+	
+	<update id="updateMedicine" parameterType="com.medirone.web.dto.SupplyItems">
+		update supply_items set sup_name=#{sup_name}, sup_amount=#{sup_amount}, sup_weight=#{sup_weight} where sup_id=#{sup_id}
+	</update>
+	
+	<select id="selectMedicineByName" parameterType="String" resultType="int">
+		select count(*)
+		from supply_Items 
+		where sup_class = 1 and sup_name =#{sup_name}
+	</select>
+	
+	<update id="updateBlood" parameterType="com.medirone.web.dto.SupplyItems">
+		update supply_items
+		set sup_name=#{sup_name}, sup_amount=#{sup_amount}, sup_weight=#{sup_weight}
+		where sup_id=#{sup_id}
+	</update>
+	
+	<select id="selectBloodName" parameterType="String" resultType="int">
+		select count(sup_id)
+		from supply_items
+		where sup_class=2 and sup_name=#{sup_name}
+	</select>
+	
+	<select id="selectSearchMedicineList"  parameterType="String"  resultType="com.medirone.web.dto.SupplyItems">	
+		select sup_id, sup_name, sup_weight, sup_class, sup_amount, sup_hospital_id
+		from supply_Items where sup_class=1 and sup_name=#{sup_name} order by sup_id	
+	</select>
 	
 </mapper>
