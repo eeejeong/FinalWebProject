@@ -41,6 +41,9 @@
 							<li class="nav-item active">
 								<a class="nav-link" href="#">요청 게시판<span class="sr-only">(current)</span></a>
 							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="#">요청 등록<span class="sr-only">(current)</span></a>
+							</li>
 						</ul>
 					</div>
 				</nav>			
