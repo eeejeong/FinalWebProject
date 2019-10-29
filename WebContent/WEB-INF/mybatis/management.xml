@@ -9,6 +9,7 @@
          from(
             select agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status
             from agency 
+            where agency_id!='admin'
             order by agency_date desc
          )
          where rownum &lt;= #{endRowNo}

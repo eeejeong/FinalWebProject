@@ -24,15 +24,24 @@
 		height: 100%;
 		flex-grow: 1;
 		text-align: center;
-		margin-left: auto;
-		margin-right: auto;
-		vertical-align: middle;
+/* 		margin-left: auto;
+		margin-right: auto; */
+		position: relative;
 	}
-	#login_form {
+	#loginForm {
 		width: 100%;
-		height: 100%;
-		margin-top: 10%;
-		text-align: center;
+		height: 500px;
+		position: absolute;
+		top: 50%;
+		margin-top: -250px;
+	}
+	.form-control {
+		border-radius: 25px;
+		width: 500px;
+		height: 50px;
+		margin: 0 auto;
+		background-color: #F5F5F5;
+		border: 1px solid #F5F5F5;
 	}
 }
 </style>
@@ -61,27 +70,25 @@ function checkForm(){
 		<jsp:include page="../common/header.jsp"></jsp:include>
 
 		<div id="content">
-
-			<h5>로그인</h5>
+			<div id="loginForm">
 			<form method="post" action="login" onsubmit="return checkForm()">
-				<div class="form-group">
-
-					<label for="agency_id">ID</label> <input id="agency_id" type="text"
-						name="agency_id" class="form-control" placeholder="아이디를 입력" /> <span
-						id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
-				</div>
-
-				<div class="form-group">
-					<label for="agency_password"> PASSWORD</label> <input
-						id="agency_password" name="agency_password" class="form-control"
-						type="password" placeholder="패스워드를 입력하서요" /> <span
-						id="errorAgency_password" class="error" style="color: red">${errorAgency_password }</span>
-
-				</div>
-				<button type="submit" class="btn btn-danger">로그인</button>
-				<br/> <a style="margin: 10px;" id="" href="join/" class="btn btn-dark">회원가입</a>
-
-			</form>
+					<div class="form-group">
+						<label for="agency_id">ID</label> 
+						<input id="agency_id" type="text" name="agency_id" class="form-control" placeholder="" /> 
+						<span id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
+					</div>
+	
+					<div class="form-group">
+						<label for="agency_password"> PASSWORD</label> <input
+							id="agency_password" name="agency_password" class="form-control"
+							type="password" placeholder="" /> <span
+							id="errorAgency_password" class="error" style="color: red">${errorAgency_password }</span>
+	
+					</div>
+					<button type="submit" class="btn btn-danger">로그인</button>
+					<br/> <a style="margin: 10px;" id="" href="join/" class="btn btn-dark">회원가입</a>			
+				</form>
+			</div>
 		</div>
 
 	</div>

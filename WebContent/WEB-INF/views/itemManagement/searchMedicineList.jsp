@@ -86,7 +86,15 @@
 			$("#sup_amount"+sup_id).prop("readonly", true);
 			$("#sup_weight"+sup_id).prop("readonly", true);	
 		}
-		
+		function checkForm(){
+			var result = true;
+			//입력값 검사 
+			if($("#searchName").val() == ""){
+				alert("검색어를 입력하세요.");
+				result = false;
+			}
+			return result;
+		}
 		</script>
 	</head>
 	<body>
@@ -106,7 +114,7 @@
 				</div>
 			</div>
 		</div>
-		<div> 
+		<div style="height: 600px">
 			<table style="margin: auto; text-align:center;" class="table table-sm">
 			  <thead>
 			    <tr style="background-color:#dcdcdc">
@@ -141,9 +149,10 @@
 				</c:forEach>
 			  </tbody>
 			</table>
-			<div style="float:right; display:flex">
-				 <div>
-					<form class="form-inline my-2 my-lg-0" method="post" action="searchMedicine">
+		</div>
+		<div style="float:right; display:flex">
+				 <div style="margin-right: 5px">
+					<form class="form-inline my-2 my-lg-0" method="post" action="searchMedicine" onsubmit="return checkForm()">
 				      <input class="form-control mr-sm-2" id="searchName" name="searchName" type="text" placeholder="Search" aria-label="Search">
 				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 				   </form>
@@ -154,7 +163,6 @@
 					<a href="medicineList" class="btn btn-secondary">목록</a>
 				</div>
 			</div>
-		</div>
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>

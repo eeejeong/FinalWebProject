@@ -113,7 +113,7 @@
 				</div>
 			</div>
 			<!-- 총 개수: ${totalBloodRowNum} -->
-			<div>
+			<div style="height: 600px">
 				<table style="margin: auto; text-align:center;" class="table table-sm">
 				  <thead>
 				    <tr style="background-color: #dcdcdc">
@@ -128,7 +128,7 @@
 				  <tbody>
 				  	<c:forEach items="${bloodList}" var="blood">
 						<tr>
-					      <td width="5%" style="vertical-align:middle;">
+					      <td width="50px" style="vertical-align:middle;">
 					     	 <input type="checkbox" name="bloodCheckBox">
 							<!-- 
 							<div class="custom-control custom-checkbox">
@@ -138,9 +138,9 @@
 							 -->
 					      </td>
 					      <td style="vertical-align:middle; width: ">${blood.sup_id}</td>		
-					      <td style="vertical-align:middle; width: 20%;"><input id="nameForm${blood.sup_id}" class="form-control" type="text" value="${blood.sup_name}" readonly></td>	
-					      <td style="vertical-align:middle; width: 20%"><input id="amountForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_amount}" readonly></td>	
-					      <td style="vertical-align:middle; width: 20%"><input id="weightForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_weight}" readonly></td>				      
+					      <td style="vertical-align:middle; width: auto;"><input id="nameForm${blood.sup_id}" class="form-control" type="text" value="${blood.sup_name}" readonly></td>	
+					      <td style="vertical-align:middle; width: auto"><input id="amountForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_amount}" readonly></td>	
+					      <td style="vertical-align:middle; width: auto"><input id="weightForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_weight}" readonly></td>				      
 					      <td>
 					      	<button id="updateBtn${blood.sup_id}" type="button" class="btn btn-outline-info" onclick="updateBtn(${blood.sup_id})" style="display:inline">수정</button>
 					      	<button id="completeBtn${blood.sup_id}" type="button" class="btn btn-outline-info" onclick="completeBtn(${blood.sup_id})" style="display:none">완료</button>
@@ -151,7 +151,7 @@
 				</table>
 			</div>
 			<div style="float:right"> 
-				<a href="addBloodForm" class="btn btn-dark">추가</a>
+				<a href="addBloodForm" class="btn btn-secondary">추가</a>
 				<button type="button" class="btn btn-outline btn-danger" id="deleteBtn" onclick="deleteBtn()">삭제</button>
 			</div>
 			<span id="test" class="error" style="color:red"></span>

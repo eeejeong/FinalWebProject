@@ -8,6 +8,13 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			.content{
+					height: 1400px;
+					padding-left: 30px;
+					padding-right: 30px;
+					}
+		</style>
 		<script type="text/javascript">
 			function checkForm() {
 				var result = true;
@@ -176,138 +183,138 @@
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
-		<h5>회원 가입</h5>
-		<form method="post" action="joinSuccess" onsubmit="return checkForm()">
-  			<div class="form-row">
-    			<div class="form-group col-md-6">
-      				<label for="agency_id">아이디</label>
-      				<div class="input-group mb-3">		  	
-  				<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
-  				<div class="input-group-append">
-    				<input onclick="checkAgencyId()" type="button" class="btn btn-warning" value="중복확인"/>   				
-  		   		</div>
-  		   		
-		  		</div>
-		  		<span id="agency_idError" class="error" style="color:red"></span>
-    			</div>
-    			
-    		</div>
-    	
-	    	<div class="form-row">
-	    		<div class="form-group col-md-6">
-	     		 	<label for="agency_password">비밀번호</label>
-	 	      		<input id="agency_password" name="agency_password" type="password" class="form-control" placeholder="password">
-	    			   			
-	    		</div>
-	    		<div class="form-group col-md-6">
-	      			<label for="agency_password2">비밀번호 재확인</label>	    
-	      			<input id="agency_password2" name="agency_password2" type="password" class="form-control" placeholder="password">
-	      			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-	      			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+		<div class="content">
+			<h5>회원 가입</h5>
+			<form method="post" action="joinSuccess" onsubmit="return checkForm()">
+	  			<div class="form-row">
+	    			<div class="form-group col-md-6">
+	      				<label for="agency_id">아이디</label>
+	      				<div class="input-group mb-3">		  	
+	  				<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
+	  				<div class="input-group-append">
+	    				<input onclick="checkAgencyId()" type="button" class="btn btn-outline-dark" value="중복확인"/>   				
+	  		   		</div>
+	  		   		
+			  		</div>
+			  		<span id="agency_idError" class="error" style="color:red"></span>
 	    			</div>
+	    			
 	    		</div>
-	  		
-	  		
-	  		<div class="form-row">
-	    		<div class="form-group col-md-6">
-	     		 	<label for="agency_name">보건소 이름</label>
-	      			<input id="agency_name" name="agency_name" type="text" class="form-control" placeholder="Public Health name">
-	    			<span id="agency_nameError" class="error" style="color:red"></span>
-	    		</div>	    		
-	    		<div class="form-group col-md-6">
-	      			<label for="agency_tel">보건소 전화번호</label>
-	      			<input id="agency_tel" name="agency_tel" type="text" class="form-control" placeholder="Public Health tel">
-	    			<span id="agency_telError" class="error" style="color:red"></span>
-	    		</div>	    		
-	  		</div>
-	  		
-	  		<div class="form-row">
-	  			<div class="form-group col-md-6">
-	  				<label>주소 </label> <br/>
-			  		<input type="text" id="postcode" placeholder="우편번호">
-					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-success"><br>
-					<input type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
-					<span id="guide" style="color:#999;display:none"></span>
-					
-					<input type="text" id="extraAddress" placeholder="나머지주소"> <!-- extraAddr -->
-					<input type="text" id="agency_address" name="agency_address" value=""> <!-- agencyAddr -->
-					<!-- 상세주소는 팝업창에서 불러올 수 있는 값이 따로 없으므로 데이터 베이스에 넘길 때 (form을 submit할 때) -->
-					<!-- var detailAddr = document.getElementById("detailAddress").value; -->
-					<!-- var agencyAddr = agencyAddr + " " + detailAddr 로 주고 agencyAddr의 값을 넘겨줘야함  -->
-				 </div>	
-			</div>
-	  		<div class="form-row">
-			    <input type="button" value="위도, 경도 설정" onclick="SearchLatLng()" class="btn btn-dark"/>    
-			</div>
-			
-			<h6>*원하시는 드론의 착륙지점을 지도에서 클릭하여 주십시오</h6>
-			<div id="map" style="width:50%;height:350px;"></div>
-			<div class="form-row">
-			    <div class="form-group col-md-6">
-			      	<label for="agency_latitude">위도</label>
-			      	<input id="agency_latitude" name="agency_latitude" type="text" class="form-control" placeholder="agency latitude">
-	    			<span id="agency_latitudeError" class="error" style="color:red"></span>
-			    </div>
-			    <div class="form-group col-md-6">
-			      	<label for="agency_longitude">경도</label>
-			      	<input id="agency_longitude" name="agency_longitude" type="text" class="form-control" placeholder="agency longitude">
-	    			<span id="agency_longitudeError" class="error" style="color:red"></span>
-			    </div>			    
-			</div>
-	  		
-	  		
-	  		<div class="form-row">
-	    		<div class="form-group col-md-6">
-	     		 	<label for="manager_id">담당자 사번</label>	      			
-	      			<input id="manager_id" name="manager_id" type="text" class="form-control" placeholder="manager id">
-					<span id="manager_idError" class="error" style="color:red"></span>	    		
-	    		</div>
-	    		<div class="form-group col-md-6">
-	      			<label for="manager_name">담당자 이름</label>
-	      			<input id="manager_name" name="manager_name" type="text" class="form-control" placeholder="manager name">
-	    			<span id="manager_nameError" class="error" style="color:red"></span>
-	    		</div>
-	  		</div>
-	  		
-	  		<div class="form-row">
-	    		<div class="form-group col-md-6">
-	     		 	<label for="manager_email">담당자 이메일</label>
-	      			<input id="manager_email" name="manager_email" type="email" class="form-control" placeholder="manager email">
-	    			<span id="manager_emailError" class="error" style="color:red"></span>
-	    		</div>
-	    		<div class="form-group col-md-6">
-	      			<label for="manager_tel">담당자 전화번호</label>
-	      			<input id="manager_tel" name="manager_tel" type="text" class="form-control" placeholder="manager tel">
-	    			<span id="manager_telError" class="error" style="color:red"></span>
-	    		</div>
-	  		</div>
-	  		
-	    	<div class="form-row">
-	    		<div class="form-group col-md-6">
-	     		 	<label>개인정보 처리 방침</label>
-	      			<textarea class="form-control" rows="4" readonly>개인정보 영구 보관합니다.</textarea>
-	      			<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="checkbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">개인정보 동의</label>
-					  <span id="checkbox1Error" class="error" style="color:red"></span>
-					</div>																
-	    		</div>
-	    		<div class="form-group col-md-6">
-	      			<label>이용 약관</label>
-	      			<textarea class="form-control" rows="4" readonly>드론 한대 날리는데 1천만원.</textarea>
-	      			<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="checkbox2" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">이용약관 동의</label>
-					  <span id="checkbox2Error" class="error" style="color:red"></span>
-					</div>
-	    		</div>
-	    	</div>	
-	  		<div class="form-group">
-		  		<input type="submit" class="btn btn-success" value="회원가입"/>
-		  	</div>
-		  	
-		  	
-    	</form>  
+	    	
+		    	<div class="form-row">
+		    		<div class="form-group col-md-6">
+		     		 	<label for="agency_password">비밀번호</label>
+		 	      		<input id="agency_password" name="agency_password" type="password" class="form-control" placeholder="비밀번호">
+		    			   			
+		    		</div>
+		    		<div class="form-group col-md-6">
+		      			<label for="agency_password2">비밀번호 재확인</label>	    
+		      			<input id="agency_password2" name="agency_password2" type="password" class="form-control" placeholder="비밀번호 재확인">
+		      			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+		      			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+		    			</div>
+		    		</div>
+		  		
+		  		
+		  		<div class="form-row">
+		    		<div class="form-group col-md-6">
+		     		 	<label for="agency_name">보건소 이름</label>
+		      			<input id="agency_name" name="agency_name" type="text" class="form-control" placeholder="보건소 이름을 입력하세요.">
+		    			<span id="agency_nameError" class="error" style="color:red"></span>
+		    		</div>	    		
+		    		<div class="form-group col-md-6">
+		      			<label for="agency_tel">보건소 전화번호</label>
+		      			<input id="agency_tel" name="agency_tel" type="text" class="form-control" placeholder="보건소 전화번호를 입력하세요.">
+		    			<span id="agency_telError" class="error" style="color:red"></span>
+		    		</div>	    		
+		  		</div>
+		  		
+		  		<div class="form-row">
+		  			<div class="form-group col-md-6">
+		  				<label>주소 </label> <br/>
+				  		<input type="text" id="postcode" placeholder="우편번호">
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-info"><br>
+						<div style="margin-top: 5px;">
+							<input style="width: 300px" type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
+							<span id="guide" style="color:#999; display:none"></span>	
+							<input style="width: 200px" type="text" id="extraAddress" placeholder="나머지주소"><!-- extraAddr -->
+						</div>
+						<input style="width: 505px; margin-top: 5px;" type="text" id="agency_address" name="agency_address" value=""> <!-- agencyAddr -->
+						<!-- 상세주소는 팝업창에서 불러올 수 있는 값이 따로 없으므로 데이터 베이스에 넘길 때 (form을 submit할 때) -->
+						<!-- var detailAddr = document.getElementById("detailAddress").value; -->
+						<!-- var agencyAddr = agencyAddr + " " + detailAddr 로 주고 agencyAddr의 값을 넘겨줘야함  -->
+					 </div>	
+				</div>
+				
+		  		<div class="form-row" >
+				    <input type="button" value="위도, 경도 설정" onclick="SearchLatLng()" class="btn btn-outline-dark"/>    
+				    <h6 style="margin-top: 8px; margin-left: 3px">👈버튼을 클릭한 후, 드론의 착륙 지점을 지도에서 클릭하여 주십시오.</h6>
+				</div>
+				
+				<div id="map" style="width:50%;height:350px;"></div>
+				<div class="form-row">
+				    <div class="form-group col-md-6">
+				      	<label for="agency_latitude">위도</label>
+				      	<input id="agency_latitude" name="agency_latitude" type="text" class="form-control" placeholder="드론 착륙 위도">
+		    			<span id="agency_latitudeError" class="error" style="color:red"></span>
+				    </div>
+				    <div class="form-group col-md-6">
+				      	<label for="agency_longitude">경도</label>
+				      	<input id="agency_longitude" name="agency_longitude" type="text" class="form-control" placeholder="드론 착륙 경도">
+		    			<span id="agency_longitudeError" class="error" style="color:red"></span>
+				    </div>			    
+				</div>	  		  		
+		  		<div class="form-row">
+		    		<div class="form-group col-md-6">
+		     		 	<label for="manager_id">담당자 사번</label>	      			
+		      			<input id="manager_id" name="manager_id" type="text" class="form-control" placeholder="담당자 사번을 입력하세요.">
+						<span id="manager_idError" class="error" style="color:red"></span>	    		
+		    		</div>
+		    		<div class="form-group col-md-6">
+		      			<label for="manager_name">담당자 이름</label>
+		      			<input id="manager_name" name="manager_name" type="text" class="form-control" placeholder="담당자 이름을 입력하세요.">
+		    			<span id="manager_nameError" class="error" style="color:red"></span>
+		    		</div>
+		  		</div>
+		  		
+		  		<div class="form-row">
+		    		<div class="form-group col-md-6">
+		     		 	<label for="manager_email">담당자 이메일</label>
+		      			<input id="manager_email" name="manager_email" type="email" class="form-control" placeholder="담당자 이메일을 입력하세요.">
+		    			<span id="manager_emailError" class="error" style="color:red"></span>
+		    		</div>
+		    		<div class="form-group col-md-6">
+		      			<label for="manager_tel">담당자 전화번호</label>
+		      			<input id="manager_tel" name="manager_tel" type="text" class="form-control" placeholder="담당자 전화번호를 입력하세요.">
+		    			<span id="manager_telError" class="error" style="color:red"></span>
+		    		</div>
+		  		</div>
+		  		
+		    	<div class="form-row">
+		    		<div class="form-group col-md-6">
+		     		 	<label>개인정보 처리 방침</label>
+		      			<textarea class="form-control" rows="4" readonly>개인정보 영구 보관합니다.</textarea>
+		      			<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="checkbox" id="checkbox1" value="option1">
+						  <label class="form-check-label" for="checkbox1">개인정보 동의</label>
+						  <span id="checkbox1Error" class="error" style="color:red"></span>
+						</div>																
+		    		</div>
+		    		<div class="form-group col-md-6">
+		      			<label>이용 약관</label>
+		      			<textarea class="form-control" rows="4" readonly>드론 한대 날리는데 1천만원.</textarea>
+		      			<div class="form-check form-check-inline">
+						  <input class="form-check-input" type="checkbox" id="checkbox2" value="option1">
+						  <label class="form-check-label" for="checkbox2">이용약관 동의</label>
+						  <span id="checkbox2Error" class="error" style="color:red"></span>
+						</div>
+		    		</div>
+		    	</div>	
+		  		<div class="form-group">
+			  		<input type="submit" class="btn btn-success" value="회원가입"/>
+			  	</div>		  			  	
+	    	</form>  
+			</div>    	
     	
     	<!-- 카카오 지도 API -->
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0cef5f118d942254be778baadfb2acb4&libraries=services"></script>
@@ -367,6 +374,7 @@
 				});
 			}
 			</script> 
+
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>
 </html>
