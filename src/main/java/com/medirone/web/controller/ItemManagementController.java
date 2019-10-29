@@ -191,5 +191,6 @@ public class ItemManagementController {
 		model.addAttribute("medicineList", medicineList);
 		return "/itemManagement/searchMedicineList";
 	}
+	
 }
 

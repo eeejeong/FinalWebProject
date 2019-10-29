@@ -94,4 +94,9 @@ public class SupplyItemsDao {
 		List<SupplyItems> medicineList = sqlSessionTemplate.selectList("supplyItems.selectSearchMedicineList", sup_name);
 		return medicineList;
 	}
+
+	public SupplyItems selectMedicineById(String sup_id) {
+		SupplyItems medicine = sqlSessionTemplate.selectOne("supplyItems.selectMedicineById", sup_id);
+		return medicine;
+	}
 }

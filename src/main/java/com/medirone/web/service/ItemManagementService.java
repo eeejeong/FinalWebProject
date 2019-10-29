@@ -87,4 +87,9 @@ public class ItemManagementService {
 		List<SupplyItems> medicineList = medDao.selectSearchMedicineList(sup_name);
 		return medicineList;
 	}
+
+	public SupplyItems getMedicineById(String sup_id) {
+		SupplyItems medicine = medDao.selectMedicineById(sup_id);
+		return medicine;
+	}
 }
