@@ -8,8 +8,8 @@
 		<style type="text/css">
 			#footer{
 				width:100%;
-				height:100px;
-				background-color:pink;
+				height:70px;
+				background-color:#FFFAFA;
 				text-align:center;
 			}
 			#fBar ul{

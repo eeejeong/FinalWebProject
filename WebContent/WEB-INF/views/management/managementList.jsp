@@ -30,6 +30,10 @@ div.title {
 	padding-left: 30px;
 	padding-right: 30px;
 	}
+#agencyAddressLink {
+	color: #398AD7; 
+	cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -48,10 +52,10 @@ div.title {
 						<th scope="col">요청 ID</th>
 						<th scope="col">보건소 명</th>
 						<th scope="col">보건소 주소</th>
-						<th scope="col">거리</th>
-						<th scope="col">접수 날짜</th>
-						<th scope="col">승인</th>
-						<th scope="col">거절</th>
+						<th scope="col" style="text-align: center;">거리</th>
+						<th scope="col" style="text-align: center;">접수 날짜</th>
+						<th scope="col" style="text-align: center;">승인</th>
+						<th scope="col" style="text-align: center;">거절</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -60,11 +64,13 @@ div.title {
 						<tr>
 							<td style="vertical-align: middle;">${mana.agency_id}</td>
 							<td style="vertical-align: middle;">${mana.agency_name}</td>
-							<td style="vertical-align: middle;"><a style="color: #398AD7" onclick="showPopup(${mana.agency_latitude}, ${mana.agency_longitude});">${mana.agency_address}</a></td>
-							<td style="vertical-align: middle;"><h6 data-lat="${mana.agency_latitude}" data-lng="${mana.agency_longitude}"> </h6></td>
-							<td style="vertical-align: middle;"><fmt:formatDate value="${mana.agency_date}"
+							<td style="vertical-align: middle;">
+								<a id="agencyAddressLink" onclick="showPopup(${mana.agency_latitude}, ${mana.agency_longitude});">${mana.agency_address}</a>
+							</td>
+							<td style="vertical-align: middle; text-align: center;"><h6 data-lat="${mana.agency_latitude}" data-lng="${mana.agency_longitude}"> </h6></td>
+							<td style="vertical-align: middle; text-align: center;"><fmt:formatDate value="${mana.agency_date}"
 									pattern="yyyy-MM-dd" /></td>
-							<td>
+							<td style="text-align: center;">
 							<c:if test="${mana.agency_status=='N'}">
 								<a href="updateManagement?agency_id=${mana.agency_id}"
 									class="btn btn-info">승인</a>
@@ -73,7 +79,7 @@ div.title {
 								승인 완료
 							</c:if>
 							</td>
-							<td>
+							<td style="text-align: center;">
 							<c:if test="${mana.agency_status=='N'}">
 								<a href="deleteManagement?agency_id=${mana.agency_id}"
 									class="btn btn-dark">거절</a>

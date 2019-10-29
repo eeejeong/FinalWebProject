@@ -88,6 +88,15 @@
 			$("#sup_weight"+sup_id).prop("readonly", true);	
 		}
 		
+		function checkForm(){
+			var result = true;
+			//입력값 검사 
+			if($("#searchName").val() == ""){
+				alert("검색어를 입력하세요.");
+				result = false;
+			}
+			return result;
+		}
 		</script>
 	</head>
 	<body>
@@ -107,7 +116,7 @@
 				</div>
 			</div>
 		</div>
-		<div> 
+		<div style="height: 600px"> 
 			<table style="margin: auto; text-align:center;" class="table table-sm">
 			  <thead>
 			    <tr style="background-color:#dcdcdc">
@@ -143,7 +152,7 @@
 			  </tbody>
 			</table>
 		</div>
-		<div style="display:flex;">
+		<div id="bottomMenu" style="display:flex;">
 			 <div style="flex-grow:1; margin:auto; text-align: center;">
 				<a href="medicineList?pageNo=1" class="btn btn-outline-dark">처음</a>
 				
@@ -169,8 +178,8 @@
 				<a href="medicineList?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
 			</div>
 			<div style="float:right; display:flex">
-				<div>
-				<form class="form-inline my-2 my-lg-0" method="post" action="searchMedicine">
+				<div style="margin-right: 5px">
+				<form class="form-inline my-2 my-lg-0" method="post" action="searchMedicine" onsubmit="return checkForm()">
 			      <input class="form-control mr-sm-2" id="searchName" name="searchName" type="text" placeholder="Search" aria-label="Search">
 			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 			    </form>
