@@ -13,6 +13,12 @@
 	href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+<script>
+	function showPopup(lat, lng) { 
+		var url = 'showMap?lat=' + lat + '&lng=' + lng;
+		window.open(url, "showMap", "width=800, height=500, left=100, top=50"); 
+		}
+</script>
 <style>
 /* 수정 */
 div.title {
@@ -54,7 +60,7 @@ div.title {
 						<tr>
 							<td style="vertical-align: middle;">${mana.agency_id}</td>
 							<td style="vertical-align: middle;">${mana.agency_name}</td>
-							<td style="vertical-align: middle;">${mana.agency_address}</td>
+							<td style="vertical-align: middle;"><a style="color: #398AD7" onclick="showPopup(${mana.agency_latitude}, ${mana.agency_longitude});">${mana.agency_address}</a></td>
 							<td style="vertical-align: middle;"><h6 data-lat="${mana.agency_latitude}" data-lng="${mana.agency_longitude}"> </h6></td>
 							<td style="vertical-align: middle;"><fmt:formatDate value="${mana.agency_date}"
 									pattern="yyyy-MM-dd" /></td>

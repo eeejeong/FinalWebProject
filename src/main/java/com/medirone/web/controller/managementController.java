@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -91,5 +92,12 @@ public class managementController {
 		service.updateBoard(agency_id);
 		int pageNo = (Integer)session.getAttribute("pageNo");
 		return "redirect:/management/managementList?pageNo=" + pageNo;
+	}
+	
+	@GetMapping("/showMap")
+	public String showMap(double lat, double lng, Model model) {
+		model.addAttribute("lat", lat);
+		model.addAttribute("lng", lng);	
+		return "/management/showMap";
 	}
 }
