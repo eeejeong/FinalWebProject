@@ -20,66 +20,85 @@
 			}
 			/* 수정 */
 			.content{
-				float:left;
-				width:80%;
-				position: absolute;
-    			left: 17%;
-			}
-			.center{
-				width:100%;
-				overflow:hidden;
+				height: 700px;
+				padding-left: 30px;
+				padding-right: 30px;
+				}
+			.form-control{
+				text-align: center;
 			}
 		</style>
 		<script type="text/javascript">			
 		// 의약품 삭제
-		$(function(){
-			$("#deleteBtn").click(function onclick(){ 
-				var deleteBlood = new Array();
-				var checkbox = $("input[name=bloodCheckBox]:checked");
-				
-				if($("input[name=bloodCheckBox]:checked").length == 0) {
-					alert("삭제할 항목을 선택해주세요.");
-				} else {					
-					// 체크된 체크박스 값을 가져온다
-					checkbox.each(function(i) {
-						// checkbox.parent() : checkbox의 부모는 <td>이다.
-						// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
-						var tr = checkbox.parent().parent().eq(i);
-						var td = tr.children();
-														
-						// td.eq(0)은 체크박스 이므로 td.eq(1)의 값부터 가져온다.
-						var sup_id = td.eq(1).text();
-											
-						// 가져온 값을 배열에 담는다.
-						deleteBlood.push(sup_id);	
-					});
-		
-					jQuery.ajaxSettings.traditional = true;
+		function deleteBtn(sup_id) {
+			var deleteBlood = new Array();
+			var checkbox = $("input[name=bloodCheckBox]:checked");
+			
+			if($("input[name=bloodCheckBox]:checked").length == 0) {
+				alert("삭제할 항목을 선택해주세요.");
+			} else {					
+				// 체크된 체크박스 값을 가져온다
+				checkbox.each(function(i) {
+					// checkbox.parent() : checkbox의 부모는 <td>이다.
+					// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+					var tr = checkbox.parent().parent().eq(i);
+					var td = tr.children();
+													
+					// td.eq(0)은 체크박스 이므로 td.eq(1)의 값부터 가져온다.
+					var sup_id = td.eq(1).text();
+										
+					// 가져온 값을 배열에 담는다.
+					deleteBlood.push(sup_id);	
+				});
+	
+				jQuery.ajaxSettings.traditional = true;
 
-					$.ajax({
-						url: 'deleteBlood',
-						data: {"deleteBlood": deleteBlood},
-						success: function(data) {
-							alert("삭제 완료");   
-							location.replace("http://localhost:8080/FinalWebProject/itemManagement/bloodList");
-						}
-					});		
+				$.ajax({
+					url: 'deleteBlood',
+					data: {"deleteBlood": deleteBlood},
+					success: function(data) {
+						alert("삭제 완료");   
+						location.replace("http://localhost:8080/FinalWebProject/itemManagement/bloodList");
+					}
+				});		
+			}
+        }
+		
+		// 의약품 수정
+		function updateBtn(sup_id) {
+			$("#updateBtn"+sup_id).css("display", "none");
+			$("#completeBtn"+sup_id).css("display", "inline");
+			$("#nameForm"+sup_id).prop('readonly', false);
+			$("#amountForm"+sup_id).prop('readonly', false);
+			$("#weightForm"+sup_id).prop('readonly', false);
+        }
+		
+		function completeBtn(sup_id) {
+			$("#updateBtn"+sup_id).css("display", "inline");
+			$("#completeBtn"+sup_id).css("display", "none");
+			$("#nameForm"+sup_id).prop('readonly', true);
+			$("#amountForm"+sup_id).prop('readonly', true);
+			$("#weightForm"+sup_id).prop('readonly', true);
+			
+			$.ajax({
+				url: "updateBlood",
+				data: {
+					"sup_id": sup_id,
+					"sup_name": $("#nameForm"+sup_id).val(),
+					"sup_amount": $("#amountForm"+sup_id).val(),
+					"sup_weight": $("#weightForm"+sup_id).val()
+					},
+				success: function(data) { 
+					location.replace("http://localhost:8080/FinalWebProject/itemManagement/bloodList");
 				}
 			});		
-			$("#updateBtn").click(function onclick() {
-				alert("구현하자");
-			});
-		});
-		
+        }
 		</script>
 	
 	</head>
 	<body>
-	<jsp:include page="../common/header.jsp"></jsp:include>
-	
-	<div class="center"> 
-		<jsp:include page="../common/sidebar.jsp"></jsp:include>
-		<div class="content">
+	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+	<div class="content"> 
 			<h1>의약품 관리</h1>	
 			<div>
 				<div class="title">	<h3>혈액 관리</h3> </div>	
@@ -109,7 +128,7 @@
 				  <tbody>
 				  	<c:forEach items="${bloodList}" var="blood">
 						<tr>
-					      <td width="50" style="vertical-align:middle;">
+					      <td width="5%" style="vertical-align:middle;">
 					     	 <input type="checkbox" name="bloodCheckBox">
 							<!-- 
 							<div class="custom-control custom-checkbox">
@@ -118,11 +137,14 @@
 							</div>
 							 -->
 					      </td>
-					      <td style="vertical-align:middle;">${blood.sup_id}</td>
-					      <td style="vertical-align:middle;">${blood.sup_name}</td>
-					      <td style="vertical-align:middle;">${blood.sup_amount}</td>
-					      <td style="vertical-align:middle;">${blood.sup_weight}</td>
-					      <td><button type="button" class="btn btn-outline-info" id="updateBtn">수정</button></td>
+					      <td style="vertical-align:middle; width: ">${blood.sup_id}</td>		
+					      <td style="vertical-align:middle; width: 20%;"><input id="nameForm${blood.sup_id}" class="form-control" type="text" value="${blood.sup_name}" readonly></td>	
+					      <td style="vertical-align:middle; width: 20%"><input id="amountForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_amount}" readonly></td>	
+					      <td style="vertical-align:middle; width: 20%"><input id="weightForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_weight}" readonly></td>				      
+					      <td>
+					      	<button id="updateBtn${blood.sup_id}" type="button" class="btn btn-outline-info" onclick="updateBtn(${blood.sup_id})" style="display:inline">수정</button>
+					      	<button id="completeBtn${blood.sup_id}" type="button" class="btn btn-outline-info" onclick="completeBtn(${blood.sup_id})" style="display:none">완료</button>
+					      </td>
 					    </tr>
 					</c:forEach>
 				  </tbody>
@@ -130,9 +152,9 @@
 			</div>
 			<div style="float:right"> 
 				<a href="addBloodForm" class="btn btn-dark">추가</a>
-				<button type="button" class="btn btn-outline btn-danger" id="deleteBtn">삭제</button>
+				<button type="button" class="btn btn-outline btn-danger" id="deleteBtn" onclick="deleteBtn()">삭제</button>
 			</div>
-		</div>
+			<span id="test" class="error" style="color:red"></span>
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>

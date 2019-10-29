@@ -7,7 +7,22 @@
 			manager_tel, manager_email, manager_agency_id)
 			values(#{manager_id}, #{manager_name}, 
 			#{manager_tel}, #{manager_email}, #{manager_agency_id})
-			
 	</insert>
+	
+	<select parameterType="string" id="selectManagerByManagerid" resultMap="resultMember"> 
+		select manager_id, manager_name, manager_tel, manager_email from manager where manager_agency_id=#{agency_id}
+	</select>
+	
+	<resultMap id="resultMember" type="com.medirone.web.dto.Manager">
+		<result property="manager_id" column="manager_id"/>
+		<result property="manager_name" column="manager_name"/>
+		<result property="manager_tel" column="manager_tel"/>
+		<result property="manager_email" column="manager_email"/>
+		<result property="manager_agency_id" column="manager_agency_id"/>
+	</resultMap>
 
+	<update parameterType="com.medirone.web.dto.Manager" id="updateManagerByAgencyid">
+		update manager set manager_id = #{manager_id}, manager_name = #{manager_name}, 
+		manager_tel = #{manager_tel}, manager_email = #{manager_email} where manager_agency_id=#{agency_id}
+	</update>
 </mapper>

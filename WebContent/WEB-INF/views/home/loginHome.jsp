@@ -19,7 +19,6 @@
 		flex-direction: column;
 	}
 	
-	
 	#content {
 		width: 100%;
 		height: 100%;
@@ -48,7 +47,7 @@ function checkForm(){
 		result = false;
 	}
 	if($("#agency_password").val()==""){
-		$("#errorAgency_password").text("*비밀번호를 입력하세여");
+		$("#errorAgency_password").text("*비밀번호를 입력하세요");
 		result = false;
 	}
 	return result;
@@ -68,7 +67,7 @@ function checkForm(){
 				<div class="form-group">
 
 					<label for="agency_id">ID</label> <input id="agency_id" type="text"
-						name="agency_id" class="form-control" placeholder="아이드를 입력" /> <span
+						name="agency_id" class="form-control" placeholder="아이디를 입력" /> <span
 						id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
 				</div>
 
@@ -80,7 +79,7 @@ function checkForm(){
 
 				</div>
 				<button type="submit" class="btn btn-danger">로그인</button>
-				<br /> <a id="" href="join/">회원가입</a>
+				<br/> <a style="margin: 10px;" id="" href="join/" class="btn btn-dark">회원가입</a>
 
 			</form>
 		</div>

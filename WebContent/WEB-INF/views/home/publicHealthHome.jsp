@@ -15,13 +15,18 @@
 				display : flex;
 				flex-direction : column;
 			}
+			.content{
+				height: 700px;
+				padding-left: 30px;
+				padding-right: 30px;
+				}
 		</style>
 	</head>
 	<body>
 		<div id="wrap">
-			<jsp:include page="../common/header.jsp"></jsp:include>
+			<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
 			<div class="center">
-				<jsp:include page="../common/sidebarPublicHealth.jsp"></jsp:include>
+				
 				<div class="content">
 				</div>
 			</div>

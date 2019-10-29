@@ -6,7 +6,13 @@ public class Manager {
 	private String manager_tel;
 	private String manager_email;
 	private String manager_agency_id;
-	
+
+	/*
+	 * private String agency_id;
+	 * 
+	 * public String getAgency_id() { return agency_id; } public void
+	 * setAgency_id(String agency_id) { this.agency_id = agency_id; }
+	 */
 	public String getManager_id() {
 		return manager_id;
 	}
@@ -31,7 +37,7 @@ public class Manager {
 	public void setManager_email(String manager_email) {
 		this.manager_email = manager_email;
 	}
-	public String getManager_agency_id() {
+	public String getAgency_id() {
 		return manager_agency_id;
 	}
 	public void setManager_agency_id(String manager_agency_id) {

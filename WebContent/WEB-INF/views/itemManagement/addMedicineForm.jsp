@@ -18,75 +18,73 @@
 				}
 		</style>
 		<script type="text/javascript">
-			function checkForm() {
+			function checkForm(){
 				var result = true;
-				// 모든 에러 내용 지우기
-				$(".error"). text("");
-				
-				// 입력값 검사
-				if($("#sup_name").val() == "") {
-					$("#sup_nameError").text("*혈액 종류를 입력하세요.");
+				//모든 error 내용 지우기 
+				$(".error").text("");
+				//입력값 검사 
+				if($("#sup_name").val() == ""){
+					$("#sup_nameError").text("*의약품명을 입력하세요.");
 					result = false;
 				}
-				if($("#sup_amount").val() == "") {
-					$("#sup_amountError").text("*혈액 수량을 입력하세요.");
-					result = false;
-				}	
-				if($("#sup_weight").val() == "") {
-					$("#sup_weightError").text("*혈액 무게를 입력하세요.");
+				if($("#sup_amount").val() == ""){
+					$("#sup_amountError").text("*수량을 입력하세요.");
 					result = false;
 				}
-			
+				if($("#sup_weight").val() == ""){
+					$("#sup_weightError").text("*무게를 입력하세요.");
+					result = false;
+				}
 				return result;
 			}
 			
-			function checkBloodName() {	
-				var inputName = $('#sup_name').val();
+			function checkMedName(){
 				$.ajax({
-			        	url: "checkBloodName",
-			        	data: {sup_name: inputName},
-			        	success: function(data) {
-			        		if(data.result==false) {
-			        			$("#sup_nameError").text("*이미 존재하는 혈액 종류입니다.");
-			        			$("#completeBtn").prop("disabled", true);
-			        		} else {
-			        			$("#sup_nameError").text("");
-			        			$("#completeBtn").prop("disabled", false);
-			        		}
-			        	}
-			       });
-			}		
+					url: "checkMedName",
+					data:{sup_name:$("#sup_name").val()},
+					success:function(data){
+						if(!data.result){
+							$("#sup_nameError").text("*이미 존재하는 의약품입니다.");
+						    $("#completeBtn").prop("disabled",true);
+						}
+						else{
+							$(".error").text("");
+							$("#completeBtn").prop("disabled",false);
+						}
+					}
+				});
+			}
 		</script>
 	</head>
 	<body>
 		<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
 			<div class="content">
 				<h1>의약품 관리</h1>
-				<h3>혈액 추가</h3>
-				<form method="post" action="addBlood" onsubmit="return checkForm()">
+				<h3>의약품 추가</h3>
+				<form method="post" action="addMedicine" onsubmit="return checkForm()">
 				  <div class="form-group row">
-				    <label for="inputName" class="col-sm-2 col-form-label" >혈액 종류</label>
+				    <label for="sup_name" class="col-sm-2 col-form-label">의약품명</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="sup_name" name="sup_name" oninput="checkBloodName()">
-				       <span id="sup_nameError" class="error" style="color:red"></span>
+				      <input type="text" class="form-control" id="sup_name" name="sup_name" oninput="checkMedName()" >
+				      <span id="sup_nameError" class="error" style="color:red"></span>
 				    </div>
 				  </div>
 				  <div class="form-group row">
-				    <label for="inputAmount" class="col-sm-2 col-form-label">혈액 수량</label>
+				    <label for="sup_amount" class="col-sm-2 col-form-label">의약품수량</label>
 				    <div class="col-sm-10">
 				      <input type="number" class="form-control" id="sup_amount" name="sup_amount">
 				      <span id="sup_amountError" class="error" style="color:red"></span>
 				    </div>
 				  </div>
 				  <div class="form-group row">
-				    <label for="inputWeight" class="col-sm-2 col-form-label">혈액 무게</label>
+				    <label for="sup_weight" class="col-sm-2 col-form-label">의약품무게</label>
 				    <div class="col-sm-10">
 				      <input type="number" class="form-control" id="sup_weight" name="sup_weight">
 				      <span id="sup_weightError" class="error" style="color:red"></span>
 				    </div>
 				  </div>
 				  <div class="form-group" style="float: right">
-				  	<input id="completeBtn" type="submit" class="btn btn-success" value="완료"/>
+				  	<input type="submit" class="btn btn-success" id="completeBtn" value="완료"/>
 				  </div>
 				</form>
 			</div>

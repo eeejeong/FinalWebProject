@@ -19,107 +19,95 @@ div.title {
 	float: left;
 	box-sizing: border-box;
 }
-
-.content {
-	float: left;
-	width: 80%;
-	position: absolute;
-	left: 17%;
-}
-
-.center {
-	width: 100%;
-	overflow: hidden;
-}
+.content{
+	height: 700px;
+	padding-left: 30px;
+	padding-right: 30px;
+	}
 </style>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"></jsp:include>
-	<div class="center">
-		<jsp:include page="../common/sidebar.jsp"></jsp:include>
-		<div class="content">
-			<h1>회원관리 게시판 (병원)</h1>
-			<div>
-				<div class="title">
-					<h3>가입요청 승인</h3>
-				</div>
+	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+	<div class="content">
+		<h1>회원관리 게시판 (병원)</h1>
+		<div>
+			<div class="title">
+				<h3>가입요청 승인</h3>
 			</div>
-			<div>
-				<table class="table table-sm">
-					<thead>
-						<tr style="background-color: #dcdcdc">
-							<th scope="col">요청 ID</th>
-							<th scope="col">보건소 명</th>
-							<th scope="col">보건소 주소</th>
-							<th scope="col">거리</th>
-							<th scope="col">접수 날짜</th>
-							<th scope="col">승인</th>
-							<th scope="col">거절</th>
+		</div>
+		<div>
+			<table class="table table-sm">
+				<thead>
+					<tr style="background-color: #dcdcdc">
+						<th scope="col">요청 ID</th>
+						<th scope="col">보건소 명</th>
+						<th scope="col">보건소 주소</th>
+						<th scope="col">거리</th>
+						<th scope="col">접수 날짜</th>
+						<th scope="col">승인</th>
+						<th scope="col">거절</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${managementList}" var="mana">
+						<!-- items들어있는 요소 수 만큼 반복... -->
+						<tr>
+							<td style="vertical-align: middle;">${mana.agency_id}</td>
+							<td style="vertical-align: middle;">${mana.agency_name}</td>
+							<td style="vertical-align: middle;">${mana.agency_address}</td>
+							<td style="vertical-align: middle;"><h6 data-lat="${mana.agency_latitude}" data-lng="${mana.agency_longitude}"> </h6></td>
+							<td style="vertical-align: middle;"><fmt:formatDate value="${mana.agency_date}"
+									pattern="yyyy-MM-dd" /></td>
+							<td>
+							<c:if test="${mana.agency_status=='N'}">
+								<a href="updateManagement?agency_id=${mana.agency_id}"
+									class="btn btn-info">승인</a>
+							</c:if>
+							<c:if test="${mana.agency_status=='Y'}">
+								승인 완료
+							</c:if>
+							</td>
+							<td>
+							<c:if test="${mana.agency_status=='N'}">
+								<a href="deleteManagement?agency_id=${mana.agency_id}"
+									class="btn btn-dark">거절</a>
+							</c:if>
+							</td>
+							
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${managementList}" var="mana">
-							<!-- items들어있는 요소 수 만큼 반복... -->
-							<tr>
-								<td style="vertical-align: middle;">${mana.agency_id}</td>
-								<td style="vertical-align: middle;">${mana.agency_name}</td>
-								<td style="vertical-align: middle;">${mana.agency_address}</td>
-								<td style="vertical-align: middle;"><h6 data-lat="${mana.agency_latitude}" data-lng="${mana.agency_longitude}"> </h6></td>
-								<td style="vertical-align: middle;"><fmt:formatDate value="${mana.agency_date}"
-										pattern="yyyy-MM-dd" /></td>
-								<td>
-								<c:if test="${mana.agency_status=='N'}">
-									<a href="updateManagement?agency_id=${mana.agency_id}"
-										class="btn btn-info">승인</a>
-								</c:if>
-								<c:if test="${mana.agency_status=='Y'}">
-									승인 완료
-								</c:if>
-								</td>
-								<td>
-								<c:if test="${mana.agency_status=='N'}">
-									<a href="deleteManagement?agency_id=${mana.agency_id}"
-										class="btn btn-dark">거절</a>
-								</c:if>
-								</td>
-								
-							</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div style="display: flex;">
+			<div style="flex-grow: 1; margin: auto; text-align: center;">
+				<a href="managementList?pageNo=1" class="btn btn-outline-dark">처음</a>
+
+				<c:if test="${groupNo>1}">
+					<a href="managementList?pageNo=${startPageNo-1}"
+						class="btn btn-outline-info">이전</a>
+				</c:if>
+
+				<div style="display: inline-block;" class="btn-toolbar"
+					role="toolbar" aria-label="Toolbar with button groups">
+					<div class="btn-group mr-2" role="group" aria-label="First group">
+						<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
+							<c:if test="${pageNo==i}">
+								<a href="managementList?pageNo=${i}"
+									class="btn btn-light active">${i}</a>
+							</c:if>
+							<c:if test="${pageNo!=i}">
+								<a href="managementList?pageNo=${i}" class="btn btn-light">${i}</a>
+							</c:if>
 						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-			<div style="display: flex;">
-				<div style="flex-grow: 1; margin: auto; text-align: center;">
-					<a href="managementList?pageNo=1" class="btn btn-outline-dark">처음</a>
-
-					<c:if test="${groupNo>1}">
-						<a href="managementList?pageNo=${startPageNo-1}"
-							class="btn btn-outline-info">이전</a>
-					</c:if>
-
-					<div style="display: inline-block;" class="btn-toolbar"
-						role="toolbar" aria-label="Toolbar with button groups">
-						<div class="btn-group mr-2" role="group" aria-label="First group">
-							<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
-								<c:if test="${pageNo==i}">
-									<a href="managementList?pageNo=${i}"
-										class="btn btn-light active">${i}</a>
-								</c:if>
-								<c:if test="${pageNo!=i}">
-									<a href="managementList?pageNo=${i}" class="btn btn-light">${i}</a>
-								</c:if>
-							</c:forEach>
-						</div>
 					</div>
-					<c:if test="${groupNo<totalGroupNum}">
-						<a href="managementList?pageNo=${endPageNo+1}"
-							class="btn btn-outline-info">다음</a>
-					</c:if>
-					<a href="managementList?pageNo=${totalPageNum}"
-						class="btn btn-outline-dark">맨끝</a>
 				</div>
-
-
+				<c:if test="${groupNo<totalGroupNum}">
+					<a href="managementList?pageNo=${endPageNo+1}"
+						class="btn btn-outline-info">다음</a>
+				</c:if>
+				<a href="managementList?pageNo=${totalPageNum}"
+					class="btn btn-outline-dark">맨끝</a>
 			</div>
 		</div>
 	</div>

@@ -30,6 +30,9 @@ public class HomeController {
 			} else if (error.equals("fail_mpassword")) {
 				model.addAttribute("errorAgency_password", "*패스워드가 틀립니다");
 				System.out.println("비밀번호가 없다");
+			} else if (error.equals("fail_mrejected")) {
+				model.addAttribute("errorAgency_password", "*가입 승인 대기 중입니다.");
+				System.out.println("비밀번호가 없다");
 			}
 		}
 		return "home/loginHome";
@@ -42,15 +45,31 @@ public class HomeController {
 			return "redirect:/loginHome?error=fail_mid";
 		} else if (result == LoginResult.FAIL_MPASSWORD) {
 			return "redirect:/loginHome?error=fail_mpassword";
+		} else if (result == LoginResult.FAIL_MREJECTED) {
+			return "redirect:/loginHome?error=fail_mrejected";
 		}
 		session.setAttribute("agency_Id", agency_id);
 		
 		if(agency_id.equals("admin")) {
-			return "home/hopitalHome";
+			return "redirect:/hospitalHome";
 		} else {	
-			return "home/publicHealthHome";
+			return "redirect:/publicHealthHome";
+		}
 	}
-		
+
+	@RequestMapping("/hospitalHome")
+	public String hospitalHome() {
+		return "home/hospitalHome";
+	}
+	@RequestMapping("/publicHealthHome")
+	public String publicHealthHome() {
+		return "home/publicHealthHome";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("agency_Id");
+		return "redirect:/";
 	}
 }
 

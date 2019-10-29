@@ -1,5 +1,7 @@
 package com.medirone.web.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import com.medirone.web.dto.Manager;
 
 @Service
 public class AgencyService {
+	private static final Logger logger = LoggerFactory.getLogger(AgencyService.class);
 	@Autowired
 	private AgencyDao agencyDao;
 	
@@ -25,24 +28,35 @@ public class AgencyService {
 		}
 	}
 	
-	
-	
-	
 	public LoginResult login(String agency_id, String agency_password) {
 		Agency agency = agencyDao.selectAgency(agency_id);
+	
 		if(agency==null) {
-			
 			return LoginResult.FAIL_MID;
 		}else {
 			if(agency_password.equals(agency.getAgency_password())) {
-				return LoginResult.SUCCESS;
+				if(agency.getAgency_status().equals("Y")) {
+					return LoginResult.SUCCESS;
+				} else {
+					return LoginResult.FAIL_MREJECTED;
+				}
 			}else {
-				
 				return LoginResult.FAIL_MPASSWORD;
 			}
-			
 		}
-		
+	}
+	
+	public Agency getAgency(String agency_id) {
+		Agency agency = agencyDao.selectAll(agency_id);
+		return agency;
 	}
 
+	public Manager getManager(String agency_id) {
+		Manager manager = agencyDao.selectManager(agency_id);
+		return manager;
+	}
+	
+	public void updateMember(Agency agency, Manager manager) {
+		agencyDao.updateMember(agency, manager);
+	}
 }

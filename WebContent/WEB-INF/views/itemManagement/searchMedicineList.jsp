@@ -28,8 +28,7 @@
 				text-align: center;
 			}	
 		</style>
-		
-		<script type="text/javascript">			
+				<script type="text/javascript">			
 		// 의약품 삭제
 		function deleteMed(){
 				var deleteMedicine = new Array();
@@ -142,45 +141,20 @@
 				</c:forEach>
 			  </tbody>
 			</table>
-		</div>
-		<div style="display:flex;">
-			 <div style="flex-grow:1; margin:auto; text-align: center;">
-				<a href="medicineList?pageNo=1" class="btn btn-outline-dark">처음</a>
-				
-				<c:if test="${groupNo>1}">
-					<a href="medicineList?pageNo=${startPageNo-1}" class="btn btn-outline-info">이전</a>
-				</c:if>
-				
-				<div style="display: inline-block;" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-				  <div class="btn-group mr-2" role="group" aria-label="First group">
-				  	<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
-				  		<c:if test="${pageNo==i}">
-				  			<a href="medicineList?pageNo=${i}" class="btn btn-light active">${i}</a>
-				  		</c:if>
-				  		<c:if test="${pageNo!=i}">
-				  		<a href="medicineList?pageNo=${i}" class="btn btn-light">${i}</a>
-				  		</c:if>
-				  	</c:forEach>
-				  </div>
-				</div>							
-				<c:if test="${groupNo<totalGroupNum}">
-					<a href="medicineList?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
-				</c:if>
-				<a href="medicineList?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
-			</div>
 			<div style="float:right; display:flex">
-				<div>
-				<form class="form-inline my-2 my-lg-0" method="post" action="searchMedicine">
-			      <input class="form-control mr-sm-2" id="searchName" name="searchName" type="text" placeholder="Search" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-			    </form>
-			    </div>
-			    <div>
+				 <div>
+					<form class="form-inline my-2 my-lg-0" method="post" action="searchMedicine">
+				      <input class="form-control mr-sm-2" id="searchName" name="searchName" type="text" placeholder="Search" aria-label="Search">
+				      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+				   </form>
+				 </div>
+				 <div>
 					<a href="addMedicineForm" class="btn btn-secondary">추가</a>
 					<button type="button" class="btn btn-outline btn-danger" id="deleteBtn" onclick="deleteMed()">삭제</button>
+					<a href="medicineList" class="btn btn-secondary">목록</a>
 				</div>
 			</div>
-		</div> 
+		</div>
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>

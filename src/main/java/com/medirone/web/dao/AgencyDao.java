@@ -29,9 +29,21 @@ public class AgencyDao {
 		Agency agency = sqlSessionTemplate.selectOne("agency.selectAgencyByAgencyid",agency_id);
 		return agency;
 	}
-
 	
-	
+	public Agency selectAll(String agency_id) { //회원정보수정에서
+		Agency agency = sqlSessionTemplate.selectOne("agency.selectAllByAgencyid", agency_id);
+		return agency;
+	}
 
+	public Manager selectManager(String agency_id) {
+		Manager manager = sqlSessionTemplate.selectOne("manager.selectManagerByManagerid", agency_id);
+		return manager;
+	}
+	
+	public int updateMember(Agency agency, Manager manager) {
+		int rows = sqlSessionTemplate.update("agency.updateAgencyByAgencyid", agency);
+		sqlSessionTemplate.update("manager.updateManagerByAgencyid", manager);
+		return rows;
+	}
 
 }

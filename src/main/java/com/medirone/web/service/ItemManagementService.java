@@ -51,4 +51,40 @@ public class ItemManagementService {
 		bloodDao.deleteBlood(deleteBloodNo);
 	}
 
+	public void updateBlood(SupplyItems blood) {
+		bloodDao.updateBlood(blood);
+		
+	}
+
+	public boolean checkBloodName(String sup_name) {
+		boolean result = bloodDao.selectBloodName(sup_name);
+		return result;
+	}
+
+	public void addMedicine(SupplyItems medicine) {
+		medDao.insertMedicine(medicine);
+	}
+
+	public void deleteMedicine(int deleteMedicineNo) {
+		medDao.deleteMedicine(deleteMedicineNo);
+	}
+
+	public void updateMedicine(SupplyItems medicine) {
+		medDao.updateMedicine(medicine);	
+	}
+
+	public boolean checkMedName(String sup_name) {
+		int rows = medDao.selectMedicine(sup_name);
+		if(rows == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public List<SupplyItems> searchMedicine(String sup_name) {
+		List<SupplyItems> medicineList = medDao.selectSearchMedicineList(sup_name);
+		return medicineList;
+	}
 }

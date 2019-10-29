@@ -15,10 +15,6 @@
 				$(".error").text("");
 				$(".error").css("color", "red");
 				//입력값 검사
-				if($("#agency_id").val() == ""){
-					$("#agency_idError").text("*아이디를 입력하세요.");
-					result = false;
-				}		
 				if($("#agency_password").val() == ""){
 					$("#agency_passwordError").text("*비밀번호를 입력하세요.");
 					result = false;
@@ -59,35 +55,11 @@
 					$("#manager_telError").text("*담당자 전화번호을 입력하세요.");
 					result = false;
 				}
-				if(!$("#checkbox1").prop("checked")){
-					$("#checkbox1Error").text("*개인정보 동의 해주세요.");
-					result = false;
-				}
-				if(!$("#checkbox2").prop("checked")){
-					$("#checkbox2Error").text("*이용약관 동의 해주세요.");
-					result = false;
-				}
 								
 				return result;
 								
 			}	
 			
-			function checkAgencyId() {				
-				$.ajax({
-					url: "checkAgencyId",
-					data: {agency_id:$("#agency_id").val()},
-					success: function(data) {
-						if(data.result) {							
-							$("#agency_idError").text("*사용할 수 있는 아이디 입니다.");
-							$("#agency_idError").css("color", "green");
-						} else {
-							$("#agency_idError").text("*사용할 수 없는 아이디 입니다.");
-							$("#agency_idError").css("color", "red");
-						}
-					}
-					
-				});				
-			}			
 			$(function(){ 
 				$("#alert-success").hide(); 
 				$("#alert-danger").hide(); 
@@ -169,26 +141,19 @@
 		            }
 		        }).open();
 		    }
-			
-			
 			</script>
 			
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
-		<h5>회원 가입</h5>
-		<form method="post" action="joinSuccess" onsubmit="return checkForm()">
+		<h5>회원 수정</h5>
+		<form method="post" action="updateSuccess" onsubmit="return checkForm()">
   			<div class="form-row">
     			<div class="form-group col-md-6">
       				<label for="agency_id">아이디</label>
       				<div class="input-group mb-3">		  	
-  				<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
-  				<div class="input-group-append">
-    				<input onclick="checkAgencyId()" type="button" class="btn btn-warning" value="중복확인"/>   				
-  		   		</div>
-  		   		
+  				<input id="agency_id" name="agency_id" type="text" class="form-control" value="${agency.agency_id}" readonly>
 		  		</div>
-		  		<span id="agency_idError" class="error" style="color:red"></span>
     			</div>
     			
     		</div>
@@ -196,12 +161,11 @@
 	    	<div class="form-row">
 	    		<div class="form-group col-md-6">
 	     		 	<label for="agency_password">비밀번호</label>
-	 	      		<input id="agency_password" name="agency_password" type="password" class="form-control" placeholder="password">
-	    			   			
+	 	      		<input id="agency_password" name="agency_password" type="password" class="form-control" value="${agency.agency_password}">   			
 	    		</div>
 	    		<div class="form-group col-md-6">
 	      			<label for="agency_password2">비밀번호 재확인</label>	    
-	      			<input id="agency_password2" name="agency_password2" type="password" class="form-control" placeholder="password">
+	      			<input id="agency_password2" name="agency_password2" type="password" class="form-control" value="${agency.agency_password}">
 	      			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
 	      			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
 	    			</div>
@@ -211,12 +175,12 @@
 	  		<div class="form-row">
 	    		<div class="form-group col-md-6">
 	     		 	<label for="agency_name">보건소 이름</label>
-	      			<input id="agency_name" name="agency_name" type="text" class="form-control" placeholder="Public Health name">
+	      			<input id="agency_name" name="agency_name" type="text" class="form-control" value="${agency.agency_name}">
 	    			<span id="agency_nameError" class="error" style="color:red"></span>
 	    		</div>	    		
 	    		<div class="form-group col-md-6">
 	      			<label for="agency_tel">보건소 전화번호</label>
-	      			<input id="agency_tel" name="agency_tel" type="text" class="form-control" placeholder="Public Health tel">
+	      			<input id="agency_tel" name="agency_tel" type="text" class="form-control" value="${agency.agency_tel}">
 	    			<span id="agency_telError" class="error" style="color:red"></span>
 	    		</div>	    		
 	  		</div>
@@ -230,7 +194,7 @@
 					<span id="guide" style="color:#999;display:none"></span>
 					
 					<input type="text" id="extraAddress" placeholder="나머지주소"> <!-- extraAddr -->
-					<input type="text" id="agency_address" name="agency_address" value=""> <!-- agencyAddr -->
+					<input type="text" id="agency_address" name="agency_address" value="${agency.agency_address}"> <!-- agencyAddr -->
 					<!-- 상세주소는 팝업창에서 불러올 수 있는 값이 따로 없으므로 데이터 베이스에 넘길 때 (form을 submit할 때) -->
 					<!-- var detailAddr = document.getElementById("detailAddress").value; -->
 					<!-- var agencyAddr = agencyAddr + " " + detailAddr 로 주고 agencyAddr의 값을 넘겨줘야함  -->
@@ -245,12 +209,12 @@
 			<div class="form-row">
 			    <div class="form-group col-md-6">
 			      	<label for="agency_latitude">위도</label>
-			      	<input id="agency_latitude" name="agency_latitude" type="text" class="form-control" placeholder="agency latitude">
+			      	<input id="agency_latitude" name="agency_latitude" type="text" class="form-control" value="${agency.agency_latitude}">
 	    			<span id="agency_latitudeError" class="error" style="color:red"></span>
 			    </div>
 			    <div class="form-group col-md-6">
 			      	<label for="agency_longitude">경도</label>
-			      	<input id="agency_longitude" name="agency_longitude" type="text" class="form-control" placeholder="agency longitude">
+			      	<input id="agency_longitude" name="agency_longitude" type="text" class="form-control" value="${agency.agency_longitude}">
 	    			<span id="agency_longitudeError" class="error" style="color:red"></span>
 			    </div>			    
 			</div>
@@ -259,12 +223,12 @@
 	  		<div class="form-row">
 	    		<div class="form-group col-md-6">
 	     		 	<label for="manager_id">담당자 사번</label>	      			
-	      			<input id="manager_id" name="manager_id" type="text" class="form-control" placeholder="manager id">
+	      			<input id="manager_id" name="manager_id" type="text" class="form-control" value="${manager.manager_id}">
 					<span id="manager_idError" class="error" style="color:red"></span>	    		
 	    		</div>
 	    		<div class="form-group col-md-6">
 	      			<label for="manager_name">담당자 이름</label>
-	      			<input id="manager_name" name="manager_name" type="text" class="form-control" placeholder="manager name">
+	      			<input id="manager_name" name="manager_name" type="text" class="form-control" value="${manager.manager_name}">
 	    			<span id="manager_nameError" class="error" style="color:red"></span>
 	    		</div>
 	  		</div>
@@ -272,41 +236,19 @@
 	  		<div class="form-row">
 	    		<div class="form-group col-md-6">
 	     		 	<label for="manager_email">담당자 이메일</label>
-	      			<input id="manager_email" name="manager_email" type="email" class="form-control" placeholder="manager email">
+	      			<input id="manager_email" name="manager_email" type="email" class="form-control" value="${manager.manager_email}">
 	    			<span id="manager_emailError" class="error" style="color:red"></span>
 	    		</div>
 	    		<div class="form-group col-md-6">
 	      			<label for="manager_tel">담당자 전화번호</label>
-	      			<input id="manager_tel" name="manager_tel" type="text" class="form-control" placeholder="manager tel">
+	      			<input id="manager_tel" name="manager_tel" type="text" class="form-control" value="${manager.manager_tel}">
 	    			<span id="manager_telError" class="error" style="color:red"></span>
 	    		</div>
 	  		</div>
 	  		
-	    	<div class="form-row">
-	    		<div class="form-group col-md-6">
-	     		 	<label>개인정보 처리 방침</label>
-	      			<textarea class="form-control" rows="4" readonly>개인정보 영구 보관합니다.</textarea>
-	      			<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="checkbox1" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">개인정보 동의</label>
-					  <span id="checkbox1Error" class="error" style="color:red"></span>
-					</div>																
-	    		</div>
-	    		<div class="form-group col-md-6">
-	      			<label>이용 약관</label>
-	      			<textarea class="form-control" rows="4" readonly>드론 한대 날리는데 1천만원.</textarea>
-	      			<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="checkbox2" value="option1">
-					  <label class="form-check-label" for="inlineCheckbox1">이용약관 동의</label>
-					  <span id="checkbox2Error" class="error" style="color:red"></span>
-					</div>
-	    		</div>
-	    	</div>	
 	  		<div class="form-group">
-		  		<input type="submit" class="btn btn-success" value="회원가입"/>
+		  		<input type="submit" class="btn btn-success" value="회원정보수정"/>
 		  	</div>
-		  	
-		  	
     	</form>  
     	
     	<!-- 카카오 지도 API -->
