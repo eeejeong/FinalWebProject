@@ -20,7 +20,7 @@
 		where rn &gt;= #{startRowNo}
 	</select>
 	
-	<select id="selectMedicineById" parameterType="String" resultType="com.medirone.web.dto.SupplyItems">
+	<select id="selectItemById" parameterType="String" resultType="com.medirone.web.dto.SupplyItems">
 		select sup_id, sup_name, sup_weight, sup_class, sup_amount
 		from supply_Items
 		where sup_id=#{sup_id}

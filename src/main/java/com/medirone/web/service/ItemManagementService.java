@@ -88,8 +88,8 @@ public class ItemManagementService {
 		return medicineList;
 	}
 
-	public SupplyItems getMedicineById(String sup_id) {
-		SupplyItems medicine = medDao.selectMedicineById(sup_id);
+	public SupplyItems getItemById(String sup_id) {
+		SupplyItems medicine = medDao.selectItemById(sup_id);
 		return medicine;
 	}
 }

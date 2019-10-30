@@ -23,9 +23,6 @@ import com.medirone.web.service.RequestSevice;
 public class RequestController {
 
 	@Autowired
-	private RequestSevice service;
-	
-	@Autowired
 	private ItemManagementService itemService;
 
 	@RequestMapping("/")
@@ -47,7 +44,7 @@ public class RequestController {
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
 		int pagesPerGroup = 5;
 		// 전체 게시물 수
-		int totalRowNum = service.getTotalRowNo();
+		int totalRowNum = itemService.getTotalRowNo();
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
 		if (totalRowNum % rowsPerPage != 0)
@@ -74,7 +71,7 @@ public class RequestController {
 			endPageNo = totalPageNum;
 
 		// 현재 페이지의 게시물 가져오기
-		List<SupplyItems> medrequestList = service.getmedrequestList(startRowNo, endRowNo);
+		List<SupplyItems> medrequestList = itemService.getMedicineList(startRowNo, endRowNo);
 
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
@@ -116,7 +113,7 @@ public class RequestController {
 	
 	@RequestMapping("/searchItemById")
 	public void searchItemById(String sup_id, HttpServletResponse response) throws Exception {
-		SupplyItems item = itemService.getMedicineById(sup_id);
+		SupplyItems item = itemService.getItemById(sup_id);
 		
 		JSONObject jsonObject = new JSONObject();
 		if(item.getSup_class() == 1) {
@@ -132,7 +129,13 @@ public class RequestController {
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.flush();
-		pw.close();	
+		pw.close();		
+	}
+	
+	@RequestMapping("/requestComplete")
+	public String requestComplete(){
+		return "redirect:/request/";
 		
 	}
+	
 }

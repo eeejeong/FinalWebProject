@@ -8,9 +8,8 @@
 	      <th scope="col">선택 </th>
 	      <th scope="col">의약품 번호</th>
 	      <th scope="col">이름</th>			      
-	      <th scope="col">무게</th>
+	      <th scope="col">무게(g)</th>
 	      <th scope="col">수량</th>
-	      <th scope="col">필요날짜 및 시간</th>
 	      <th scope="col">담기</th>
 	    </tr>
 	  </thead>
@@ -26,7 +25,6 @@
 	  			<td style="vertical-align: middle; width: auto">
 	  				<input name="sup_amount_input" id="sup_amount${med.sup_id}" type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능" readonly>
 	  			</td>
-	  			<td style="vertical-align: middle; width: auto">${med.sup_amount}</td>
 	  			<td style="vertical-align: middle;">
 	  				<button type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" onclick="completeBtnClick(${med.sup_id}, $('#sup_amount${med.sup_id}').val());" disabled>담기</button>
 				</td>

@@ -9,7 +9,7 @@
 			#footer{
 				width:100%;
 				height:70px;
-				background-color:#FFFAFA;
+				background-color:#CCBBDD;
 				text-align:center;
 			}
 			#fBar ul{

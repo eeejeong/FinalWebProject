@@ -95,8 +95,8 @@ public class SupplyItemsDao {
 		return medicineList;
 	}
 
-	public SupplyItems selectMedicineById(String sup_id) {
-		SupplyItems medicine = sqlSessionTemplate.selectOne("supplyItems.selectMedicineById", sup_id);
+	public SupplyItems selectItemById(String sup_id) {
+		SupplyItems medicine = sqlSessionTemplate.selectOne("supplyItems.selectItemById", sup_id);
 		return medicine;
 	}
 }

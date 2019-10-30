@@ -6,9 +6,8 @@
 			<th scope="col">선택</th>
 			<th scope="col">의약품 번호</th>
 			<th scope="col">이름</th>
-			<th scope="col">무게</th>
+			<th scope="col">무게(g)</th>
 			<th scope="col">수량</th>
-			<th scope="col">필요날짜 및 시간</th>
 			<th scope="col">담기</th>
 		</tr>
 	</thead>
@@ -25,7 +24,6 @@
 				<td style="vertical-align: middle; width: auto"><input
 					id="sup_amount${blood.sup_id}" type="number" class="form-control"
 					placeholder="최대 ${blood.sup_amount}개 선택 가능" readonly></td>
-				<td style="vertical-align: middle; width: auto">${blood.sup_amount}</td>
 				<td style="vertical-align: middle;">
 					<button type="button" class="btn btn-outline-info"
 						id="completeBtn${blood.sup_id}"
