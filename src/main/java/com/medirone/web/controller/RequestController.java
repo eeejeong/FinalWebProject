@@ -1,7 +1,6 @@
 package com.medirone.web.controller;
 
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.medirone.web.dto.SupplyItems;
 import com.medirone.web.service.ItemManagementService;
-import com.medirone.web.service.RequestSevice;
 
 @Controller
 @RequestMapping("/request")
@@ -133,9 +131,18 @@ public class RequestController {
 	}
 	
 	@RequestMapping("/requestComplete")
-	public String requestComplete(){
-		return "redirect:/request/";
-		
+	public void requestComplete(String[] itemArray, HttpServletResponse response) throws Exception {
+		System.out.println("==========================됐니?====================");
+		System.out.println(itemArray.length);
+		System.out.println(itemArray[0]);
+		System.out.println(itemArray[1]);
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", "ok");
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
 	}
 	
 }

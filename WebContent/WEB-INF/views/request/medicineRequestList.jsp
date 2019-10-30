@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <div id="medeicineListTable">		
 	<table style="margin: auto; text-align:center;" class="table table-sm">
 	  <thead>
@@ -19,9 +20,9 @@
 	  		<tr>
 	  			<td width="50" style="vertical-align:middle;">
 			     	 <input id="checkbox${med.sup_id}" type="checkbox" name="medicineCheckBox" onclick="checkboxClick(${med.sup_id});"> </td>
-	  			<td style="vertical-align: middle;">${med.sup_id}</td>
-	  			<td style="vertical-align: middle; width: auto">${med.sup_name}</td>
-	  			<td style="vertical-align: middle; width: auto">${med.sup_weight}</td>
+	  			<td class="col_sup_id" id="${med.sup_id}" style="vertical-align: middle;">${med.sup_id}</td>
+	  			<td class="col_sup_name" id="${med.sup_name}" style="vertical-align: middle; width: auto">${med.sup_name}</td>
+	  			<td class="col_sup_weight" id="${med.sup_weight}"style="vertical-align: middle; width: auto">${med.sup_weight}</td>
 	  			<td style="vertical-align: middle; width: auto">
 	  				<input name="sup_amount_input" id="sup_amount${med.sup_id}" type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능" readonly>
 	  			</td>
