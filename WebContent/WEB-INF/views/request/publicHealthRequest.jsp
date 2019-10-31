@@ -88,6 +88,13 @@
 			$("#sup_weight"+sup_id).prop("readonly", true);	
 		}
 		
+		function popupOpen(){
+			var popUrl = "<%= request.getContextPath()%>/request/medrequest_popuplist?order_id=12";
+			//html을 하나 더 만들어서 목록을 띄움
+			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+				window.open(popUrl,"",popOption);
+			console.log("1")
+			}
 		</script>
 	</head>
 	<body>
@@ -114,8 +121,29 @@
 			  </thead>
 			  <tbody>
 				 <!-- items들어있는 요소 수 만큼 반복... -->
-			  	<c:forEach items="${medicineList}" var="med">
-				</c:forEach>
+				    <tr>
+				      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen();">12</a></td>
+				      <td style="width:auto; vertical-align:middle">1</td>
+				      <td style="width:auto; vertical-align:middle">
+				      	1
+					  </td>
+				      <td style="width:auto; vertical-align:middle">
+					  1
+					  </td>
+				      <td style="width:auto; vertical-align:middle">
+				      	1
+				      </td>
+				     
+				    </tr>
+	<!-- 			  <c:forEach items="${medrequest}" var="med">
+				    <tr>
+				      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen();">${med.order_id}</a></td>
+				      <td style="width:auto; vertical-align:middle">${med.order_need_date}</td>
+				      <td style="width:auto; vertical-align:middle">${med.order_agency_id}</td>
+				      <td style="width:auto; vertical-align:middle">${med.order_date}</td>
+				      <td style="width:auto; vertical-align:middle">${med.order_status}</td>
+				    </tr>
+				</c:forEach> -->
 			  </tbody>
 			</table>
 		</div>

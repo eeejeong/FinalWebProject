@@ -18,8 +18,8 @@ import com.medirone.web.service.ManagementService;
 
 @Controller
 @RequestMapping("/management")
-public class managementController {
-	private static final Logger logger = LoggerFactory.getLogger(managementController.class);
+public class ManagementController {
+	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
 
 	@Autowired
 	private ManagementService service;

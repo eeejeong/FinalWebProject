@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="request">
+	<resultMap type="com.medirone.web.dto.SupplyItems" id="supitems">
+		<result column="sup_id" property="sup_id"/>
+		<result column="sup_name" property="sup_name"/>
+		<result column="sup_weight" property="sup_weight"/>
+		<result column="sup_class" property="sup_class"/>
+		<result column="sup_amount" property="sup_amount"/>
+		<result column="sup_hospital_id" property="sup_hospital_id"/>
+	</resultMap>
+	
+	<resultMap type="com.medirone.web.dto.RequestItems" id="reqitems">
+		<result column="order_id" property="order_id"/>
+		<result column="item_class" property="item_class"/>
+		<result column="item_id" property="item_id"/>
+		<result column="item_amount" property="item_amount"/>
+		<collection property="supplyitems" resultMap="supitems" ></collection>
+	</resultMap>
+	
+	<select id="selectMedrequest_popuplist1"  parameterType="int"  resultMap="reqitems">
+      	select supply_items.sup_name, request_items.item_amount 
+		from request_items
+		join supply_items
+		on request_items.item_id = supply_items.sup_id
+		where request_items.order_id = #{order_id}
+		and supply_items.sup_id = request_items.item_id
+   </select>
+</mapper>

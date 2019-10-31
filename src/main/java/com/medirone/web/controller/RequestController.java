@@ -1,6 +1,7 @@
 package com.medirone.web.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 import com.medirone.web.service.ItemManagementService;
+import com.medirone.web.service.RequestService;
 
 @Controller
 @RequestMapping("/request")
@@ -22,10 +25,13 @@ public class RequestController {
 
 	@Autowired
 	private ItemManagementService itemService;
+	
+	@Autowired
+	private RequestService service;
 
 	@RequestMapping("/")
 	public String medrequest() {
-		return "/request/medicineRequest";
+		return "/request/publicHealthRequest";
 	}
 
 	@RequestMapping("/totalRequestList")
@@ -131,11 +137,13 @@ public class RequestController {
 	}
 	
 	@RequestMapping("/requestComplete")
-	public void requestComplete(String[] itemArray, HttpServletResponse response) throws Exception {
+	public void requestComplete(String[] itemArray, String[] dateArray, HttpServletResponse response) throws Exception {
 		System.out.println("==========================됐니?====================");
 		System.out.println(itemArray.length);
 		System.out.println(itemArray[0]);
 		System.out.println(itemArray[1]);
+		System.out.println(dateArray[0]);
+		System.out.println(dateArray[1]);
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -143,6 +151,26 @@ public class RequestController {
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();
+	}
+	
+	@RequestMapping("/medrequest_popuplist")
+	public String medrequest_popuplist(Model model, int order_id) {
+		System.out.println("===============됐나요===============");
+		// 현재 페이지의 게시물 가져오기
+		List<RequestItems> medrequest_popuplist1 = service.getMedrequest_popuplist1(order_id);
+		
+		//의약품 이름 출력하기
+		//의약품 이름 배열 만들기
+		List<String> sup_names = new ArrayList<String>();
+		for(int i = 0; i < medrequest_popuplist1.size(); i++) {
+			sup_names.add(i, medrequest_popuplist1.get(i).getSupplyitems().getSup_name());
+		}
+
+		// JSP로 페이지 정보 넘기기
+		model.addAttribute("medrequest_popuplist1", medrequest_popuplist1);
+		model.addAttribute("sup_names", sup_names);
+		
+		return "/request/medrequest_popuplist";
 	}
 	
 }

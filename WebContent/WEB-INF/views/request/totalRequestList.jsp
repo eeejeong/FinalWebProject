@@ -84,30 +84,26 @@ $(function() {
 	}
 	
 	
-	function completeBtnClick(sup_id, sup_amount) {
-		
-		
+	function completeBtnClick(sup_id, sup_amount) {		
 		$("#sup_amount" + sup_id).prop("readonly", true);
 		$("#completeBtn" + sup_id).prop("disabled", true);
 		$("#checkbox" + sup_id).prop("checked", false);
-		$
-				.ajax({
-					url : "searchItemById?sup_id=" + sup_id,
-					success : function(data) {
-						$("#resultList")
-								.append(
-										"<tr>"
-												+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
-												+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
-												+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
-												+ '<td> <input name="col4" class="form-control" value="' + sup_amount + '" readonly/> </td>'
-												+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="'
-												+ (data.sup_weight * sup_amount)
-												+ '" readonly/> </td>'
-												+ '<td> <input onclick="deleteRow(this);" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
-												+ "</tr>");
-					}
-				});
+		$.ajax({
+				url : "searchItemById?sup_id=" + sup_id,
+				success : function(data) {
+					$("#resultList").append(
+							"<tr>"
+							+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
+							+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
+							+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
+							+ '<td> <input name="col4" class="form-control" value="' + sup_amount + '" readonly/> </td>'
+							+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="'
+							+ (data.sup_weight * sup_amount)
+							+ '" readonly/> </td>'
+							+ '<td> <input onclick="deleteRow(this);" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+							+ "</tr>");
+				}
+			});
 
 	}
 	
@@ -150,11 +146,13 @@ $(function() {
 		}
 	}
 	
-	function completeRequestBtn() {
+	function completeRequestBtn(date, time) {
+		var dateArray = [];
 		var itemArray = [];
 		// 첫 제목 행을 제외한 테이블 행 수
 		var len = ($("#requestTable tr").length) - 1;	
-		
+		dateArray.push(date);
+		dateArray.push(time);
 		for(var i = 0; i < len; i++){
 			var item = "";
 			item += $("input[name=col1]").eq(i).val() + ",";
@@ -169,7 +167,7 @@ $(function() {
 
 		$.ajax({
 			method: "POST",
-			data: {"itemArray": itemArray},
+			data: {"itemArray": itemArray, "dateArray" : dateArray},
 			url: 'requestComplete',
 			error: function(request, error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -241,7 +239,7 @@ $(function() {
 					name="totalWeightInput" type="text" placeholder="총 무게"
 					aria-label="총 무게" />
 				<h6 style="margin-right: 5px">g</h6>
-				<input type="submit" class="btn btn-success" onclick="completeRequestBtn()" value="요청 완료"/>
+				<input type="submit" class="btn btn-success" onclick="completeRequestBtn(date2.value, time1.value)" value="요청 완료"/>
 			</div>
 		</form>
 		</div>
