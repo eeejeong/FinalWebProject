@@ -2,7 +2,7 @@ package com.medirone.web.dto;
 
 public class RequestItems {
 	private int order_id;
-	private String item_class;
+	private int item_class;
 	private int item_id;
 	private int item_amount;
 	private SupplyItems supplyitems;
@@ -19,10 +19,10 @@ public class RequestItems {
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
-	public String getItem_class() {
+	public int getItem_class() {
 		return item_class;
 	}
-	public void setItem_class(String item_class) {
+	public void setItem_class(int item_class) {
 		this.item_class = item_class;
 	}
 	public int getItem_id() {

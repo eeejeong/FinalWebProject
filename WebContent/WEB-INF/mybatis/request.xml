@@ -26,4 +26,17 @@
 		where request_items.order_id = #{order_id}
 		and supply_items.sup_id = request_items.item_id
    </select>
+   
+   <insert id="insertRequest" parameterType="com.medirone.web.dto.Request">
+  		 <selectKey keyProperty="order_id" resultType="int" order="BEFORE"> 
+			select ORDER_ID_SEQ.nextval from dual
+		</selectKey> 
+   		insert into Request(order_id, order_agency_id, order_date, order_need_time, order_status, DELIVERED_DATE)
+   		values (#{order_id}, #{order_agency_id}, sysdate, #{order_need_time}, #{order_status}, '')
+   </insert>
+   
+   <insert id="insertRequestItem" parameterType="com.medirone.web.dto.RequestItems">
+   		insert into Request_Items(order_id, item_class, item_id, item_amount)
+   		values (ORDER_ID_SEQ.currval, #{item_class}, #{item_id}, #{item_amount})
+   </insert>
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.medirone.web.dao.RequestDao;
+import com.medirone.web.dto.Request;
 import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 
@@ -28,6 +29,16 @@ public class RequestService {
 	public List<RequestItems> getMedrequest_popuplist1(int order_id) {
 		List<RequestItems> medrequest_popuplist1 = requestDao.selectMedrequest_popuplist1(order_id);
 		return medrequest_popuplist1;
+	}
+
+	public void addRequest(Request request) {
+		requestDao.insertRequest(request);
+		
+	}
+
+	public void addRequestItems(RequestItems requestItem) {
+		requestDao.insertRequestItems(requestItem);
+		
 	}
 
 

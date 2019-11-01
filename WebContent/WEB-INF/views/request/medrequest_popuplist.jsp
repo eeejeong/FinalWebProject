@@ -45,7 +45,7 @@
 				  <c:set var="size" value="${fn:length(medrequest_popuplist1)}" />
 					 <c:forEach var="i" begin="0" end="${size-1}">
 					    <tr>
-					      <td style="width:auto; vertical-align:middle">${sup_names[i]}</td>
+					      <td style="width:auto; vertical-align:middle">${i+1}</td>
 					      <td style="width:auto; vertical-align:middle">${sup_names[i]}</td>
 					      <td style="width:auto; vertical-align:middle">${medrequest_popuplist1[i].item_amount}</td>
 					    </tr>

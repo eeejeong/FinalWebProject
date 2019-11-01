@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.medirone.web.dto.Request;
 import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 
@@ -35,4 +36,13 @@ public class RequestDao {
 		return medrequest_popuplist1;
 	}
 
+	public int insertRequest(Request request) {		
+		int rows = sqlSessionTemplate.insert("request.insertRequest", request);
+		return rows;		
+	}
+
+	public int insertRequestItems(RequestItems requestItem) {
+		int rows = sqlSessionTemplate.insert("request.insertRequestItem", requestItem);
+		return rows;
+	}
 }

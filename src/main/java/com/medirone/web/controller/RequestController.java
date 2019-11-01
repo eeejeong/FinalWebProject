@@ -1,7 +1,9 @@
 package com.medirone.web.controller;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.medirone.web.dto.Request;
 import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 import com.medirone.web.service.ItemManagementService;
+import com.medirone.web.service.OrderStatus;
 import com.medirone.web.service.RequestService;
 
 @Controller
@@ -137,13 +141,31 @@ public class RequestController {
 	}
 	
 	@RequestMapping("/requestComplete")
-	public void requestComplete(String[] itemArray, String[] dateArray, HttpServletResponse response) throws Exception {
-		System.out.println("==========================됐니?====================");
-		System.out.println(itemArray.length);
-		System.out.println(itemArray[0]);
-		System.out.println(itemArray[1]);
-		System.out.println(dateArray[0]);
-		System.out.println(dateArray[1]);
+	public void requestComplete(String[] itemArray, String needDate, HttpSession session, HttpServletResponse response) throws Exception {
+		String agency_id = (String) session.getAttribute("agency_Id");
+		
+		Request request = new Request();
+		request.setOrder_agency_id(agency_id);
+		request.setOrder_need_time(needDate);
+		request.setOrder_status(OrderStatus.REQUESTED);
+
+		// Request DB에 insert
+		service.addRequest(request);
+		
+		for(String item : itemArray) {
+			String[] itemProp= item.split(",");
+			RequestItems requestItem = new RequestItems();
+			requestItem.setItem_id(Integer.parseInt(itemProp[0]));
+			if(itemProp[1].equals("백신")) {
+				requestItem.setItem_class(1);
+			} else if(itemProp[1].equals("혈액")){
+				requestItem.setItem_class(2);
+			}
+			requestItem.setItem_amount(Integer.parseInt(itemProp[3]));
+			
+			service.addRequestItems(requestItem);
+		}
+		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();

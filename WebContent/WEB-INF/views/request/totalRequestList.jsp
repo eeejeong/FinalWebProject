@@ -147,12 +147,11 @@ $(function() {
 	}
 	
 	function completeRequestBtn(date, time) {
-		var dateArray = [];
+		var needDate = date + " " + time;
 		var itemArray = [];
 		// 첫 제목 행을 제외한 테이블 행 수
 		var len = ($("#requestTable tr").length) - 1;	
-		dateArray.push(date);
-		dateArray.push(time);
+
 		for(var i = 0; i < len; i++){
 			var item = "";
 			item += $("input[name=col1]").eq(i).val() + ",";
@@ -167,7 +166,7 @@ $(function() {
 
 		$.ajax({
 			method: "POST",
-			data: {"itemArray": itemArray, "dateArray" : dateArray},
+			data: {"itemArray": itemArray, "needDate" : needDate},
 			url: 'requestComplete',
 			error: function(request, error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
