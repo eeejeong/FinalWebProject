@@ -15,8 +15,8 @@ public class RequestService {
 	@Autowired
 	private RequestDao requestDao;
 
-	public int getTotalRowNo() {
-		int totalRowNum = requestDao.selectTotalRowNo();
+	public int getTotalRowNo(String agency_id) {
+		int totalRowNum = requestDao.selectTotalRowNo(agency_id);
 		return totalRowNum;
 	}
 
@@ -28,6 +28,11 @@ public class RequestService {
 	public List<RequestItems> getMedrequest_popuplist1(int order_id) {
 		List<RequestItems> medrequest_popuplist1 = requestDao.selectMedrequest_popuplist1(order_id);
 		return medrequest_popuplist1;
+	}
+
+	public List<RequestItems> getRequestList(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestList = requestDao.selectRequestList(startRowNo, endRowNo, agency_id);
+		return requestList;
 	}
 
 

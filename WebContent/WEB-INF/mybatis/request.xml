@@ -26,4 +26,21 @@
 		where request_items.order_id = #{order_id}
 		and supply_items.sup_id = request_items.item_id
    </select>
+   
+   <select id="selectRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status 
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status
+				from request where order_agency_id=#{agency_id} order by order_need_time asc
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectTotalRowNum" parameterType="String" resultType="int">
+		select count(*) from request where order_agency_id = #{agency_id}
+	</select>
 </mapper>
