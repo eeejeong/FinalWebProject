@@ -27,7 +27,9 @@
 /* 		margin-left: auto;
 		margin-right: auto; */
 		position: relative;
+		background: url('<%=application.getContextPath()%>/resources/image/wall1.jpg') no-repeat center top;
 	}
+	
 	#loginForm {
 		width: 100%;
 		height: 500px;

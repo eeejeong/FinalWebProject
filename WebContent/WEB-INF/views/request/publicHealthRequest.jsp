@@ -28,74 +28,6 @@
 				text-align: center;
 			}	
 		</style>
-		
-		<script type="text/javascript">			
-		// 의약품 삭제
-		function deleteMed(){
-				var deleteMedicine = new Array();
-				var checkbox = $("input[name=medicineCheckBox]:checked");
-				
-				if($("input[name=medicineCheckBox]:checked").length == 0) {
-					alert("삭제할 항목을 선택해주세요.");
-				} else {					
-					// 체크된 체크박스 값을 가져온다
-					checkbox.each(function(i) {
-						// checkbox.parent() : checkbox의 부모는 <td>이다.
-						// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
-						var tr = checkbox.parent().parent().eq(i);
-						var td = tr.children();
-														
-						// td.eq(0)은 체크박스 이므로 td.eq(1)의 값부터 가져온다.
-						var sup_id = td.eq(1).text();
-											
-						// 가져온 값을 배열에 담는다.
-						deleteMedicine.push(sup_id);	
-					});
-		
-					jQuery.ajaxSettings.traditional = true;
-
-					$.ajax({
-						url: 'deleteMedicine',
-						data: {"deleteMedicine": deleteMedicine},
-						success: function(data) {
-							alert("삭제 완료");   
-							location.replace("http://localhost:8080/FinalWebProject/itemManagement/medicineList");
-						}
-					});		
-				}
-		}
-		
-		function update(sup_id){
-			$("#updateBtn"+sup_id).css("display", "none");
-			$("#completeBtn"+sup_id).css("display", "inline");
-			$("#sup_amount"+sup_id).prop("readonly", false);
-			$("#sup_weight"+sup_id).prop("readonly", false);
-		}
-		
-		function complete(sup_id){
-			$("#updateBtn"+sup_id).css("display", "inline");
-			$("#completeBtn"+sup_id).css("display", "none");		
-			$.ajax({
-				url: "updateMedicine",
-				data: {
-					sup_id: sup_id, 
-					sup_name:$("#sup_name"+sup_id).val(), 
-					sup_amount:$("#sup_amount"+sup_id).val(), 
-					sup_weight:$("#sup_weight"+sup_id).val()},
-				method: "post"
-			});
-			$("#sup_amount"+sup_id).prop("readonly", true);
-			$("#sup_weight"+sup_id).prop("readonly", true);	
-		}
-		
-		function popupOpen(){
-			var popUrl = "<%= request.getContextPath()%>/request/medrequest_popuplist?order_id=12";
-			//html을 하나 더 만들어서 목록을 띄움
-			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-				window.open(popUrl,"",popOption);
-			console.log("1")
-			}
-		</script>
 	</head>
 	<body>
 		<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
@@ -120,67 +52,61 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-				 <!-- items들어있는 요소 수 만큼 반복... -->
+				
+ 			  <c:forEach items="${requestList}" var="req">
 				    <tr>
-				      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen();">12</a></td>
-				      <td style="width:auto; vertical-align:middle">1</td>
-				      <td style="width:auto; vertical-align:middle">
-				      	1
-					  </td>
-				      <td style="width:auto; vertical-align:middle">
-					  1
-					  </td>
-				      <td style="width:auto; vertical-align:middle">
-				      	1
-				      </td>
-				     
+				      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen(${req.order_id});">${req.order_id}</a></td>
+				      <td style="width:auto; vertical-align:middle">${req.order_need_time}</td>
+				      <td style="width:auto; vertical-align:middle">${req.order_agency_id}</td>
+				      <td style="width:auto; vertical-align:middle">${req.order_date}</td>
+				      <td style="width:auto; vertical-align:middle">${req.order_status}</td>
 				    </tr>
-	<!-- 			  <c:forEach items="${medrequest}" var="med">
-				    <tr>
-				      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen();">${med.order_id}</a></td>
-				      <td style="width:auto; vertical-align:middle">${med.order_need_date}</td>
-				      <td style="width:auto; vertical-align:middle">${med.order_agency_id}</td>
-				      <td style="width:auto; vertical-align:middle">${med.order_date}</td>
-				      <td style="width:auto; vertical-align:middle">${med.order_status}</td>
-				    </tr>
-				</c:forEach> -->
+				</c:forEach>
 			  </tbody>
 			</table>
 		</div>
 		<div style="display:flex;">
 			 <div style="flex-grow:1; margin:auto; text-align: center;">
-				<a href="medicineList?pageNo=1" class="btn btn-outline-dark">처음</a>
+				<a href="request?pageNo=1" class="btn btn-outline-dark">처음</a>
 				
 				<c:if test="${groupNo>1}">
-					<a href="medicineList?pageNo=${startPageNo-1}" class="btn btn-outline-info">이전</a>
+					<a href="request?pageNo=${startPageNo-1}" class="btn btn-outline-info">이전</a>
 				</c:if>
 				
 				<div style="display: inline-block;" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 				  <div class="btn-group mr-2" role="group" aria-label="First group">
 				  	<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
 				  		<c:if test="${pageNo==i}">
-				  			<a href="medicineList?pageNo=${i}" class="btn btn-light active">${i}</a>
+				  			<a href="request?pageNo=${i}" class="btn btn-light active">${i}</a>
 				  		</c:if>
 				  		<c:if test="${pageNo!=i}">
-				  		<a href="medicineList?pageNo=${i}" class="btn btn-light">${i}</a>
+				  		<a href="request?pageNo=${i}" class="btn btn-light">${i}</a>
 				  		</c:if>
 				  	</c:forEach>
 				  </div>
 				</div>							
 				<c:if test="${groupNo<totalGroupNum}">
-					<a href="medicineList?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
+					<a href="request?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
 				</c:if>
-				<a href="medicineList?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
+				<a href="request?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
 			</div>
 			<div style="float:right; display:flex">
 				
 			    <div>
 					<a href="totalRequestList" class="btn btn-secondary">요청 등록</a>
-					<button type="button" class="btn btn-outline btn-danger" id="deleteBtn" onclick="deleteMed()">삭제</button>
 				</div>
 			</div>
 		</div> 
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>
+	<script type="text/javascript">
+	function popupOpen(order_id){
+		var popUrl = "<%= request.getContextPath()%>/request/medrequest_popuplist?order_id=" + order_id;
+		//html을 하나 더 만들어서 목록을 띄움
+		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption);
+		console.log("1")
+		}
+	</script>
 </html>

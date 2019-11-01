@@ -2,9 +2,8 @@ package com.medirone.web.dto;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.medirone.web.service.OrderStatus;
+
 
 public class Request {
 	private int order_id;
@@ -13,6 +12,7 @@ public class Request {
 	private String order_need_time;
 	private OrderStatus order_status;
 	private Date delivered_date;
+
 	
 	public int getOrder_id() {
 		return order_id;

@@ -27,6 +27,7 @@
 		and supply_items.sup_id = request_items.item_id
    </select>
    
+
    <insert id="insertRequest" parameterType="com.medirone.web.dto.Request">
   		 <selectKey keyProperty="order_id" resultType="int" order="BEFORE"> 
 			select ORDER_ID_SEQ.nextval from dual
@@ -39,4 +40,35 @@
    		insert into Request_Items(order_id, item_class, item_id, item_amount)
    		values (ORDER_ID_SEQ.currval, #{item_class}, #{item_id}, #{item_amount})
    </insert>
+
+   <select id="selectRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status 
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status
+				from request where order_agency_id=#{agency_id} order by order_need_time asc
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectAdminRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status 
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status
+				from request order by order_need_time asc
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectTotalRowNum" parameterType="String" resultType="int">
+		select count(*) from request where order_agency_id = #{agency_id}
+	</select>
+
 </mapper>

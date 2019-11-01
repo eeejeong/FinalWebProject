@@ -18,8 +18,8 @@ public class RequestDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public int selectTotalRowNo() {
-		int totalRowNum = sqlSessionTemplate.selectOne("medrequestList.selectTotalRowNum");
+	public int selectTotalRowNo(String agency_id) {
+		int totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNum", agency_id);
 		return totalRowNum;
 	}
 
@@ -45,4 +45,22 @@ public class RequestDao {
 		int rows = sqlSessionTemplate.insert("request.insertRequestItem", requestItem);
 		return rows;
 	}
+
+	public List<RequestItems> selectRequestList(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestList", map);
+		return requestList;
+	}
+
+	public List<RequestItems> selectAdminRequestList(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestList", map);
+		return requestList;
+	}
+
 }
