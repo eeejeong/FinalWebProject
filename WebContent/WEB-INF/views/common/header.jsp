@@ -7,12 +7,12 @@
 		<style type="text/css">
 			#header{
 				width:100%;
-				height:150px;
+				height:200x;
 				background-color:beige;
 				text-align: center;
 			}
 			#logo{
-				height:150px;
+				height:200px;
 				margin: 0 auto;
 			}
 			#logo img{
@@ -25,7 +25,7 @@
 			<div id="logo">
 				<a href="<%= request.getContextPath()%>">
 				<img
-					src="<%=application.getContextPath()%>/resources/image/img_brand3.png"
+					src="<%=application.getContextPath()%>/resources/image/medirone_logo.png"
 					alt="로고" />
 				</a>
 			</div>

@@ -39,7 +39,7 @@ div.title {
 <body>
 	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
 	<div class="content">
-		<h1>회원관리 게시판 (병원)</h1>
+		<h1>회원관리 게시판</h1>
 		<div>
 			<div class="title">
 				<h3>가입요청 승인</h3>

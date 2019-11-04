@@ -19,27 +19,47 @@
 				box-sizing: border-box;
 			}
 			/* 수정 */
-			.content{
+			#content{
+				position:relative;
 				height: 700px;
 				padding-left: 30px;
 				padding-right: 30px;
 				}
+			#content .con-box{
+				height:100%;
+			}
 			.form-control{
 				text-align: center;
 			}	
+			#con_bottom{
+				width:100%;
+				position:absolute;
+				bottom:0px;
+				margin-bottom:5px;
+				text-align:center;
+			}
+			#bottom_btn{
+				display:inline-block;
+				margin:auto;
+				text-align: center;
+			}
+			#bottom_btn .submit_btn{
+				position:absolute;
+				right:100px;
+			}
 		</style>
 	</head>
 	<body>
 		<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
 		
-		<div class="content">
-		<h1 style="color:pink">의약품 게시판</h1>
+		<div id="content">
+		<h1 style="color:pink">요청 게시판</h1>
 		<div>
 			<div class="title">	<h3>요청 목록</h3> </div>	
 			<div class="dropdown">
 			</div>
 		</div>
-		<div> 
+		<div class="con-box"> 
 			<table style="margin: auto; text-align:center;" class="table table-sm">
 			  <thead>
 			    <tr style="background-color:#dcdcdc">
@@ -65,8 +85,8 @@
 			  </tbody>
 			</table>
 		</div>
-		<div style="display:flex;">
-			 <div style="flex-grow:1; margin:auto; text-align: center;">
+		<div id="con_bottom">
+			 <div id="bottom_btn">
 				<a href="request?pageNo=1" class="btn btn-outline-dark">처음</a>
 				
 				<c:if test="${groupNo>1}">
@@ -89,12 +109,7 @@
 					<a href="request?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
 				</c:if>
 				<a href="request?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
-			</div>
-			<div style="float:right; display:flex">
-				
-			    <div>
-					<a href="totalRequestList" class="btn btn-secondary">요청 등록</a>
-				</div>
+				<a href="totalRequestList" class="btn btn-secondary submit_btn">요청 등록</a>
 			</div>
 		</div> 
 		</div>

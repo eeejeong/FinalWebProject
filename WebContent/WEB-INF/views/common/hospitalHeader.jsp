@@ -30,7 +30,7 @@
 			<div id="logo">
 				<c:if test="${agency_Id != null}">
 					<a href="<%= request.getContextPath()%>/hospitalHome">
-					<img src="<%=application.getContextPath()%>/resources/image/img_brand3.png" alt="로고" /></a>
+					<img src="<%=application.getContextPath()%>/resources/image/medirone_logo.png" alt="로고" /></a>
 				</c:if>				
 			</div>
 			

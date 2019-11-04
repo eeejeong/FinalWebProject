@@ -39,7 +39,7 @@ div.dropdown {
 	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
 
 	<div class="content">
-		<h1 style="color: pink">의약품 게시판</h1>
+		<h1 style="color: pink">요청 게시판</h1>
 		<div>
 			<div class="title">
 				<h3>요청 목록</h3>
