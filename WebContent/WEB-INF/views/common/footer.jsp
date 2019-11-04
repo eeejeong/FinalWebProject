@@ -8,7 +8,7 @@
 		<style type="text/css">
 			#footer{
 				width:100%;
-				height:70px;
+				height:150px;
 				background-color:#F4C2C2;
 				text-align:center;
 			}

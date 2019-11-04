@@ -13,10 +13,13 @@
 			}
 			#logo{
 				height:200px;
+				line-height:200px;
 				margin: 0 auto;
+				text-align: center;
 			}
 			#logo img{
-				height:100%;
+				height:80%;
+				vertical-align:middle;
 			}
 		</style>
 	</head>

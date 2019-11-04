@@ -15,9 +15,11 @@
 			}
 			#logo{
 				height:150px;
+				line-height:150px;
 			}
 			#logo img{
-				height:100%;
+				height:70%;
+				vertical-align:middle;
 			}
 			
 			#menu{

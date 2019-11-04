@@ -18,32 +18,73 @@
 		display: flex;
 		flex-direction: column;
 	}
+	#inwrapper{
+		height:100%;
+		padding-top:120px;
+	}
+	
+	#header{
+		width:100%;
+		height:200px;
+		margin-bottom:12px;
+		text-align: center;
+	}
+	#logo{
+		height:200px;
+		line-height:200px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	#logo img{
+		height:80%;
+		vertical-align:middle;
+	}
 	
 	#content {
 		width: 100%;
-		height: 100%;
-		flex-grow: 1;
+		/* height:100%; */
 		text-align: center;
-/* 		margin-left: auto;
-		margin-right: auto; */
-		position: relative;
-		background: url('<%=application.getContextPath()%>/resources/image/wall1.jpg') no-repeat center top;
 	}
 	
 	#loginForm {
 		width: 100%;
 		height: 500px;
-		position: absolute;
-		top: 50%;
-		margin-top: -250px;
 	}
+	
+	#loginForm .loginbtn{
+		width: 350px;
+		margin-top:15px;
+		background-color:#B0D7DC;
+		border :0px;
+	}
+	
+	#loginForm .joinbtn{
+		width: 350px;
+		border:0px;
+	}
+	
 	.form-control {
-		border-radius: 25px;
-		width: 500px;
+		border-radius: 10px;
+		width: 350px;
 		height: 50px;
 		margin: 0 auto;
 		background-color: #F5F5F5;
 		border: 1px solid #F5F5F5;
+	}
+	#agency_id{
+		padding-left:45px;
+		background-image : url('<%=application.getContextPath()%>/resources/image/login_icon.png');
+		background-repeat:no-repeat;
+		background-position:13px center;
+		background-size:20px 50%;
+	}
+	
+	#agency_password{
+		padding-left:45px;
+		background-image : url('<%=application.getContextPath()%>/resources/image/pw_icon.png');
+		background-repeat:no-repeat;
+		background-position:13px center;
+		background-size:20px 50%;
 	}
 }
 </style>
@@ -69,7 +110,16 @@ function checkForm(){
 </head>
 <body>
 	<div id="wrap">
-		<jsp:include page="../common/header.jsp"></jsp:include>
+	<div id="inwrapper">
+		<div id="header">
+			<div id="logo">
+				<a href="<%= request.getContextPath()%>">
+				<img
+					src="<%=application.getContextPath()%>/resources/image/medirone_logo.png"
+					alt="로고" />
+				</a>
+			</div>
+		</div>
 
 		<div id="content">
 			<div id="loginForm">
@@ -87,15 +137,13 @@ function checkForm(){
 							id="errorAgency_password" class="error" style="color: red">${errorAgency_password }</span>
 	
 					</div>
-					<button type="submit" class="btn btn-danger">로그인</button>
-					<br/> <a style="margin: 10px;" id="" href="join/" class="btn btn-dark">회원가입</a>			
+					<button type="submit" class="btn btn-danger loginbtn">로그인</button>
+					<br/> <a style="margin-top: 15px;" href="join/" class="btn btn-dark joinbtn">회원가입</a>			
 				</form>
 			</div>
 		</div>
-
+		</div>
+		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</div>
-
-	<jsp:include page="../common/footer.jsp"></jsp:include>
-
 </body>
 </html>
