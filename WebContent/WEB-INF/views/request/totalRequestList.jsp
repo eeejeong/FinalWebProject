@@ -41,8 +41,7 @@ div.dropdown {
 /* 수정 */
 .content {
 	height: 1000px;
-	padding-left: 30px;
-	padding-right: 30px;
+	padding : 20px 30px;
 }
 
 .form-control {
@@ -183,7 +182,7 @@ $(function() {
 </script>
 </head>
 <body onload="first()">
-	<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
+	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 
 	<div class="content">
 		<h1 style="color: pink">의약품 요청</h1>

@@ -11,13 +11,12 @@
 			/* 수정 */
 			.content{
 				height: 700px;
-				padding-left: 30px;
-				padding-right: 30px;
+				padding: 20 30;
 				}
 		</style>
 	</head>
 	<body>
-		<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+		<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 			<div class="content">
 				<h1>요청게시판 (병원)</h1>
 			</div>

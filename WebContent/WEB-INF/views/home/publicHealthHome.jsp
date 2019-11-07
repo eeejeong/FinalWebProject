@@ -24,7 +24,7 @@
 	</head>
 	<body>
 		<div id="wrap">
-			<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
+			<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 			<div class="center">
 				
 				<div class="content">

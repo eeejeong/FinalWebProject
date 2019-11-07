@@ -15,17 +15,27 @@
 				display : flex;
 				flex-direction : column;
 			}	
-			.content{
-				height: 700px;
-				padding-left: 30px;
-				padding-right: 30px;
+			#header{
+				width:100%;
+				height:200px;
+				/* margin-bottom:12px;
+				text-align: center; */
+			}
+			#content{
+				height: 750px;
+				/* padding-left: 30px;
+				padding-right: 30px; */
+				padding : 20px 30px;
+				background-color: #grey;
 				}
 		</style>
 	</head>
 	<body>
 		<div id="wrap">	
-			<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>			
-			<div class="content">
+			<div id="header"> 
+				<jsp:include page="../common/agencyHeader.jsp"></jsp:include>	
+			</div>		
+			<div id="content">
 			</div>
 
 			<jsp:include page="../common/footer.jsp"></jsp:include>		

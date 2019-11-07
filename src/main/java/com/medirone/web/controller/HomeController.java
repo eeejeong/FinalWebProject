@@ -50,20 +50,20 @@ public class HomeController {
 		}
 		session.setAttribute("agency_Id", agency_id);
 		
-		if(agency_id.equals("admin")) {
-			return "redirect:/hospitalHome";
-		} else {	
-			return "redirect:/publicHealthHome";
-		}
+		return "redirect:/request";
+		/*
+		 * if(agency_id.equals("admin")) { return "/request/hospitalRequest"; } else {
+		 * return "/request/publicHealthRequest"; }
+		 */
 	}
 
 	@RequestMapping("/hospitalHome")
 	public String hospitalHome() {
-		return "home/hospitalHome";
+		return "redirect:/request";
 	}
 	@RequestMapping("/publicHealthHome")
 	public String publicHealthHome() {
-		return "home/publicHealthHome";
+		return "redirect:/request";
 	}
 	
 	@RequestMapping("/logout")

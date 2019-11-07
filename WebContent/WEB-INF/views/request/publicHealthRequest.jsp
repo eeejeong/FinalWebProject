@@ -50,7 +50,7 @@
 		</style>
 	</head>
 	<body>
-		<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
+		<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 		
 		<div id="content">
 		<h1 style="color:pink">요청 게시판</h1>

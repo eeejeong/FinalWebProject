@@ -59,7 +59,7 @@
 		</script>
 	</head>
 	<body>
-		<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+		<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 			<div class="content">
 				<h1>의약품 관리</h1>
 				<h3>혈액 추가</h3>

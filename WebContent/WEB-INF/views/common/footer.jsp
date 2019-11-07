@@ -8,9 +8,14 @@
 		<style type="text/css">
 			#footer{
 				width:100%;
-				height:150px;
+				height:100px;
+				line-height:100px;
 				background-color:#F4C2C2;
-				text-align:center;
+			}
+			#footer .footer_logo{
+				margin-left:50px;
+				height: 60px;
+				vertical-align:middle;
 			}
 			#fBar ul{
 				width:100%;
@@ -36,6 +41,8 @@
 	</head>
 	<body>
 		<div id="footer">
+			<img class="footer_logo" src="<%=application.getContextPath()%>/resources/image/footer_text.png" alt="로고" />
+			<!-- 
 			<div id="fBar">
 				<ul>
 					<li><a href="#">이용약관</a></li>
@@ -44,8 +51,9 @@
 					<li><a href="#">고객센터</a></li>
 					<li><a href="#">사이트맵</a></li>
 				</ul>
-			</div>
+			</div> 
 			<div id="copyright">Copyright(c) Medirone All Rights Reserved.</div>
+			-->
 		</div>
 	</body>
 </html>
