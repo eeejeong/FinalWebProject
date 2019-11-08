@@ -7,18 +7,20 @@
 		<style type="text/css">
 			#header{
 				width:100%;
-				height:200x;
-				background-color:beige;
+				height:130px;
+				box-shadow: 5px 5px 15px #dadada;
+				background-color: #f9f9f9;
+				line-height: 130px;
 				text-align: center;
 			}
 			#logo{
-				height:200px;
-				line-height:200px;
+				height:130px;
+				line-height:130px;
 				margin: 0 auto;
 				text-align: center;
 			}
 			#logo img{
-				height:80%;
+				height: 100px;
 				vertical-align:middle;
 			}
 		</style>

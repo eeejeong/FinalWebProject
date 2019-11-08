@@ -134,7 +134,7 @@ function checkForm(){
 						<label for="agency_password"> PASSWORD</label> <input
 							id="agency_password" name="agency_password" class="form-control"
 							type="password" placeholder="" /> <span
-							id="errorAgency_password" class="error" style="color: red">${errorAgency_password }</span>
+							id="errorAgency_password" class="error" style="color: red">${errorAgency_password}</span>
 	
 					</div>
 					<button type="submit" class="btn btn-danger loginbtn">로그인</button>

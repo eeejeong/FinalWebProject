@@ -6,13 +6,12 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
 			.content{
-					height: 1400px;
-					padding-left: 30px;
-					padding-right: 30px;
+					height: 1500px;
+					padding: 50px;
 					}
 		</style>
 		<script type="text/javascript">
@@ -23,55 +22,55 @@
 				$(".error").css("color", "red");
 				//입력값 검사
 				if($("#agency_id").val() == ""){
-					$("#agency_idError").text("*아이디를 입력하세요.");
+					$("#agency_idError").text("* 아이디를 입력하세요.");
 					result = false;
 				}		
 				if($("#agency_password").val() == ""){
-					$("#agency_passwordError").text("*비밀번호를 입력하세요.");
+					$("#agency_passwordError").text("* 비밀번호를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_name").val() == ""){
-					$("#agency_nameError").text("*보건소 이름을 입력하세요.");
+					$("#agency_nameError").text("* 보건소 이름을 입력하세요.");
 					result = false;
 				}
 				if($("#agency_tel").val() == ""){
-					$("#agency_telError").text("*보건소 전화번호를 입력하세요.");
+					$("#agency_telError").text("* 보건소 전화번호를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_address").val() == ""){
-					$("#agency_addressError").text("*보건소 주소을 입력하세요.");
+					$("#agency_addressError").text("* 보건소 주소을 입력하세요.");
 					result = false;
 				}
 				if($("#agency_latitude").val() == ""){
-					$("#agency_latitudeError").text("*보건소 위도을 입력하세요.");
+					$("#agency_latitudeError").text("* 보건소 위도을 입력하세요.");
 					result = false;
 				}
 				if($("#agency_longitude").val() == ""){
-					$("#agency_longitudeError").text("*보건소 경도을 입력하세요.");
+					$("#agency_longitudeError").text("* 보건소 경도을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_id").val() == ""){
-					$("#manager_idError").text("*담당자 사번을 입력하세요.");
+					$("#manager_idError").text("* 담당자 사번을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_name").val() == ""){
-					$("#manager_nameError").text("*담당자 이름을 입력하세요.");
+					$("#manager_nameError").text("* 담당자 이름을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_email").val() == ""){
-					$("#manager_emailError").text("*담당자 이메일을 입력하세요.");
+					$("#manager_emailError").text("* 담당자 이메일을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_tel").val() == ""){
-					$("#manager_telError").text("*담당자 전화번호을 입력하세요.");
+					$("#manager_telError").text("* 담당자 전화번호을 입력하세요.");
 					result = false;
 				}
 				if(!$("#checkbox1").prop("checked")){
-					$("#checkbox1Error").text("*개인정보 동의 해주세요.");
+					$("#checkbox1Error").text("* 개인정보 동의 해주세요.");
 					result = false;
 				}
 				if(!$("#checkbox2").prop("checked")){
-					$("#checkbox2Error").text("*이용약관 동의 해주세요.");
+					$("#checkbox2Error").text("* 이용약관 동의 해주세요.");
 					result = false;
 				}
 								
@@ -79,16 +78,21 @@
 								
 			}	
 			
-			function checkAgencyId() {				
+			function checkAgencyId() {	
+				if($("#agency_id").val() == "") {
+					$("#agency_idError").text("* 아이디를 입력하세요.");
+					$("#agency_idError").css("color", "red");
+				}
+				if($("#agency_id").val() != "")
 				$.ajax({
 					url: "checkAgencyId",
 					data: {agency_id:$("#agency_id").val()},
 					success: function(data) {
 						if(data.result) {							
-							$("#agency_idError").text("*사용할 수 있는 아이디 입니다.");
+							$("#agency_idError").text("* 사용할 수 있는 아이디 입니다.");
 							$("#agency_idError").css("color", "green");
 						} else {
-							$("#agency_idError").text("*사용할 수 없는 아이디 입니다.");
+							$("#agency_idError").text("* 사용할 수 없는 아이디 입니다.");
 							$("#agency_idError").css("color", "red");
 						}
 					}
@@ -184,7 +188,8 @@
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		<div class="content">
-			<h5>회원 가입</h5>
+			<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/join.png" alt="회원가입"/>
+			<hr style="color: grey; height: 2px;">
 			<form method="post" action="joinSuccess" onsubmit="return checkForm()">
 	  			<div class="form-row">
 	    			<div class="form-group col-md-6">
@@ -192,7 +197,7 @@
 	      				<div class="input-group mb-3">		  	
 	  				<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
 	  				<div class="input-group-append">
-	    				<input onclick="checkAgencyId()" type="button" class="btn btn-outline-dark" value="중복확인"/>   				
+	    				<input onclick="checkAgencyId()" type="button" class="btn btn-outline-mint" value="중복확인"/>   				
 	  		   		</div>
 	  		   		
 			  		</div>
@@ -233,16 +238,14 @@
 		  			<div class="form-group col-md-6">
 		  				<label>주소 </label> <br/>
 				  		<input type="text" id="postcode" placeholder="우편번호">
-						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-info"><br>
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-mint"><br>
 						<div style="margin-top: 5px;">
 							<input style="width: 300px" type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
 							<span id="guide" style="color:#999; display:none"></span>	
 							<input style="width: 200px" type="text" id="extraAddress" placeholder="나머지주소"><!-- extraAddr -->
 						</div>
 						<input style="width: 505px; margin-top: 5px;" type="text" id="agency_address" name="agency_address" value=""> <!-- agencyAddr -->
-						<!-- 상세주소는 팝업창에서 불러올 수 있는 값이 따로 없으므로 데이터 베이스에 넘길 때 (form을 submit할 때) -->
-						<!-- var detailAddr = document.getElementById("detailAddress").value; -->
-						<!-- var agencyAddr = agencyAddr + " " + detailAddr 로 주고 agencyAddr의 값을 넘겨줘야함  -->
+					
 					 </div>	
 				</div>
 				
@@ -311,7 +314,7 @@
 		    		</div>
 		    	</div>	
 		  		<div class="form-group">
-			  		<input type="submit" class="btn btn-success" value="회원가입"/>
+			  		<input type="submit" style="float: right" class="btn btn-pink" value="회원가입"/>
 			  	</div>		  			  	
 	    	</form>  
 			</div>    	

@@ -24,23 +24,23 @@
 				
 			}
 			#logo img{
-			margin-right:50px;
+				margin-right:50px;
 				vertical-align:middle;
 				height: 70%
 			}
-			#menu{
+			.menu{
 				vertical-align: bottom;
 			}
-			#menu img{
+			.menu img{
 				height: 20px;
 				margin-right: 30px;
 			}
-			#agencyInfo{
-				 style="float: right; 
-				 width: 300px";
-				 vertical-align: middle;
+			.agencyInfo{
+				 float: right; 
+				 width: auto;
+				 vertical-align: middle;				 
 			}
-			#agencyInfo img{
+			.agencyInfo img{
 				height: 14px;
 			}
 			
@@ -51,12 +51,12 @@
 		<div id="wrapper">
 			<div id="logo">
 				<c:if test="${agency_Id != null}">
-					<a href="<%= request.getContextPath()%>/hospitalHome">
+					<a href="<%= request.getContextPath()%>/request">
 					<img src="<%=application.getContextPath()%>/resources/image/medirone_logo.png" alt="로고" /></a>
 				</c:if>				
 			</div>
 			
-			<div id="menu" style="flex-grow: 1">
+			<div class="menu" style="flex-grow: 1">
 				<div id="menu_text" style="display: flex">
 				<a id="request" href="<%= request.getContextPath()%>/request/">
 					<img src="<%=application.getContextPath()%>/resources/image/menu/menu_request.png" 
@@ -81,11 +81,11 @@
 				</div>
 			</div>
 			
-			<div id="agencyInfo">
-				<img style="height: 20px" src="<%=application.getContextPath()%>/resources/image/login_icon.png"/>
-				<span style="font-size: 18px;">${agency_Id}</span>
+			<div class="agencyInfo">
+				<img style="height: 20px; margin-right: 5px" src="<%=application.getContextPath()%>/resources/image/login_icon.png"/>
+				<span style="font-size: 18px; margin-right: 10px;">${agency_Id}</span>
 				<c:if test="${agency_Id != null}">
-					<a href="<%= request.getContextPath()%>/logout/">
+					<a style="margin-right: 10px;" href="<%= request.getContextPath()%>/logout/">
 						<img src="<%=application.getContextPath()%>/resources/image/agencyInfo/logout.png" 
 						onmouseover="this.src='<%=application.getContextPath()%>/resources/image/agencyInfo/logout_mint.png';" 
 						onmouseout="this.src='<%=application.getContextPath()%>/resources/image/agencyInfo/logout.png';" 
