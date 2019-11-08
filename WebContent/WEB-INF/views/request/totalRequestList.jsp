@@ -79,37 +79,51 @@ $(function() {
 	}
 
 	function checkboxClick(sup_id) {
-		$("#sup_amount" + sup_id).prop("readonly", false);
-		$("#completeBtn" + sup_id).prop("disabled", false);
+		 if ( $("#checkbox" + sup_id).prop("checked")) {
+			 $("#sup_amount" + sup_id).prop("readonly", false);
+	     	 $("#completeBtn" + sup_id).prop("disabled", false);			 
+         } 
+		
+		if ( $("#checkbox" + sup_id).prop("checked") == false) {
+        	 $("#sup_amount" + sup_id).prop("readonly", true);
+ 		 	 $("#completeBtn" + sup_id).prop("disabled", true);
+         }  
 	}
+	
 	
 	
 	function completeBtnClick(sup_id, sup_amount) {		
 		$("#sup_amount" + sup_id).prop("readonly", true);
 		$("#completeBtn" + sup_id).prop("disabled", true);
 		$("#checkbox" + sup_id).prop("checked", false);
-		$.ajax({
-				url : "searchItemById?sup_id=" + sup_id,
-				success : function(data) {
-					$("#resultList").append(
-							"<tr>"
-							+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
-							+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
-							+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
-							+ '<td> <input name="col4" class="form-control" value="' + sup_amount + '" readonly/> </td>'
-							+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="'
-							+ (data.sup_weight * sup_amount)
-							+ '" readonly/> </td>'
-							+ '<td> <input onclick="deleteRow(this);" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
-							+ "</tr>");
-				}
-			});
+		if (!sup_amount) {
+			alert("수량을 입력하세요.");
+		} else {
+			$.ajax({
+					url : "searchItemById?sup_id=" + sup_id,
+					success : function(data) {
+						$("#resultList").append(
+								"<tr>"
+								+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
+								+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
+								+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
+								+ '<td> <input name="col4" class="form-control" value="' + sup_amount + '" readonly/> </td>'
+								+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="'
+								+ (data.sup_weight * sup_amount)
+								+ '" readonly/> </td>'
+								+ '<td> <input onclick="deleteRow(this);" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+								+ "</tr>");
+					}
+				});
+		}
 
 	}
 	
 	function deleteRow(obj) {
 		var tr = $(obj).parent().parent();
 		tr.remove();
+		
+		
 	}
 
 	function medicineRequestList() {
@@ -129,20 +143,22 @@ $(function() {
 			}
 		});
 	}
-
+	
 	function totalWeight() {
 		var $dataRows = $("#requestTable tr:not('#titleRow')");
-		var totalWeight = 0;
+		totalWeight1 = 0;
 		$dataRows.each(function() {
+			totalWeight1 = 0;
 			$(this).find('#eachTotalWeight').each(function(i) {
-				totalWeight += parseInt($(this).val());
+				totalWeight1 += parseInt($(this).val());
 			});
 		});
-		if (totalWeight > 3000) {
+		if (totalWeight1 > 3000) {
 			alert("너무 무거워요! 드론 떨어져요!");
-
+			$('#totalWeightInput').val(totalWeight1);
+			
 		} else {
-			$('#totalWeightInput').val(totalWeight);
+			$('#totalWeightInput').val(totalWeight1);
 		}
 	}
 	
@@ -163,22 +179,32 @@ $(function() {
 		}
 		
 		jQuery.ajaxSettings.traditional = true;
-
-		$.ajax({
-			method: "POST",
-			data: {"itemArray": itemArray, "needDate" : needDate},
-			url: 'requestComplete',
-			error: function(request, error) {
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			},
-			success: function(data) {
-				if(data.result == "ok") {
-					alert("!!");
-					location.replace("http://localhost:8080/FinalWebProject/request/");
-				}
-			}
-		});
+		
+		if(totalWeight1 >= 0){
+			if(totalWeight1 > 3000){
+				alert("무게를 3kg 이하로 수정해주세요.");
+			} else {
+				$.ajax({
+					method: "POST",
+					data: {"itemArray": itemArray, "needDate" : needDate},
+					url: 'requestComplete',
+					/* error: function(request, error) {
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}, */
+					success: function(data) {
+						if(data.result == "ok") {
+							alert("!!");
+							location.replace("http://localhost:8080/FinalWebProject/request/");
+						}
+					}
+				});
+			} 
+			
+		}
+	
 	}
+		
+	
 	
 </script>
 </head>
@@ -232,13 +258,14 @@ $(function() {
 			<div style="float: right; display: flex;">
 				<input class="form-control mr-sm-2" type="text" name="date" id="date2" size="12" />
                 <input class="form-control mr-sm-2" type="text" name="time1" value="" placeholder="시간선택" id="time1" required size="8" maxlength="5">
-				<button type="button" class="btn btn-outline-dark"
-					onclick="totalWeight()">총 무게 계산</button>
+				<button type="button" class="btn btn-outline-dark" onclick="totalWeight()">총 무게 계산</button>
 				<input class="form-control mr-sm-2" id="totalWeightInput"
 					name="totalWeightInput" type="text" placeholder="총 무게"
 					aria-label="총 무게" />
 				<h6 style="margin-right: 5px">g</h6>
-				<input type="submit" class="btn btn-success" onclick="completeRequestBtn(date2.value, time1.value)" value="요청 완료"/>
+				<div style="float: right;">
+					<input type="submit" class="btn btn-success" onclick="completeRequestBtn(date2.value, time1.value)" value="요청 완료"/>
+				</div>
 			</div>
 		</form>
 		</div>

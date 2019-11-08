@@ -234,6 +234,7 @@ public class RequestController {
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();
+		
 	}
 	
 	@RequestMapping("/medrequest_popuplist")
