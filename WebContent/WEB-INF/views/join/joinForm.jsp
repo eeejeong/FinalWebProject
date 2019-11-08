@@ -188,7 +188,7 @@
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		<div class="content">
-			<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/join.png" alt="회원가입"/>
+			<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/join.png" alt="회원가입"/>
 			<hr style="color: grey; height: 2px;">
 			<form method="post" action="joinSuccess" onsubmit="return checkForm()">
 	  			<div class="form-row">

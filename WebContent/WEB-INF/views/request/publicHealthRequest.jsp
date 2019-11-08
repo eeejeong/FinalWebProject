@@ -13,6 +13,7 @@
 			div.title {
 				float: left;
 				box-sizing: border-box;    
+				width: 100%;
 			}
 			div.dropdown {
 				float: right;
@@ -21,9 +22,9 @@
 			/* 수정 */
 			#content{
 				position:relative;
-				height: 700px;
-				padding-left: 30px;
-				padding-right: 30px;
+				height: 740px;
+				padding: 50px;
+
 				}
 			#content .con-box{
 				height:100%;
@@ -54,9 +55,9 @@
 		
 		<div id="content">
 		<div class="title">
-			<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
+			<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
 			<hr style="color: grey; height: 2px;">
-			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
 		</div>
 		<div class="con-box"> 
 			<table style="margin: auto; text-align:center;" class="table table-sm">

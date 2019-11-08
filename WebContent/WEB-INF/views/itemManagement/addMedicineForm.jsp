@@ -7,15 +7,19 @@
 		<script type="text/javascript"
 			src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css"
-			href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+			href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript"
 			src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style>
 			.content{
-				height: 700px;
-				padding-left: 30px;
-				padding-right: 30px;
+				height: 740px;
+				padding : 50px;
 				}
+			div.title {
+				width: 100%;
+				float: left;
+				box-sizing: border-box;
+			}
 		</style>
 		<script type="text/javascript">
 			function checkForm(){
@@ -59,8 +63,12 @@
 	<body>
 		<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 			<div class="content">
-				<h1>의약품 관리</h1>
-				<h3>의약품 추가</h3>
+				<div class="title">
+					<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
+					<hr style="color: grey; height: 2px;">		
+				</div>
+				<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/item_addMedicine.png" alt="백신 추가"/>
+			
 				<form method="post" action="addMedicine" onsubmit="return checkForm()">
 				  <div class="form-group row">
 				    <label for="sup_name" class="col-sm-2 col-form-label">의약품명</label>
@@ -84,7 +92,7 @@
 				    </div>
 				  </div>
 				  <div class="form-group" style="float: right">
-				  	<input type="submit" class="btn btn-success" id="completeBtn" value="완료"/>
+				  	<input type="submit" class="btn btn-mint" id="completeBtn" value="완료"/>
 				  </div>
 				</form>
 			</div>

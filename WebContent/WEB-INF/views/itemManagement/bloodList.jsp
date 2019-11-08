@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 		<style>
 			div.title {
@@ -100,19 +100,11 @@
 	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 	<div class="content"> 
 			<div class="title">
-				<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
+				<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
 				<hr style="color: grey; height: 2px;">		
 			</div>
-			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_blood.png" alt="혈액 관리"/>
-			<div class="btn-group">
-			  <button type="button" class="btn btn-pink dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			   품목 선택
-			  </button>
-			  <div class="dropdown-menu">
-			    <a class="dropdown-item" href="medicineList">백신</a>
-								<a class="dropdown-item" href="bloodList">혈액</a>
-			  </div>
-			</div>
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_blood.png" alt="혈액 관리"/>
+			
 			<div class="dropdown">
 				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					품목 선택
@@ -152,8 +144,8 @@
 					      <td style="vertical-align:middle; width: auto"><input id="amountForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_amount}" readonly></td>	
 					      <td style="vertical-align:middle; width: auto"><input id="weightForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_weight}" readonly></td>				      
 					      <td>
-					      	<button id="updateBtn${blood.sup_id}" type="button" class="btn btn-outline-info" onclick="updateBtn(${blood.sup_id})" style="display:inline">수정</button>
-					      	<button id="completeBtn${blood.sup_id}" type="button" class="btn btn-outline-info" onclick="completeBtn(${blood.sup_id})" style="display:none">완료</button>
+					      	<button id="updateBtn${blood.sup_id}" type="button" class="btn btn-outline-mint" onclick="updateBtn(${blood.sup_id})" style="display:inline">수정</button>
+					      	<button id="completeBtn${blood.sup_id}" type="button" class="btn btn-outline-mint" onclick="completeBtn(${blood.sup_id})" style="display:none">완료</button>
 					      </td>
 					    </tr>
 					</c:forEach>

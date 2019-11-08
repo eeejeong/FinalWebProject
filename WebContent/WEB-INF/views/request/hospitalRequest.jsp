@@ -40,9 +40,9 @@ div.dropdown {
 
 	<div class="content">
 		<div class="title">
-			<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
+			<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
 			<hr style="color: grey; height: 2px;">
-			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
 		</div>
 		<div>
 			<table style="margin: auto; text-align: center;"

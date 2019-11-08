@@ -30,6 +30,7 @@
 	src="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.min.js"></script>
 <style>
 div.title {
+	width: 100%;
 	float: left;
 	box-sizing: border-box;
 }
@@ -41,7 +42,7 @@ div.dropdown {
 /* 수정 */
 .content {
 	height: 1000px;
-	padding : 20px 30px;
+	padding : 50px;
 }
 
 .form-control {
@@ -183,13 +184,13 @@ $(function() {
 </head>
 <body onload="first()">
 	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
-
 	<div class="content">
-		<h1 style="color: pink">의약품 요청</h1>
-		<div>
-			<div class="title">
-				<h3>의약품 목록</h3>
+		<div class="title">
+				<img style="height: 40px;" src="<%=application.getContextPath()%>/resources/image/title/request_register.png" alt="의약품 요청 등록"/>
+				<hr style="color: grey; height: 2px;">		
 			</div>
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_item_list.png" alt="의약품 목록"/>
+			
 			<div class="dropdown">
 				<a class="btn btn-primary dropdown-toggle" href="#" role="button"
 					id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -201,12 +202,11 @@ $(function() {
 						onclick="bloodRequestList();">혈액</button>
 				</div>
 			</div>
-		</div>
 		<div id="itemTable"></div>
 		<br>
 		<div>
 			<div class="title">
-				<h3>요청 담기 목록</h3>
+				<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_register_list.png" alt="요청 담기 목록"/>
 			</div>
 			<form>
 				<table id="requestTable" style="margin: auto; text-align: center;"

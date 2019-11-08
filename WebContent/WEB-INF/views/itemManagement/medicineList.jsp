@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 		<style>
 			div.title {
@@ -21,7 +21,7 @@
 			}
 			/* 수정 */
 			.content{
-				height: 740px;
+				height: 800px;
 				padding: 50px;
 				}
 			.form-control{
@@ -105,11 +105,10 @@
 		<div class="content">
 		<div>
 			<div class="title">
-				<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
+				<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
 				<hr style="color: grey; height: 2px;">
-				
 			</div>
-			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_medicine.png" alt="백신 관리"/>
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_medicine.png" alt="백신 관리"/>
 			<div class="dropdown">
 				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					품목 선택
@@ -148,8 +147,8 @@
 				      	<input id="sup_weight${med.sup_id}" type="number" class="form-control" value="${med.sup_weight}" readonly>
 				      </td>
 				      <td>
-				      <button type="button" class="btn btn-outline-info" id="updateBtn${med.sup_id}" onclick="update(${med.sup_id})" style="display:inline">수정</button>
-				      <button type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" onclick="complete(${med.sup_id})" style="display:none">완료</button>
+				      <button type="button" class="btn btn-outline-mint" id="updateBtn${med.sup_id}" onclick="update(${med.sup_id})" style="display:inline">수정</button>
+				      <button type="button" class="btn btn-outline-mint" id="completeBtn${med.sup_id}" onclick="complete(${med.sup_id})" style="display:none">완료</button>
 				      </td>
 				    </tr>
 				</c:forEach>

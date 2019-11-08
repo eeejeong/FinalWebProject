@@ -12,7 +12,8 @@
 		<style>
 			div.title {
 				float: left;
-				box-sizing: border-box;    
+				box-sizing: border-box; 
+				width: 100%;   
 			}
 			div.dropdown {
 				float: right;
@@ -20,9 +21,8 @@
 			}
 			/* 수정 */
 			.content{
-				height: 700px;
-				padding-left: 30px;
-				padding-right: 30px;
+				height: 740px;
+				padding: 50px;
 				}
 			.form-control{
 				text-align: center;
@@ -101,9 +101,11 @@
 		<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 		
 		<div class="content">
-		<h1>의약품 관리</h1>
-		<div>
-			<div class="title">	<h3>백신 관리</h3> </div>	
+			<div class="title">
+				<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
+				<hr style="color: grey; height: 2px;">
+			</div>
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_medicine.png" alt="백신 관리"/>
 			<div class="dropdown">
 				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					품목 선택
@@ -113,7 +115,6 @@
 					<a class="dropdown-item" href="bloodList">혈액</a>
 				</div>
 			</div>
-		</div>
 		<div style="height: 600px">
 			<table style="margin: auto; text-align:center;" class="table table-sm">
 			  <thead>

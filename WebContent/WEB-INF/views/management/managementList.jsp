@@ -24,11 +24,11 @@
 div.title {
 	float: left;
 	box-sizing: border-box;
+	width: 100%;
 }
 .content{
-	height: 700px;
-	padding-left: 30px;
-	padding-right: 30px;
+	height: 740px;
+	padding: 50px;
 	}
 #agencyAddressLink {
 	color: #398AD7; 
@@ -39,12 +39,10 @@ div.title {
 <body>
 	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 	<div class="content">
-		<h1>회원관리 게시판</h1>
-		<div>
-			<div class="title">
-				<h3>가입요청 승인</h3>
+		<div class="title">
+				<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/member.png" alt="회원 관리"/>
+				<hr style="color: grey; height: 2px;">
 			</div>
-		</div>
 		<div>
 			<table class="table table-sm">
 				<thead>
