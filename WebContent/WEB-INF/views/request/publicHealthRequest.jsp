@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -78,7 +79,7 @@
 				      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen(${req.order_id});">${req.order_id}</a></td>
 				      <td style="width:auto; vertical-align:middle">${req.order_need_time}</td>
 				      <td style="width:auto; vertical-align:middle">${req.order_agency_id}</td>
-				      <td style="width:auto; vertical-align:middle">${req.order_date}</td>
+				      <td style="width:auto; vertical-align:middle"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${req.order_date}"></fmt:formatDate></td>
 				      <td style="width:auto; vertical-align:middle">${req.order_status}</td>
 				    </tr>
 				</c:forEach>

@@ -77,7 +77,7 @@ div.dropdown {
 	function first() {
 		if (!rCheck) {
 			rCheck = true;
-			medicineRequestList();
+			medicineRequestList(1);
 		}
 	}
 
@@ -97,6 +97,7 @@ div.dropdown {
 		$("#completeBtn" + sup_id).prop("disabled", true);
 		$("#checkbox" + sup_id).prop("checked", false);
 		$("input[name=inputtext]").val("");
+		$("input[name=inputtext1]").val("");
 		if (request_amount == "") {
 			alert("수량을 입력해주세요.");
 		} else {
@@ -134,9 +135,9 @@ div.dropdown {
 		tr.remove();
 	}
 
-	function medicineRequestList() {
+	function medicineRequestList(pageNo) {
 		$.ajax({
-			url : 'medicineRequestList',
+			url : 'medicineRequestList?pageNo=' + pageNo,
 			success : function(data) {
 				$('#itemTable').html(data)
 			}
@@ -197,9 +198,10 @@ div.dropdown {
 				},
 				url : 'requestComplete',
 				error : function(request, error) {
-					alert("code:" + request.status + "\n" + "message:"
+					alert("필요한 의료품을 담아주세요")
+					/* alert("code:" + request.status + "\n" + "message:"
 							+ request.responseText + "\n" + "error:"
-							+ error);
+							+ error); */
 				},
 				success : function(data) {
 					if (data.result == "ok") {
@@ -231,7 +233,7 @@ div.dropdown {
 			<a class="btn btn-primary dropdown-toggle" href="#" role="button"
 				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 품목 선택 </a>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				<button class="dropdown-item" type="button" onclick="medicineRequestList('medicineRequestList');">백신</button>
+				<button class="dropdown-item" type="button" onclick="medicineRequestList(1);">백신</button>
 				<button class="dropdown-item" type="button" onclick="bloodRequestList();">혈액</button>
 			</div>
 		</div>

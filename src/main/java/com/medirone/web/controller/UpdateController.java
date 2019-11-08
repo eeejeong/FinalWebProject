@@ -37,10 +37,8 @@ public class UpdateController {
 		manager.setManager_agency_id(agency.getAgency_id());
 		service.updateMember(agency, manager);
 		String nowId = (String)session.getAttribute("agency_Id");
-		if(nowId.equals("admin")) {
-			return "redirect:/hopitalHome";
-		} else {
-			return "redirect:/publicHealthHome";
-		}
+		
+		return "redirect:/request";
+		
 	}
 }

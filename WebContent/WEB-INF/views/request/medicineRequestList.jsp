@@ -41,28 +41,28 @@
 </div>
 <div style="display:flex;">
 	 <div style="flex-grow:1; margin:auto; text-align: center;">
-		<a href="medicineRequestList?pageNo=1" class="btn btn-outline-dark">처음</a>
+		<a onclick="medicineRequestList(1)" class="btn btn-outline-dark">처음</a>
 		
 		<c:if test="${groupNo>1}">
-			<a href="medicineRequestList?pageNo=${startPageNo-1}" class="btn btn-outline-info">이전</a>
+			<a onclick="medicineRequestList(${startPageNo-1})" class="btn btn-outline-info">이전</a>
 		</c:if>
 		
 		<div style="display: inline-block;" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 		  <div class="btn-group mr-2" role="group" aria-label="First group">
 		  	<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
 		  		<c:if test="${pageNo==i}">
-		  			<a href="medicineRequestList?pageNo=${i}" class="btn btn-light active">${i}</a>
+		  			<a onclick="medicineRequestList(${i})" class="btn btn-light active">${i}</a>
 		  		</c:if>
 		  		<c:if test="${pageNo!=i}">
-		  		<a href="medicineRequestList?pageNo=${i}" class="btn btn-light">${i}</a>
+		  		<a onclick="medicineRequestList(${i})" class="btn btn-light">${i}</a>
 		  		</c:if>
 		  	</c:forEach>
 		  </div>
 		</div>							
 		<c:if test="${groupNo<totalGroupNum}">
-			<a href="medicineRequestList?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
+			<a onclick="medicineRequestList(${endPageNo+1})" class="btn btn-outline-info">다음</a>
 		</c:if>
-		<a href="medicineRequestList?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
+		<a onclick="medicineRequestList(${totalPageNum})" class="btn btn-outline-dark">맨끝</a>
 	</div>
 	<div>
 		<form class="form-inline my-2 my-lg-0" method="post"

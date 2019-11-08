@@ -21,8 +21,8 @@
 				<td style="vertical-align: middle;">${blood.sup_id}</td>
 				<td style="vertical-align: middle; width: auto">${blood.sup_name}</td>
 				<td style="vertical-align: middle; width: auto">${blood.sup_weight}</td>
-				<td style="vertical-align: middle; width: auto"><input
-					id="sup_amount${blood.sup_id}" type="number" class="form-control"
+				<td style="vertical-align: middle; width: auto">
+				<input name="inputtext1" id="sup_amount${blood.sup_id}" type="number" class="form-control"
 					placeholder="최대 ${blood.sup_amount}개 선택 가능" readonly></td>
 				<td style="vertical-align: middle;">
 					<button type="button" class="btn btn-outline-info"
