@@ -70,5 +70,9 @@
 	<select id="selectTotalRowNum" parameterType="String" resultType="int">
 		select count(*) from request where order_agency_id = #{agency_id}
 	</select>
+	
+	<select id="selectTotalRowNumAdmin" parameterType="String" resultType="int">
+		select count(*) from request
+	</select>
 
 </mapper>

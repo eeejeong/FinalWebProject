@@ -27,7 +27,7 @@
 				<td style="vertical-align: middle;">
 					<button type="button" class="btn btn-outline-info"
 						id="completeBtn${blood.sup_id}"
-						onclick="completeBtnClick(${blood.sup_id}, $('#sup_amount${blood.sup_id}').val());" disabled>담기</button>
+						onclick="completeBtnClick(${blood.sup_id}, ${blood.sup_amount}, $('#sup_amount${blood.sup_id}').val());" disabled>담기</button>
 				</td>
 			</tr>
 		</c:forEach>

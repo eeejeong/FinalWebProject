@@ -37,9 +37,6 @@ public class RequestController {
 		if(agency_id == null) {
 			agency_id = (String) session.getAttribute("agency_Id");
 		}
-		/* session.setAttribute("agency_id", agency_id); */
-		/* String agency_id = (String)session.getAttribute("agency_id"); */
-		System.out.println("=========" + agency_id + "=============");
 
 		// 페이지당 행 수
 		int rowsPerPage = 10;

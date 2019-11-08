@@ -58,7 +58,7 @@
 			
 			<div class="menu" style="flex-grow: 1">
 				<div id="menu_text" style="display: flex">
-				<a id="request" href="<%= request.getContextPath()%>/request/">
+				<a id="request" href="<%= request.getContextPath()%>/request">
 					<img src="<%=application.getContextPath()%>/resources/image/menu/menu_request.png" 
 					onmouseover="this.src='<%=application.getContextPath()%>/resources/image/menu/menu_request_pink.png';" 
 					onmouseout="this.src='<%=application.getContextPath()%>/resources/image/menu/menu_request.png';" 

@@ -19,7 +19,12 @@ public class RequestDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	public int selectTotalRowNo(String agency_id) {
-		int totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNum", agency_id);
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumAdmin", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNum", agency_id);
+		}
 		return totalRowNum;
 	}
 

@@ -68,7 +68,6 @@
 		function updateBtn(sup_id) {
 			$("#updateBtn"+sup_id).css("display", "none");
 			$("#completeBtn"+sup_id).css("display", "inline");
-			$("#nameForm"+sup_id).prop('readonly', false);
 			$("#amountForm"+sup_id).prop('readonly', false);
 			$("#weightForm"+sup_id).prop('readonly', false);
         }
@@ -115,7 +114,7 @@
 				</div>
 			</div>
 			<!-- 총 개수: ${totalBloodRowNum} -->
-			<div style="height: 600px">
+			<div style="height: 500px">
 				<table style="margin: auto; text-align:center;" class="table table-sm">
 				  <thead>
 				    <tr style="background-color: #dcdcdc">
@@ -159,8 +158,5 @@
 			<span id="test" class="error" style="color:red"></span>
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
-	</body>
-	
-	
-	
+	</body>	
 </html>

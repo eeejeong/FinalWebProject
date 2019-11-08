@@ -21,7 +21,7 @@
 			}
 			/* 수정 */
 			.content{
-				height: 800px;
+				height: 850px;
 				padding: 50px;
 				}
 			.form-control{
@@ -136,7 +136,7 @@
 				    <tr>
 				      <td width="50" style="vertical-align:middle;">
 					     	 <input type="checkbox" name="medicineCheckBox">
-				      <td>${med.sup_id}</td>
+				      <td style="vertical-align:middle">${med.sup_id}</td>
 				      <td style="width:auto; vertical-align:middle">
 				      	<input id="sup_name${med.sup_id}"  type="text" class="form-control" value="${med.sup_name}" readonly>
 					  </td>
