@@ -1,3 +1,5 @@
+
+
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -77,38 +79,54 @@ $(function() {
 			medicineRequestList();
 		}
 	}
+	
+	
+	
 
 	function checkboxClick(sup_id) {
 		$("#sup_amount" + sup_id).prop("readonly", false);
 		$("#completeBtn" + sup_id).prop("disabled", false);
 	}
 	
-	
-	function completeBtnClick(sup_id, sup_amount) {		
+	function completeBtnClick(sup_id, sup_amount, request_amount) {		
+		
 		$("#sup_amount" + sup_id).prop("readonly", true);
 		$("#completeBtn" + sup_id).prop("disabled", true);
 		$("#checkbox" + sup_id).prop("checked", false);
-		$.ajax({
+		$("input[name=inputtext]").val("");
+		if(sup_amount < request_amount) {
+			alert("최대 개수를 넘었습니다.");
+			
+		}
+		if(sup_amount >= request_amount) {
+			
+			$('#completeBtn'+sup_id).css("display", "none");
+			$.ajax({
 				url : "searchItemById?sup_id=" + sup_id,
 				success : function(data) {
+					
 					$("#resultList").append(
 							"<tr>"
 							+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
 							+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
 							+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
-							+ '<td> <input name="col4" class="form-control" value="' + sup_amount + '" readonly/> </td>'
+							+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
 							+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="'
 							+ (data.sup_weight * sup_amount)
 							+ '" readonly/> </td>'
-							+ '<td> <input onclick="deleteRow(this);" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+							+ '<td> <input name="delete" onclick="deleteRow(this,  );" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
 							+ "</tr>");
 				}
+				
 			});
-
+		
+		}
 	}
 	
-	function deleteRow(obj) {
+	function deleteRow(obj, sup_id) {
 		var tr = $(obj).parent().parent();
+		alert("최대 개수를 넘었습니다12");
+		$('#completeBtn' + sup_id).css("display", "inline");
 		tr.remove();
 	}
 
