@@ -11,19 +11,19 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 		<style>
 			div.title {
+				width: 100%;
 				float: left;
-				box-sizing: border-box;    
+				box-sizing: border-box;
 			}
 			div.dropdown {
 				float: right;
 				box-sizing: border-box;
 			}
 			/* 수정 */
-			.content{
-				height: 700px;
-				padding-left: 30px;
-				padding-right: 30px;
-				}
+			.content {
+				height: 740px;
+				padding : 50px;
+			}
 			.form-control{
 				text-align: center;
 			}
@@ -97,19 +97,29 @@
 	
 	</head>
 	<body>
-	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 	<div class="content"> 
-			<h1>의약품 관리</h1>	
-			<div>
-				<div class="title">	<h3>혈액 관리</h3> </div>	
-				<div class="dropdown">
-					<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						품목 선택
-					</a>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<a class="dropdown-item" href="medicineList">백신</a>
-						<a class="dropdown-item" href="bloodList">혈액</a>
-					</div>
+			<div class="title">
+				<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/items.png" alt="의약품 관리"/>
+				<hr style="color: grey; height: 2px;">		
+			</div>
+			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_blood.png" alt="혈액 관리"/>
+			<div class="btn-group">
+			  <button type="button" class="btn btn-pink dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			   품목 선택
+			  </button>
+			  <div class="dropdown-menu">
+			    <a class="dropdown-item" href="medicineList">백신</a>
+								<a class="dropdown-item" href="bloodList">혈액</a>
+			  </div>
+			</div>
+			<div class="dropdown">
+				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					품목 선택
+				</a>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					<a class="dropdown-item" href="medicineList">백신</a>
+					<a class="dropdown-item" href="bloodList">혈액</a>
 				</div>
 			</div>
 			<!-- 총 개수: ${totalBloodRowNum} -->
@@ -137,7 +147,7 @@
 							</div>
 							 -->
 					      </td>
-					      <td style="vertical-align:middle; width: ">${blood.sup_id}</td>		
+					      <td style="vertical-align:middle; width: auto;">${blood.sup_id}</td>		
 					      <td style="vertical-align:middle; width: auto;"><input id="nameForm${blood.sup_id}" class="form-control" type="text" value="${blood.sup_name}" readonly></td>	
 					      <td style="vertical-align:middle; width: auto"><input id="amountForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_amount}" readonly></td>	
 					      <td style="vertical-align:middle; width: auto"><input id="weightForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_weight}" readonly></td>				      
@@ -158,4 +168,7 @@
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>
+	
+	
+	
 </html>

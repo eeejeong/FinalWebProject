@@ -37,7 +37,7 @@ div.title {
 </style>
 </head>
 <body>
-	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 	<div class="content">
 		<h1>회원관리 게시판</h1>
 		<div>

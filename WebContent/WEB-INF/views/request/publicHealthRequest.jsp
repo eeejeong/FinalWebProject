@@ -50,14 +50,13 @@
 		</style>
 	</head>
 	<body>
-		<jsp:include page="../common/publicHealthHeader.jsp"></jsp:include>
+		<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 		
 		<div id="content">
-		<h1 style="color:pink">요청 게시판</h1>
-		<div>
-			<div class="title">	<h3>요청 목록</h3> </div>	
-			<div class="dropdown">
-			</div>
+		<div class="title">
+			<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
+			<hr style="color: grey; height: 2px;">
+			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
 		</div>
 		<div class="con-box"> 
 			<table style="margin: auto; text-align:center;" class="table table-sm">

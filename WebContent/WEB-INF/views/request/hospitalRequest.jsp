@@ -14,6 +14,7 @@
 	src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 <style>
 div.title {
+	width: 100%;
 	float: left;
 	box-sizing: border-box;
 }
@@ -24,9 +25,8 @@ div.dropdown {
 }
 /* 수정 */
 .content {
-	height: 700px;
-	padding-left: 30px;
-	padding-right: 30px;
+	height: 740px;
+	padding : 50px;
 }
 
 .form-control {
@@ -36,15 +36,13 @@ div.dropdown {
 
 </head>
 <body>
-	<jsp:include page="../common/hospitalHeader.jsp"></jsp:include>
+	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 
 	<div class="content">
-		<h1 style="color: pink">요청 게시판</h1>
-		<div>
-			<div class="title">
-				<h3>요청 목록</h3>
-			</div>
-			<div class="dropdown"></div>
+		<div class="title">
+			<img style="width: 150px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
+			<hr style="color: grey; height: 2px;">
+			<img style="width: 100px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
 		</div>
 		<div>
 			<table style="margin: auto; text-align: center;"

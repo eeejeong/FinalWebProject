@@ -31,7 +31,7 @@ public class RequestController {
 	@Autowired
 	private RequestService service;
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String medrequest(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session, String agency_id) {
 		session.setAttribute("pageNo", pageNo);
 		if(agency_id == null) {
