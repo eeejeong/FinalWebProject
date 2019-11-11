@@ -51,5 +51,10 @@ public class RequestService {
 		return requestList;
 	}
 
+	public void changeStatus(int order_id) {
+		requestDao.updateStatus(order_id);
+		
+	}
+
 
 }

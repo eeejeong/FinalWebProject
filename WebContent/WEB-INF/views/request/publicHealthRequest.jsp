@@ -10,6 +10,12 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
+		<script>
+			function showPopup() { 
+				var url = 'request/showMap?lat=37.4950924317002&lng=127.12253304316587';
+				window.open(url, "showMap", "width=1000, height=800, left=100, top=50"); 
+				}
+		</script>
 		<style>
 			div.title {
 				float: left;
@@ -80,7 +86,17 @@
 				      <td style="width:auto; vertical-align:middle">${req.order_need_time}</td>
 				      <td style="width:auto; vertical-align:middle">${req.order_agency_id}</td>
 				      <td style="width:auto; vertical-align:middle"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${req.order_date}"></fmt:formatDate></td>
-				      <td style="width:auto; vertical-align:middle">${req.order_status}</td>
+				      <td style="width:auto; vertical-align:middle">
+						<c:if test="${req.order_status == 'REQUESTED'}">
+							배송 대기
+						</c:if> 
+						<c:if test="${req.order_status == 'DELIEVERING'}">
+							<button type="button" class="btn btn-outline-info" onclick="showPopup();">배송 중</button>
+						</c:if>
+						<c:if test="${req.order_status == 'DELIEVERED'}">
+							배송 완료
+						</c:if>
+				      </td>
 				    </tr>
 				</c:forEach>
 			  </tbody>

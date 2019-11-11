@@ -74,5 +74,9 @@
 	<select id="selectTotalRowNumAdmin" parameterType="String" resultType="int">
 		select count(*) from request
 	</select>
+	
+	<update id="updateStatus" parameterType="int">
+		update request set order_status='DELIEVERING' where order_id=#{order_id}
+	</update>
 
 </mapper>

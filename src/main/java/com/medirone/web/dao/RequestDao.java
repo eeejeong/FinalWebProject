@@ -68,4 +68,9 @@ public class RequestDao {
 		return requestList;
 	}
 
+	public int updateStatus(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateStatus", order_id);
+		return rows;
+	}
+
 }

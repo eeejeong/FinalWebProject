@@ -13,6 +13,17 @@
 	href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+	function deliveringBtn(order_id){
+		$.ajax({
+			url : 'request/deliveringClicked?order_id=' + order_id,
+			success : function(data) {
+				location.reload();
+			}
+		});
+		
+	}
+</script>
 <style>
 div.title {
 	width: 100%;
@@ -68,7 +79,7 @@ div.dropdown {
 							<td style="width: auto; vertical-align: middle"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${req.order_date}"></fmt:formatDate> </td>
 							<td style="width: auto; vertical-align: middle">
 								<c:if test="${req.order_status == 'REQUESTED'}">
-									<button type="button" class="btn btn-outline-info">접수</button>
+									<button type="button" class="btn btn-outline-info" onclick="deliveringBtn(${req.order_id})">접수</button>
 								</c:if> 
 								<c:if test="${req.order_status == 'DELIEVERING'}">
 									배송 중

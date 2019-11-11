@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -252,6 +253,27 @@ public class RequestController {
 		model.addAttribute("sup_names", sup_names);
 		
 		return "/request/medrequest_popuplist";
+	}
+	
+	@RequestMapping("/deliveringClicked")
+	public void deliveringClicked(int order_id, HttpServletResponse response) throws Exception {
+		service.changeStatus(order_id);
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", "ok");
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+		
+	}
+	
+	@GetMapping("/showMap")
+	public String showMap(double lat, double lng, Model model) {
+		model.addAttribute("lat", lat);
+		model.addAttribute("lng", lng);	
+		return "/request/showMap";
 	}
 	
 }
