@@ -18,6 +18,23 @@
 		<collection property="supplyitems" resultMap="supitems" ></collection>
 	</resultMap>
 	
+	<resultMap type="com.medirone.web.dto.Agency" id="agency">
+		<result column="agency_id" property="agency_id"/>
+		<result column="agency_name" property="agency_name"/>
+		<result column="agency_latitude" property="agency_latitude"/>
+		<result column="agency_longitude" property="agency_longitude"/>
+	</resultMap>
+	
+	<resultMap type="com.medirone.web.dto.Request" id="requestDetail">
+		<result column="order_id" property="order_id"/>
+		<result column="order_agency_id" property="order_agency_id"/>
+		<result column="order_date" property="order_date"/>
+		<result column="order_need_time" property="order_need_time"/>
+		<result column="order_status" property="order_status"/>
+		<result column="delivered_date" property="delivered_date"/>	
+		<collection property="agency" resultMap="agency" ></collection>
+	</resultMap>
+	
 	<select id="selectMedrequest_popuplist1"  parameterType="int"  resultMap="reqitems">
       	select supply_items.sup_name, request_items.item_amount 
 		from request_items
@@ -67,12 +84,34 @@
 		where rn &gt;= #{startRowNo}
 	</select>
 	
+	<select id="selectGcsRequestList"  parameterType="map"  resultMap="requestDetail">		
+		select rn, ORDER_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+		from(
+			select rownum as rn, ORDER_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+			from(
+				select ORDER_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+				from request join agency
+				on request.ORDER_AGENCY_ID = agency.AGENCY_ID
+				where ORDER_STATUS = 'DELIEVERING'
+				order by order_need_time asc
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	
+	
 	<select id="selectTotalRowNum" parameterType="String" resultType="int">
 		select count(*) from request where order_agency_id = #{agency_id}
 	</select>
 	
 	<select id="selectTotalRowNumAdmin" parameterType="String" resultType="int">
 		select count(*) from request
+	</select>
+	
+	<select id="selectTotalRowNumGcs" resultType="int">
+		select count(*) from request where order_status='DELIEVERING'
 	</select>
 	
 	<update id="updateStatus" parameterType="int">

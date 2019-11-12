@@ -81,6 +81,7 @@ div.dropdown {
 		}
 	}
 
+	/*
 	function checkboxClick(sup_id) {
 		if ($("#checkbox" + sup_id).prop("checked")) {
 			$("#sup_amount" + sup_id).prop("readonly", false);
@@ -91,11 +92,9 @@ div.dropdown {
 			$("#completeBtn" + sup_id).prop("disabled", true);
 		}
 	}
+	*/
 
 	function completeBtnClick(sup_id, sup_amount, request_amount) {
-		$("#sup_amount" + sup_id).prop("readonly", true);
-		$("#completeBtn" + sup_id).prop("disabled", true);
-		$("#checkbox" + sup_id).prop("checked", false);
 		$("input[name=inputtext]").val("");
 		$("input[name=inputtext1]").val("");
 		if (request_amount == "") {

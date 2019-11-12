@@ -12,7 +12,7 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 		<script>
 			function showPopup() { 
-				var url = 'request/showMap?lat=37.4950924317002&lng=127.12253304316587';
+				var url = 'request/showMap';
 				window.open(url, "showMap", "width=1000, height=800, left=100, top=50"); 
 				}
 		</script>

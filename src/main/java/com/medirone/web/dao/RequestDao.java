@@ -28,6 +28,11 @@ public class RequestDao {
 		return totalRowNum;
 	}
 
+	public int selectTotalRowNoGcs() {
+		int totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumGcs");
+		return totalRowNum;
+	}
+	
 	public List<SupplyItems> selectMedrequestList(int startRowNo, int endRowNo) {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("startRowNo", startRowNo);
@@ -68,9 +73,21 @@ public class RequestDao {
 		return requestList;
 	}
 
+	public List<Request> selectGcsRequestList(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<Request> requestList = sqlSessionTemplate.selectList("request.selectGcsRequestList", map);
+		return requestList;
+	}
+	
 	public int updateStatus(int order_id) {
 		int rows = sqlSessionTemplate.update("request.updateStatus", order_id);
 		return rows;
 	}
+
+	
+
+	
 
 }

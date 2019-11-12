@@ -184,6 +184,7 @@
 			
 			</script>
 			
+			
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
@@ -319,64 +320,7 @@
 	    	</form>  
 			</div>    	
     	
-    	<!-- 카카오 지도 API -->
-			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0cef5f118d942254be778baadfb2acb4&libraries=services"></script>
-			<script>
-			function SearchLatLng() {
-				
-				var searchedAdd = document.getElementById("agency_address").value;
-				
-				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-				// 주소 검색을 하지 않은 경우, 기본으로 협회 주소 표시
-				mapOption = { 
-				    center: new kakao.maps.LatLng(37.4950924317002, 127.12253304316587), // 지도의 중심좌표
-				    level: 3 // 지도의 확대 레벨
-				};
-				
-				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-				
-				// 지도를 클릭한 위치에 표출할 마커입니다
-				var marker = new kakao.maps.Marker({ 
-				    // 지도 중심좌표에 마커를 생성합니다 
-				    position: map.getCenter() 
-				}); 
-				// 지도에 마커를 표시합니다
-				marker.setMap(map);
-				
-				// 주소-좌표 변환 객체를 생성합니다
-				var geocoder = new kakao.maps.services.Geocoder();
-
-				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch(searchedAdd, function(result, status) {
-
-				    // 정상적으로 검색이 완료됐으면 
-				     if (status === kakao.maps.services.Status.OK) {
-				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);		       
-				        marker.setPosition(coords);
-				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-				        map.setCenter(coords);
-				    } 
-				});
-				
-				// 지도에 클릭 이벤트를 등록합니다
-				// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-				kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-				    
-				    // 클릭한 위도, 경도 정보를 가져옵니다 
-				    var latlng = mouseEvent.latLng; 
-				    
-				    // 마커 위치를 클릭한 위치로 옮깁니다
-				    marker.setPosition(latlng);
-				    
-				    var lat = latlng.getLat();
-				    var lng = latlng.getLng();
-				    
-				    document.getElementById("agency_latitude").value = lat;
-				    document.getElementById("agency_longitude").value = lng;
-				    
-				});
-			}
-			</script> 
+    	
 
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</body>

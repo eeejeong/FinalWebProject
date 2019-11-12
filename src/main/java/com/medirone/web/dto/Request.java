@@ -12,8 +12,15 @@ public class Request {
 	private String order_need_time;
 	private OrderStatus order_status;
 	private Date delivered_date;
+	private Agency agency;
 
 	
+	public Agency getAgency() {
+		return agency;
+	}
+	public void setAgency(Agency agency) {
+		this.agency = agency;
+	}
 	public int getOrder_id() {
 		return order_id;
 	}
