@@ -99,4 +99,8 @@
 		from supply_Items where sup_class=1 and sup_name like '%'||#{sup_name}||'%' order by sup_id	
 	</select>
 	
+	<update id="updateRequest" parameterType="com.medirone.web.dto.SupplyItems">
+		update supply_items set sup_amount = sup_amount-#{sup_amount} where sup_id=#{sup_id}
+	</update>
+	
 </mapper>

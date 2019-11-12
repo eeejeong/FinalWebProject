@@ -3,7 +3,7 @@
 <table style="margin: auto; text-align: center;" class="table table-sm">
 	<thead>
 		<tr style="background-color: #dcdcdc">
-			<th scope="col">선택</th>
+			<!-- <th scope="col">선택</th> -->
 			<th scope="col">의약품 번호</th>
 			<th scope="col">이름</th>
 			<th scope="col">무게(g)</th>
@@ -14,20 +14,20 @@
 	<tbody>
 		<c:forEach items="${bloodList}" var="blood">
 			<tr>
-				<td width="50" style="vertical-align: middle;"><input
+				<%-- <td width="50" style="vertical-align: middle;"><input
 					id="checkbox${blood.sup_id}" type="checkbox"
 					name="medicineCheckBox" onclick="checkboxClick(${blood.sup_id});">
-				</td>
+				</td> --%>
 				<td style="vertical-align: middle;">${blood.sup_id}</td>
 				<td style="vertical-align: middle; width: auto">${blood.sup_name}</td>
 				<td style="vertical-align: middle; width: auto">${blood.sup_weight}</td>
 				<td style="vertical-align: middle; width: auto">
 				<input name="inputtext1" id="sup_amount${blood.sup_id}" type="number" class="form-control"
-					placeholder="최대 ${blood.sup_amount}개 선택 가능" readonly></td>
+					placeholder="최대 ${blood.sup_amount}개 선택 가능" ></td>
 				<td style="vertical-align: middle;">
 					<button type="button" class="btn btn-outline-info"
 						id="completeBtn${blood.sup_id}"
-						onclick="completeBtnClick(${blood.sup_id}, ${blood.sup_amount}, $('#sup_amount${blood.sup_id}').val());" disabled>담기</button>
+						onclick="completeBtnClick(${blood.sup_id}, ${blood.sup_amount}, $('#sup_amount${blood.sup_id}').val());" >담기</button>
 				</td>
 			</tr>
 		</c:forEach>

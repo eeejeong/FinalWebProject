@@ -195,15 +195,13 @@
 	    			<div class="form-group col-md-6">
 	      				<label for="agency_id">아이디</label>
 	      				<div class="input-group mb-3">		  	
-	  				<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
-	  				<div class="input-group-append">
-	    				<input onclick="checkAgencyId()" type="button" class="btn btn-outline-mint" value="중복확인"/>   				
-	  		   		</div>
-	  		   		
-			  		</div>
-			  		<span id="agency_idError" class="error" style="color:red"></span>
-	    			</div>
-	    			
+	  						<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
+	  						<div class="input-group-append">
+	    						<input onclick="checkAgencyId()" type="button" class="btn btn-outline-mint" value="중복확인"/>   				
+	  		   				</div>	  	   		
+			  			</div>
+			  			<span id="agency_idError" class="error" style="color:red"></span>
+	    			</div>	    			
 	    		</div>
 	    	
 		    	<div class="form-row">

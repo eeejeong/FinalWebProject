@@ -6,7 +6,7 @@
 	<table style="margin: auto; text-align:center;" class="table table-sm">
 	  <thead>
 	    <tr style="background-color:#dcdcdc">
-	      <th scope="col">선택 </th>
+	      <!-- <th scope="col">선택 </th> -->
 	      <th scope="col">의약품 번호</th>
 	      <th scope="col">이름</th>			      
 	      <th scope="col">무게(g)</th>
@@ -18,18 +18,18 @@
 	 
 	  	<c:forEach items="${medrequestList}" var="med">
 	  		<tr id="reset${reset}">
-	  			<td width="50" style="vertical-align:middle;">
-			     	 <input id="checkbox${med.sup_id}" type="checkbox" name="medicineCheckBox" onclick="checkboxClick(${med.sup_id});"> </td>
+	  			<%--<td width="50" style="vertical-align:middle;">
+			     	  <input id="checkbox${med.sup_id}" type="checkbox" name="medicineCheckBox" onclick="checkboxClick(${med.sup_id});"> </td> --%>
 	  			<td class="col_sup_id" id="${med.sup_id}" style="vertical-align: middle;">${med.sup_id}</td>
 	  			<td class="col_sup_name" id="${med.sup_name}" style="vertical-align: middle; width: auto">${med.sup_name}</td>
 	  			<td class="col_sup_weight" id="${med.sup_weight}"style="vertical-align: middle; width: auto">${med.sup_weight}</td>
 	  			<td style="vertical-align: middle; width: auto">
-	  				<input name="inputtext" id="sup_amount${med.sup_id}"  type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능" readonly>
+	  				<input name="inputtext" id="sup_amount${med.sup_id}"  type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능" >
 	  			</td>
 	  			
 	  			<td style="vertical-align: middle;">
 	  				<button name="btn" type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" 
-	  				onclick="completeBtnClick(${med.sup_id}, ${med.sup_amount}, $('#sup_amount${med.sup_id}').val());" disabled>담기</button>
+	  				onclick="completeBtnClick(${med.sup_id}, ${med.sup_amount}, $('#sup_amount${med.sup_id}').val());" >담기</button>
 				</td>
 				
 	  		</tr>			  	

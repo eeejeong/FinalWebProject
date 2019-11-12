@@ -52,6 +52,7 @@ div.dropdown {
 
 
 <script type="text/javascript">
+/*
 	$(function() {
 		$("#time1").timepicker({
 			step : 5, //시간간격 : 5분
@@ -72,7 +73,7 @@ div.dropdown {
 		});
 
 	});
-
+	*/
 	window.rCheck = false;
 	function first() {
 		if (!rCheck) {
@@ -81,7 +82,7 @@ div.dropdown {
 		}
 	}
 
-	function checkboxClick(sup_id) {
+	/* function checkboxClick(sup_id) {
 		if ($("#checkbox" + sup_id).prop("checked")) {
 			$("#sup_amount" + sup_id).prop("readonly", false);
 			$("#completeBtn" + sup_id).prop("disabled", false);
@@ -90,12 +91,10 @@ div.dropdown {
 			$("#sup_amount" + sup_id).prop("readonly", true);
 			$("#completeBtn" + sup_id).prop("disabled", true);
 		}
-	}
+	} */
 
 	function completeBtnClick(sup_id, sup_amount, request_amount) {
-		$("#sup_amount" + sup_id).prop("readonly", true);
-		$("#completeBtn" + sup_id).prop("disabled", true);
-		$("#checkbox" + sup_id).prop("checked", false);
+		/* $("#checkbox" + sup_id).prop("checked", false); */
 		$("input[name=inputtext]").val("");
 		$("input[name=inputtext1]").val("");
 		if (request_amount == "") {
@@ -116,12 +115,8 @@ div.dropdown {
 										+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
 										+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
 										+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
-										+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="'
-										+ (data.sup_weight * request_amount)
-										+ '" readonly/> </td>'
-										+ '<td> <input name="delete" onclick="deleteRow(this,'
-										+ sup_id
-										+ ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+										+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
+										+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
 										+ "</tr>");
 					}
 				});
@@ -132,6 +127,8 @@ div.dropdown {
 	function deleteRow(obj, sup_id) {
 		var tr = $(obj).parent().parent();
 		$('#completeBtn' + sup_id).css("display", "inline");
+		$("#sup_amount" + sup_id).prop("readonly", false);
+		$("#completeBtn" + sup_id).prop("disabled", false);
 		tr.remove();
 	}
 
@@ -175,43 +172,46 @@ div.dropdown {
 		if (checkTotalWeight) {
 			var needDate = date + " " + time;
 			var itemArray = [];
+			
 			// 첫 제목 행을 제외한 테이블 행 수
 			var len = ($("#requestTable tr").length) - 1;
 
 			for (var i = 0; i < len; i++) {
 				var item = "";
-				item += $("input[name=col1]").eq(i).val() + ",";
-				item += $("input[name=col2]").eq(i).val() + ",";
-				item += $("input[name=col3]").eq(i).val() + ",";
-				item += $("input[name=col4]").eq(i).val() + ",";
+				item += $("input[name=col1]").eq(i).val() + "&&";
+				item += $("input[name=col2]").eq(i).val() + "&&";
+				item += $("input[name=col3]").eq(i).val() + "&&";
+				item += $("input[name=col4]").eq(i).val() + "&&";
 				item += $("input[name=col5]").eq(i).val()
 				itemArray.push(item);
+			}	
+			
+		jQuery.ajaxSettings.traditional = true;
+
+		$.ajax({
+			method : "POST",
+			data : {
+				"itemArray" : itemArray,
+				"needDate" : needDate
+				},
+			url : 'requestComplete',
+			success : function(data) {
+				alert(data);
+				if (data.result == true) {
+					location.replace("http://localhost:8080/FinalWebProject/request");
+				} 
+				location.replace("http://localhost:8080/FinalWebProject/request");	
+			},
+			error : function(data) {
+				console.log(data);
+				alert("필요한 의료품을 담아주세요");
+				/* alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error); */
 			}
-
-			jQuery.ajaxSettings.traditional = true;
-
-			$.ajax({
-				method : "POST",
-				data : {
-					"itemArray" : itemArray,
-					"needDate" : needDate
-				},
-				url : 'requestComplete',
-				error : function(request, error) {
-					alert("필요한 의료품을 담아주세요")
-					/* alert("code:" + request.status + "\n" + "message:"
-							+ request.responseText + "\n" + "error:"
-							+ error); */
-				},
-				success : function(data) {
-					if (data.result == "ok") {
-						alert("!!");
-						location.replace("http://localhost:8080/FinalWebProject/request/");
-					}
-				}
-			});
-		}
+		});
 	}
+}
 </script>
 
 </head>
@@ -267,10 +267,8 @@ div.dropdown {
 
 		<form style="float: right;" class="form-inline my-2 my-lg-0" method="post">
 			<div style="display: flex; margin-top: 10px;">
-				<input class="form-control mr-sm-2" type="text" name="date"
-					id="date2" size="8" /> <input class="form-control mr-sm-2"
-					type="text" name="time1" value="" placeholder="시간선택" id="time1"
-					required size="8" maxlength="5">
+				<input class="form-control mr-sm-2" type="text" name="dateInput" id="dateInput" placeholder="날짜선택" size="8" /> 
+				<input class="form-control mr-sm-2" type="text" name="timeInput" id="timeInput" placeholder="시간선택" required size="8" maxlength="5"/>
 				<div style="height: 20px;" class="input-group mb-3">
 				  <div class="input-group-prepend">
 				    <button class="btn btn-outline-dark" type="button" id="button-addon1" onclick="totalWeight()">총 무게 계산</button>
@@ -278,7 +276,7 @@ div.dropdown {
 				<input class="form-control mr-sm-2" id="totalWeightInput" name="totalWeightInput" type="text" placeholder="총 무게" aria-label="총 무게" />
 				</div>				
 				<h6 style="margin-right: 5px; margin-top: 10px;">g</h6>
-				<input type="submit" class="btn btn-mint" onclick="completeRequestBtn(date2.value, time1.value)" value="요청 완료" />
+				<input type="submit" class="btn btn-mint" onclick="completeRequestBtn(dateInput.value, timeInput.value)" value="요청 완료" />
 			</div>
 		</form>
 	</div>

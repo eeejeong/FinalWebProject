@@ -30,7 +30,7 @@ public class RequestController {
 	private ItemManagementService itemService;
 	
 	@Autowired
-	private RequestService service;
+	private RequestService requestService;
 
 	@RequestMapping("")
 	public String medrequest(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session, String agency_id) {
@@ -44,7 +44,7 @@ public class RequestController {
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
 		int pagesPerGroup = 5;
 		// 전체 게시물 수
-		int totalRowNum = service.getTotalRowNo(agency_id);
+		int totalRowNum = requestService.getTotalRowNo(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
 		if (totalRowNum % rowsPerPage != 0)
@@ -74,9 +74,9 @@ public class RequestController {
 		
 		// 현재 페이지의 게시물 가져오기
 		if(agency_id.equals("admin")) {
-			requestList = service.getAdminRequestList(startRowNo, endRowNo);
+			requestList = requestService.getAdminRequestList(startRowNo, endRowNo);
 		} else {
-			requestList = service.getRequestList(startRowNo, endRowNo, agency_id);
+			requestList = requestService.getRequestList(startRowNo, endRowNo, agency_id);
 		}
 
 		// JSP로 페이지 정보 넘기기
@@ -207,39 +207,51 @@ public class RequestController {
 		request.setOrder_agency_id(agency_id);
 		request.setOrder_need_time(needDate);
 		request.setOrder_status(OrderStatus.REQUESTED);
-
+		
 		// Request DB에 insert
-		service.addRequest(request);
+		requestService.addRequest(request);
 		
 		for(String item : itemArray) {
-			String[] itemProp= item.split(",");
+			String[] itemProp= item.split("&&");
 			RequestItems requestItem = new RequestItems();
+			SupplyItems supplyItems = new SupplyItems();
+			
 			requestItem.setItem_id(Integer.parseInt(itemProp[0]));
+			supplyItems.setSup_id(Integer.parseInt(itemProp[0]));
+					
 			if(itemProp[1].equals("백신")) {
 				requestItem.setItem_class(1);
+				supplyItems.setSup_class(1);
 			} else if(itemProp[1].equals("혈액")){
 				requestItem.setItem_class(2);
+				supplyItems.setSup_class(2);
 			}
-			requestItem.setItem_amount(Integer.parseInt(itemProp[3]));
 			
-			service.addRequestItems(requestItem);
+			requestItem.setItem_amount(Integer.parseInt(itemProp[3]));
+			supplyItems.setSup_amount(Integer.parseInt(itemProp[3]));
+			
+			requestService.addRequestItems(requestItem);
+			itemService.updateRequest(supplyItems);			
 		}
+		
+		System.out.println("=================================");
+		System.out.println("여기까지 오기는 함");
+		System.out.println("=================================");
 		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("result", "ok");
+		jsonObject.put("result", true);
 		pw.print(jsonObject.toString());
 		pw.flush();
-		pw.close();
-		
+		pw.close();		
 	}
 	
 	@RequestMapping("/medrequest_popuplist")
 	public String medrequest_popuplist(Model model, int order_id) {
 		System.out.println("===============됐나요===============");
 		// 현재 페이지의 게시물 가져오기
-		List<RequestItems> medrequest_popuplist1 = service.getMedrequest_popuplist1(order_id);
+		List<RequestItems> medrequest_popuplist1 = requestService.getMedrequest_popuplist1(order_id);
 		
 		//의약품 이름 출력하기
 		//의약품 이름 배열 만들기
@@ -257,7 +269,7 @@ public class RequestController {
 	
 	@RequestMapping("/deliveringClicked")
 	public void deliveringClicked(int order_id, HttpServletResponse response) throws Exception {
-		service.changeStatus(order_id);
+		requestService.changeStatus(order_id);
 		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
