@@ -92,4 +92,9 @@ public class ItemManagementService {
 		SupplyItems medicine = medDao.selectItemById(sup_id);
 		return medicine;
 	}
+
+	public void updateRequest(SupplyItems supplyItems) {
+		medDao.updateRequest(supplyItems);		
+	}
+	
 }

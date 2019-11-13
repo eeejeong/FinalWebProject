@@ -207,36 +207,48 @@ public class RequestController {
 	@RequestMapping("/requestComplete")
 	public void requestComplete(String[] itemArray, String needDate, HttpSession session, HttpServletResponse response) throws Exception {
 		String agency_id = (String) session.getAttribute("agency_Id");
-		
 		Request request = new Request();
 		request.setOrder_agency_id(agency_id);
 		request.setOrder_need_time(needDate);
 		request.setOrder_status(OrderStatus.REQUESTED);
-
+		
 		// Request DB에 insert
 		requestService.addRequest(request);
 		
 		for(String item : itemArray) {
-			String[] itemProp= item.split(",");
+			String[] itemProp= item.split("&&");
 			RequestItems requestItem = new RequestItems();
+			SupplyItems supplyItems = new SupplyItems();
+			
 			requestItem.setItem_id(Integer.parseInt(itemProp[0]));
+			supplyItems.setSup_id(Integer.parseInt(itemProp[0]));
+					
 			if(itemProp[1].equals("백신")) {
 				requestItem.setItem_class(1);
+				supplyItems.setSup_class(1);
 			} else if(itemProp[1].equals("혈액")){
 				requestItem.setItem_class(2);
+				supplyItems.setSup_class(2);
 			}
+			
 			requestItem.setItem_amount(Integer.parseInt(itemProp[3]));
+			supplyItems.setSup_amount(Integer.parseInt(itemProp[3]));
 			
 			requestService.addRequestItems(requestItem);
+			itemService.updateRequest(supplyItems);			
 		}
+		
+		System.out.println("=================================");
+		System.out.println("여기까지 오기는 함");
+		System.out.println("=================================");
 		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("result", "ok");
+		jsonObject.put("result", true);
 		pw.print(jsonObject.toString());
 		pw.flush();
-		pw.close();
+		pw.close();	
 		
 	}
 	

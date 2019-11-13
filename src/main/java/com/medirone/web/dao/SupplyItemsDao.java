@@ -99,4 +99,10 @@ public class SupplyItemsDao {
 		SupplyItems medicine = sqlSessionTemplate.selectOne("supplyItems.selectItemById", sup_id);
 		return medicine;
 	}
+
+	public int updateRequest(SupplyItems supplyItems) {
+		int rows = sqlSessionTemplate.update("supplyItems.updateRequest", supplyItems);
+		return rows;
+		
+	}
 }

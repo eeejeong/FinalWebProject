@@ -95,11 +95,11 @@ function checkForm(){
 	$(".error").text("");
 	
 	if($("#agency_id").val()==""){
-		$("#errorAgency_id").text("*아이디를 입력하세요 ");
+		$("#errorAgency_id").text("*아이디를 입력하세요.");
 		result = false;
 	}
 	if($("#agency_password").val()==""){
-		$("#errorAgency_password").text("*비밀번호를 입력하세요");
+		$("#errorAgency_password").text("*비밀번호를 입력하세요.");
 		result = false;
 	}
 	return result;
@@ -110,38 +110,36 @@ function checkForm(){
 </head>
 <body>
 	<div id="wrap">
-	<div id="inwrapper">
-		<div id="header">
-			<div id="logo">
-				<a href="<%= request.getContextPath()%>">
-				<img
-					src="<%=application.getContextPath()%>/resources/image/medirone_logo.png"
-					alt="로고" />
-				</a>
+		<div id="inwrapper">
+			<div id="header">
+				<div id="logo">
+					<a href="<%= request.getContextPath()%>">
+					<img
+						src="<%=application.getContextPath()%>/resources/image/medirone_logo.png"
+						alt="로고" />
+					</a>
+				</div>
 			</div>
-		</div>
-
-		<div id="content">
-			<div id="loginForm">
-			<form method="post" action="login" onsubmit="return checkForm()">
-					<div class="form-group">
-						<label for="agency_id">ID</label> 
-						<input id="agency_id" type="text" name="agency_id" class="form-control" placeholder="" /> 
-						<span id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
-					</div>
 	
-					<div class="form-group">
-						<label for="agency_password"> PASSWORD</label> <input
-							id="agency_password" name="agency_password" class="form-control"
-							type="password" placeholder="" /> <span
-							id="errorAgency_password" class="error" style="color: red">${errorAgency_password}</span>
-	
-					</div>
-					<button type="submit" class="btn btn-danger loginbtn">로그인</button>
-					<br/> <a style="margin-top: 15px;" href="join/" class="btn btn-dark joinbtn">회원가입</a>			
-				</form>
+			<div id="content">
+				<div id="loginForm">
+					<form method="post" action="login" onsubmit="return checkForm()">
+						<div class="form-group">
+							<label for="agency_id">ID</label> 
+							<input id="agency_id" type="text" name="agency_id" class="form-control" placeholder="" /> 
+							<span id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
+						</div>
+			
+						<div class="form-group">
+							<label for="agency_password"> PASSWORD</label> 
+							<input id="agency_password" name="agency_password" class="form-control" type="password" placeholder="" /> 
+							<span id="errorAgency_password" class="error" style="color: red">${errorAgency_password}</span>			
+						</div>
+							<button type="submit" class="btn btn-danger loginbtn">로그인</button><br/>   
+							<a style="margin-top: 15px;" href="join/" class="btn btn-dark joinbtn">회원가입</a>			
+					</form>
+				</div>
 			</div>
-		</div>
 		</div>
 		<jsp:include page="../common/footer.jsp"></jsp:include>
 	</div>

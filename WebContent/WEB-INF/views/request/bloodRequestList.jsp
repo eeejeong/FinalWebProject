@@ -13,12 +13,15 @@
 	<tbody>
 		<c:forEach items="${bloodList}" var="blood">
 			<tr>
+				<%-- <td width="50" style="vertical-align: middle;"><input
+					id="checkbox${blood.sup_id}" type="checkbox"
+					name="medicineCheckBox" onclick="checkboxClick(${blood.sup_id});">
+				</td> --%>
 				<td style="vertical-align: middle;">${blood.sup_id}</td>
 				<td style="vertical-align: middle; width: auto">${blood.sup_name}</td>
 				<td style="vertical-align: middle; width: auto">${blood.sup_weight}</td>
 				<td style="vertical-align: middle; width: auto">
-				<input name="inputtext1" id="sup_amount${blood.sup_id}" type="number" class="form-control"
-					placeholder="최대 ${blood.sup_amount}개 선택 가능"></td>
+				<input name="inputtext1" id="sup_amount${blood.sup_id}" type="number" class="form-control" placeholder="최대 ${blood.sup_amount}개 선택 가능"/></td>
 				<td style="vertical-align: middle;">
 					<button type="button" class="btn btn-outline-mint"
 						id="completeBtn${blood.sup_id}"
