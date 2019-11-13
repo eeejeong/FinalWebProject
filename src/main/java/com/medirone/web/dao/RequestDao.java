@@ -73,4 +73,15 @@ public class RequestDao {
 		return rows;
 	}
 
+	public List<RequestItems> selectRequestItemsByOrderId(int order_id) {
+		List<RequestItems> requestItems = sqlSessionTemplate.selectList("request.selectRequestItemsByOrderId", order_id);
+		return requestItems;
+	}
+
+	public int deleteRequestByOrderId(int order_id) {
+		int rows = sqlSessionTemplate.delete("request.deleteRequestItemsByOrderId", order_id);
+		sqlSessionTemplate.delete("request.deleteRequestByOrderId", order_id);
+		return rows;
+	}
+
 }

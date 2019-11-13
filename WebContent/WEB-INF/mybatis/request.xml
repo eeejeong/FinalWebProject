@@ -19,7 +19,7 @@
 	</resultMap>
 	
 	<select id="selectMedrequest_popuplist1"  parameterType="int"  resultMap="reqitems">
-      	select supply_items.sup_name, request_items.item_amount 
+      	select order_id, supply_items.sup_name, request_items.item_amount 
 		from request_items
 		join supply_items
 		on request_items.item_id = supply_items.sup_id
@@ -78,5 +78,19 @@
 	<update id="updateStatus" parameterType="int">
 		update request set order_status='DELIEVERING' where order_id=#{order_id}
 	</update>
+	
+	<select id="selectRequestItemsByOrderId" parameterType="int" resultType="com.medirone.web.dto.RequestItems">
+		select * from request_items where order_id = #{order_id}
+	</select>
+	
+	<delete id="deleteRequestItemsByOrderId" parameterType="int">
+		delete from request_items
+		where order_id = #{order_id}
+	</delete>
+	
+	<delete id="deleteRequestByOrderId" parameterType="int">
+		delete from request
+		where order_id = #{order_id}
+	</delete>
 
 </mapper>

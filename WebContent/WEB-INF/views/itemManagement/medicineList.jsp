@@ -141,10 +141,10 @@
 				      	<input id="sup_name${med.sup_id}"  type="text" class="form-control" value="${med.sup_name}" readonly>
 					  </td>
 				      <td style="width:auto; vertical-align:middle">
-					    <input id="sup_amount${med.sup_id}" type="number" class="form-control" value="${med.sup_amount}" readonly>
+					    <input id="sup_amount${med.sup_id}" type="number" class="form-control" placeholder="${med.sup_amount}" readonly>
 					  </td>
 				      <td style="width:auto; vertical-align:middle">
-				      	<input id="sup_weight${med.sup_id}" type="number" class="form-control" value="${med.sup_weight}" readonly>
+				      	<input id="sup_weight${med.sup_id}" type="number" class="form-control" placeholder="${med.sup_weight}" readonly>
 				      </td>
 				      <td>
 				      <button type="button" class="btn btn-outline-mint" id="updateBtn${med.sup_id}" onclick="update(${med.sup_id})" style="display:inline">수정</button>

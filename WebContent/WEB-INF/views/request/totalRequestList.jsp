@@ -82,17 +82,6 @@ div.dropdown {
 		}
 	}
 
-	/* function checkboxClick(sup_id) {
-		if ($("#checkbox" + sup_id).prop("checked")) {
-			$("#sup_amount" + sup_id).prop("readonly", false);
-			$("#completeBtn" + sup_id).prop("disabled", false);
-		}
-		if ($("#checkbox" + sup_id).prop("checked") == false) {
-			$("#sup_amount" + sup_id).prop("readonly", true);
-			$("#completeBtn" + sup_id).prop("disabled", true);
-		}
-	} */
-
 	function completeBtnClick(sup_id, sup_amount, request_amount) {
 		/* $("#checkbox" + sup_id).prop("checked", false); */
 		$("input[name=inputtext]").val("");
@@ -108,16 +97,15 @@ div.dropdown {
 				$.ajax({
 					url : "searchItemById?sup_id=" + sup_id,
 					success : function(data) {
-						$("#resultList")
-								.append(
-										"<tr>"
-										+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
-										+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
-										+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
-										+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
-										+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
-										+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
-										+ "</tr>");
+						$("#resultList").append(
+							"<tr>"
+							+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
+							+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
+							+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
+							+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
+							+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
+							+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+							+ "</tr>");
 					}
 				});
 			}
@@ -166,10 +154,19 @@ div.dropdown {
 			return true;
 		}
 	}
+	
+	function dateTime(date, time) {
+		if(date == "" || time == "") {
+			alert("시간과 날짜를 입력해주세요.");
+			return false;
+		}
+		return true;
+	}
 
 	function completeRequestBtn(date, time) {
 		var checkTotalWeight = totalWeight();
-		if (checkTotalWeight) {
+		var checkDateTime = dateTime(date, time);
+		if (checkTotalWeight && checkDateTime) {
 			var needDate = date + " " + time;
 			var itemArray = [];
 			
@@ -195,19 +192,12 @@ div.dropdown {
 				"needDate" : needDate
 				},
 			url : 'requestComplete',
-			success : function(data) {
-				alert(data);
-				if (data.result == true) {
-					location.replace("http://localhost:8080/FinalWebProject/request");
-				} 
-				location.replace("http://localhost:8080/FinalWebProject/request");	
+			success : function(data) {				
+				location.replace("http://localhost:8080/FinalWebProject/request");
 			},
 			error : function(data) {
 				console.log(data);
 				alert("필요한 의료품을 담아주세요");
-				/* alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:"
-						+ error); */
 			}
 		});
 	}
@@ -276,7 +266,7 @@ div.dropdown {
 				<input class="form-control mr-sm-2" id="totalWeightInput" name="totalWeightInput" type="text" placeholder="총 무게" aria-label="총 무게" />
 				</div>				
 				<h6 style="margin-right: 5px; margin-top: 10px;">g</h6>
-				<input type="submit" class="btn btn-mint" onclick="completeRequestBtn(dateInput.value, timeInput.value)" value="요청 완료" />
+				<input type="button" class="btn btn-mint" onclick="completeRequestBtn(dateInput.value, timeInput.value)" value="요청 완료" />
 			</div>
 		</form>
 	</div>

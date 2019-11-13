@@ -104,7 +104,11 @@ public class SupplyItemsDao {
 
 	public int updateRequest(SupplyItems supplyItems) {
 		int rows = sqlSessionTemplate.update("supplyItems.updateRequest", supplyItems);
+		return rows;	
+	}
+
+	public int updateCancelledItems(RequestItems item) {
+		int rows = sqlSessionTemplate.update("supplyItems.updateCancelledItems", item);
 		return rows;
-		
 	}
 }

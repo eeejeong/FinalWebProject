@@ -249,7 +249,6 @@ public class RequestController {
 	
 	@RequestMapping("/medrequest_popuplist")
 	public String medrequest_popuplist(Model model, int order_id) {
-		System.out.println("===============됐나요===============");
 		// 현재 페이지의 게시물 가져오기
 		List<RequestItems> medrequest_popuplist1 = requestService.getMedrequest_popuplist1(order_id);
 		
@@ -286,6 +285,19 @@ public class RequestController {
 		model.addAttribute("lat", lat);
 		model.addAttribute("lng", lng);	
 		return "/request/showMap";
+	}
+	
+	@RequestMapping("/cancelRequest")
+	public void cancelRequest(int order_id) {
+		List<RequestItems> requestItems = requestService.getRequestItemsByOrderId(order_id);
+		
+		// 삭제한 의약품 수량만큼 의약품 테이블 개수 더해주기
+		for(RequestItems item : requestItems) {
+			itemService.updateCancelledItems(item);
+		}
+		
+		// 삭제한 order_id에 해당하는 request_items과 request 테이블 지우기
+		requestService.deleteRequestByOrderId(order_id);
 	}
 	
 }

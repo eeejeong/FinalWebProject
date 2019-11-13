@@ -140,8 +140,8 @@
 					      </td>
 					      <td style="vertical-align:middle; width: auto;">${blood.sup_id}</td>		
 					      <td style="vertical-align:middle; width: auto;"><input id="nameForm${blood.sup_id}" class="form-control" type="text" value="${blood.sup_name}" readonly></td>	
-					      <td style="vertical-align:middle; width: auto"><input id="amountForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_amount}" readonly></td>	
-					      <td style="vertical-align:middle; width: auto"><input id="weightForm${blood.sup_id}" class="form-control" type="number" value="${blood.sup_weight}" readonly></td>				      
+					      <td style="vertical-align:middle; width: auto"><input id="amountForm${blood.sup_id}" class="form-control" type="number" placeholder="${blood.sup_amount}" readonly></td>	
+					      <td style="vertical-align:middle; width: auto"><input id="weightForm${blood.sup_id}" class="form-control" type="number" placeholder="${blood.sup_weight}" readonly></td>				      
 					      <td>
 					      	<button id="updateBtn${blood.sup_id}" type="button" class="btn btn-outline-mint" onclick="updateBtn(${blood.sup_id})" style="display:inline">수정</button>
 					      	<button id="completeBtn${blood.sup_id}" type="button" class="btn btn-outline-mint" onclick="completeBtn(${blood.sup_id})" style="display:none">완료</button>

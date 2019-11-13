@@ -56,5 +56,14 @@ public class RequestService {
 		
 	}
 
+	public List<RequestItems> getRequestItemsByOrderId(int order_id) {
+		List<RequestItems> requestItems = requestDao.selectRequestItemsByOrderId(order_id);
+		return requestItems;
+	}
+
+	public void deleteRequestByOrderId(int order_id) {
+		requestDao.deleteRequestByOrderId(order_id);
+	}
+
 
 }

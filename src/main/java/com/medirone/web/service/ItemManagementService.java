@@ -99,4 +99,10 @@ public class ItemManagementService {
 		medDao.updateRequest(supplyItems);
 		
 	}
+
+	public void updateCancelledItems(RequestItems item) {
+		medDao.updateCancelledItems(item);
+	}
+
+
 }
