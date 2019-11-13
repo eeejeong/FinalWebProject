@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.medirone.web.dto.Request;
 import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 

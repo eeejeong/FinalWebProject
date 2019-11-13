@@ -82,8 +82,13 @@ div.dropdown {
 		}
 	}
 
+
+<<<<<<< HEAD
 	function completeBtnClick(sup_id, sup_amount, request_amount) {
 		/* $("#checkbox" + sup_id).prop("checked", false); */
+=======
+	function completeBtnClick(sup_id, sup_amount, request_amount) {
+>>>>>>> branch 'master' of https://github.com/eeejeong/FinalWebProject.git
 		$("input[name=inputtext]").val("");
 		$("input[name=inputtext1]").val("");
 		if (request_amount == "") {
@@ -184,7 +189,6 @@ div.dropdown {
 			}	
 			
 		jQuery.ajaxSettings.traditional = true;
-
 		$.ajax({
 			method : "POST",
 			data : {
@@ -192,8 +196,13 @@ div.dropdown {
 				"needDate" : needDate
 				},
 			url : 'requestComplete',
+<<<<<<< HEAD
 			success : function(data) {				
 				location.replace("http://localhost:8080/FinalWebProject/request");
+=======
+			success : function(data) {
+				location.href = "http://localhost:8084/FinalWebProject/request";		
+>>>>>>> branch 'master' of https://github.com/eeejeong/FinalWebProject.git
 			},
 			error : function(data) {
 				console.log(data);

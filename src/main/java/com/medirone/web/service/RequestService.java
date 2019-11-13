@@ -20,6 +20,11 @@ public class RequestService {
 		int totalRowNum = requestDao.selectTotalRowNo(agency_id);
 		return totalRowNum;
 	}
+	
+	public int getTotalRowNoGcs() {
+		int totalRowNum = requestDao.selectTotalRowNoGcs();
+		return totalRowNum;
+	}
 
 	public List<SupplyItems> getmedrequestList(int startRowNo, int endRowNo) {
 		List<SupplyItems> medrequestList = requestDao.selectMedrequestList(startRowNo, endRowNo);
@@ -48,6 +53,11 @@ public class RequestService {
 
 	public List<RequestItems> getAdminRequestList(int startRowNo, int endRowNo) {
 		List<RequestItems> requestList = requestDao.selectAdminRequestList(startRowNo, endRowNo);
+		return requestList;
+	}
+	
+	public List<Request> getGcsRequestList(int startRowNo, int endRowNo) {
+		List<Request> requestList = requestDao.selectGcsRequestList(startRowNo, endRowNo);
 		return requestList;
 	}
 
