@@ -291,8 +291,7 @@ public class RequestController {
 	}
 	
 	@GetMapping("/showMap")
-	public String showMap(Model model) {
-
+	public String showMap() {
 		return "/request/showMap";
 	}
 	

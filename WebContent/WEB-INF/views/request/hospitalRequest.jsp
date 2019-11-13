@@ -32,7 +32,7 @@
 	}
 	
 	function sendMessage(jsonStr) {		
-		alert(jsonStr);
+		//alert(jsonStr);
 		var message = new Paho.MQTT.Message(jsonStr);
 		message.destinationName = "/drone/request/sub";
 		client.send(message);
@@ -42,8 +42,7 @@
 		console.log(agency_id);
 		$.ajax({
 			url : 'request/deliveringClicked?order_id=' + order_id + '&agency_id=' + agency_id,
-			success : function(data) {
-				
+			success : function(data) {			
 				var json = new Object();
 				json.msgid = 'SET_POSITION_TARGET_GLOBAL_INT';
 				json.lat = data.agencyLat;
@@ -104,7 +103,6 @@ div.dropdown {
 					</tr>
 				</thead>
 				<tbody>
-
 					<c:forEach items="${requestList}" var="req">
 						<tr>
 							<td style="width: auto; vertical-align: middle"><a

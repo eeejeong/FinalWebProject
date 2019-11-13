@@ -142,7 +142,7 @@
 					<a href="request?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
 				</c:if>
 				<a href="request?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
-				<a href="request/totalRequestList" class="btn btn-primary submit_btn">요청 등록</a>
+				<a href="request/totalRequestList" class="btn btn-mint submit_btn">요청 등록</a>
 			</div>
 		</div> 
 		</div>

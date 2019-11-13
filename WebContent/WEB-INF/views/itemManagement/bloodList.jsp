@@ -105,7 +105,7 @@
 			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_blood.png" alt="혈액 관리"/>
 			
 			<div class="dropdown">
-				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="btn btn-pink dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					품목 선택
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

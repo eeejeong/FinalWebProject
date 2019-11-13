@@ -12,17 +12,20 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 		<style>
 			div.title {
+				width: 100%;
 				float: left;
-				box-sizing: border-box;    
+				box-sizing: border-box;
+			}			
+			/* 수정 */
+			.content {
+				height: 500px;
+				padding: 10px;
 			}
 			div.dropdown {
 				float: right;
 				box-sizing: border-box;
 			}
-			/* 수정 */
-			.content{
-				height: 700px;
-				}
+			
 			.form-control{
 				text-align: center;
 			}	
@@ -32,6 +35,7 @@
 	
 	<body>
 		<div class="content">
+			<img style="height: 20px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>	
 			<div> 
 				<table style="margin: auto; text-align:center;" class="table table-sm">
 				  <thead>

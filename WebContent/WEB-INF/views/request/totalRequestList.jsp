@@ -5,12 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
-<script type="text/javascript"
-	src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>	
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
+		
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.min.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -26,6 +24,7 @@
 	href="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.css" />
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.min.js"></script>
+
 <style>
 div.title {
 	width: 100%;
@@ -40,7 +39,7 @@ div.dropdown {
 
 /* 수정 */
 .content {
-	height: 1000px;
+	height: 1200px;
 	padding: 50px;
 }
 
@@ -49,68 +48,90 @@ div.dropdown {
 }
 </style>
 
-
-
 <script type="text/javascript">
-/*
+	
+
 	$(function() {
-		$("#time1").timepicker({
+		$("#timeInput").timepicker({
 			step : 5, //시간간격 : 5분
-			timeFormat : "H:i" //시간:분 으로표시
+			timeFormat : 'H:i' //시간:분 으로표시
 		});
 	});
 
 	$(document).ready(function() {
-		$("#time1").timepicker('setTime', new Date());
+		$("#timeInput").timepicker('setTime', new Date());
 	});
 
-	$(function() {
-		$("#date2").datepicker({
-			showOn : "both",
-			buttonImage : "../resources/image/calendar.gif",
-			buttonImageOnly : true,
-			buttonText : "Select date"
-		});
-
-	});
-	*/
+	
 	window.rCheck = false;
+		
 	function first() {
 		if (!rCheck) {
 			rCheck = true;
 			medicineRequestList(1);
 		}
+	};
+	
+	$(function() {
+		$("#dateInput").datepicker({
+			dateFormat : 'yy-mm-dd',
+			showOn : "both",
+			buttonImage : "../resources/image/calendar.gif",
+			buttonImageOnly : true,
+			buttonText : "날짜 선택"
+		});
+		  $("img.ui-datepicker-trigger").attr("style", "margin: 6px 5px; height: 23px; vertical-align:middle; cursor: Pointer;");
+		  $('#dateInput').insertAfter( $('#dateInput').next('img') );
+	});
+	
+    // 이미 담은 물품인지 확인하는 function
+	function checkRegistered(sup_id){
+		// 첫 제목 행을 제외한 테이블 행 수
+		var len = ($("#requestTable tr").length) - 1;
+		if(len == 0) {
+			return true;
+		}
+		for (var i = 0; i < len; i++) {		
+			if(sup_id == $("input[name=col1]").eq(i).val()) {			
+				alert("이미 담은 의약품입니다. 수정을 원하시면 삭제 후 다시 담아주세요.");
+				return false;
+			}		
+		}
+		return true;
 	}
-
+	
+    // 담기 버튼을 눌렀을 때 실행하는 function
 	function completeBtnClick(sup_id, sup_amount, request_amount) {
 		$("input[name=inputtext]").val("");
 		$("input[name=inputtext1]").val("");
-		if (request_amount == "") {
-			alert("수량을 입력해주세요.");
-		} else {
-			if (sup_amount < request_amount) {
-				alert("최대 개수를 넘었습니다.");
-			}
-			if (sup_amount >= request_amount) {
-				$('#completeBtn' + sup_id).css("display", "none");
-				$.ajax({
-					url : "searchItemById?sup_id=" + sup_id,
-					success : function(data) {
-						$("#resultList").append(
-							"<tr>"
-							+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
-							+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
-							+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
-							+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
-							+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
-							+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
-							+ "</tr>");
-					}
-				});
+		
+		if(checkRegistered(sup_id)) {	
+			if (request_amount == "") {
+				alert("수량을 입력해주세요.");
+			} else {
+				if (sup_amount < request_amount) {
+					alert("최대 개수를 넘었습니다.");
+				} else {		
+					$.ajax({
+						url : "searchItemById?sup_id=" + sup_id,
+						success : function(data) {
+							$("#resultList").append(
+								"<tr>"
+								+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
+								+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
+								+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
+								+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
+								+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
+								+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+								+ "</tr>");
+						}
+					});
+				}
 			}
 		}
 	}
-
+    
+    // 하단의 담은 목록 중 삭제 버튼을 눌렀을 때 실행하는 function
 	function deleteRow(obj, sup_id) {
 		var tr = $(obj).parent().parent();
 		$('#completeBtn' + sup_id).css("display", "inline");
@@ -119,6 +140,7 @@ div.dropdown {
 		tr.remove();
 	}
 
+    // 상단의 목록 중 백신 목록을 보여주는 function
 	function medicineRequestList(pageNo) {
 		$.ajax({
 			url : 'medicineRequestList?pageNo=' + pageNo,
@@ -128,6 +150,7 @@ div.dropdown {
 		});
 	}
 
+    // 상단의 목록 중 혈액 목록을 보여주는 function
 	function bloodRequestList() {
 		$.ajax({
 			url : 'bloodRequestList',
@@ -137,6 +160,7 @@ div.dropdown {
 		});
 	}
 
+    // 담은 목록의 총 무게를 합하는 function
 	function totalWeight() {
 		var $dataRows = $("#requestTable tr:not('#titleRow')");
 		var totalWeight = 0;
@@ -154,6 +178,7 @@ div.dropdown {
 		}
 	}
 	
+    // 필요 시간과 날짜를 입력했는지 확인하는 function
 	function dateTime(date, time) {
 		if(date == "" || time == "") {
 			alert("시간과 날짜를 입력해주세요.");
@@ -162,6 +187,7 @@ div.dropdown {
 		return true;
 	}
 
+    // 요청 완료 버튼을 눌렀을 때 확인하는 function
 	function completeRequestBtn(date, time) {
 		var checkTotalWeight = totalWeight();
 		var checkDateTime = dateTime(date, time);
@@ -195,7 +221,7 @@ div.dropdown {
 				},
 			url : 'requestComplete',
 			success : function(data) {
-				location.href = "http://localhost:8084/FinalWebProject/request";		
+				location.href = "http://" + location.host + "/FinalWebProject/request";		
 			},
 			error : function(data) {
 				console.log(data);			
@@ -221,7 +247,7 @@ div.dropdown {
 			alt="의약품 목록" />
 
 		<div class="dropdown">
-			<a class="btn btn-primary dropdown-toggle" href="#" role="button"
+			<a class="btn btn-pink dropdown-toggle" href="#" role="button"
 				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 품목 선택 </a>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 				<button class="dropdown-item" type="button" onclick="medicineRequestList(1);">백신</button>
@@ -258,8 +284,8 @@ div.dropdown {
 
 		<form style="float: right;" class="form-inline my-2 my-lg-0" method="post">
 			<div style="display: flex; margin-top: 10px;">
-				<input class="form-control mr-sm-2" type="text" name="dateInput" id="dateInput" placeholder="날짜선택" size="8" /> 
-				<input class="form-control mr-sm-2" type="text" name="timeInput" id="timeInput" placeholder="시간선택" required size="8" maxlength="5"/>
+				<input class="form-control" id="dateInput" type="text" name="dateInput" placeholder="날짜선택" style="width:150px; margin-right: 5px"/>
+				<input class="form-control" id="timeInput" type="text" name="timeInput" placeholder="시간선택" style="width:150px; margin-right: 9px"/>
 				<div style="height: 20px;" class="input-group mb-3">
 				  <div class="input-group-prepend">
 				    <button class="btn btn-outline-dark" type="button" id="button-addon1" onclick="totalWeight()">총 무게 계산</button>
