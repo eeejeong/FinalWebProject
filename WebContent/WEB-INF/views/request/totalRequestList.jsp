@@ -82,13 +82,7 @@ div.dropdown {
 		}
 	}
 
-
-<<<<<<< HEAD
 	function completeBtnClick(sup_id, sup_amount, request_amount) {
-		/* $("#checkbox" + sup_id).prop("checked", false); */
-=======
-	function completeBtnClick(sup_id, sup_amount, request_amount) {
->>>>>>> branch 'master' of https://github.com/eeejeong/FinalWebProject.git
 		$("input[name=inputtext]").val("");
 		$("input[name=inputtext1]").val("");
 		if (request_amount == "") {
@@ -177,6 +171,10 @@ div.dropdown {
 			
 			// 첫 제목 행을 제외한 테이블 행 수
 			var len = ($("#requestTable tr").length) - 1;
+			if(len == 0) {
+				alert("필요한 의료품을 담아주세요.");
+				return false;
+			}
 
 			for (var i = 0; i < len; i++) {
 				var item = "";
@@ -196,17 +194,11 @@ div.dropdown {
 				"needDate" : needDate
 				},
 			url : 'requestComplete',
-<<<<<<< HEAD
-			success : function(data) {				
-				location.replace("http://localhost:8080/FinalWebProject/request");
-=======
 			success : function(data) {
 				location.href = "http://localhost:8084/FinalWebProject/request";		
->>>>>>> branch 'master' of https://github.com/eeejeong/FinalWebProject.git
 			},
 			error : function(data) {
-				console.log(data);
-				alert("필요한 의료품을 담아주세요");
+				console.log(data);			
 			}
 		});
 	}

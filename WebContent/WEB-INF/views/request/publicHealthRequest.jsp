@@ -20,7 +20,9 @@
 				$.ajax({
 					url : "request/cancelRequest?order_id=" + order_id,
 					success : function(data) {
-						
+						if(data.result) {
+							location.reload();
+						}
 					}
 				});
 			}
@@ -140,7 +142,7 @@
 					<a href="request?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
 				</c:if>
 				<a href="request?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
-				<a href="request/totalRequestList" class="btn btn-secondary submit_btn">요청 등록</a>
+				<a href="request/totalRequestList" class="btn btn-primary submit_btn">요청 등록</a>
 			</div>
 		</div> 
 		</div>

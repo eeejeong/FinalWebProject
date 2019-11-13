@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -238,10 +239,6 @@ public class RequestController {
 			itemService.updateRequest(supplyItems);			
 		}
 		
-		System.out.println("=================================");
-		System.out.println("여기까지 오기는 함");
-		System.out.println("=================================");
-		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -301,7 +298,7 @@ public class RequestController {
 	
 
 	@RequestMapping("/cancelRequest")
-	public void cancelRequest(int order_id) {
+	public void cancelRequest(int order_id, HttpServletResponse response) throws Exception {
 		List<RequestItems> requestItems = requestService.getRequestItemsByOrderId(order_id);
 		
 		// 삭제한 의약품 수량만큼 의약품 테이블 개수 더해주기
@@ -311,6 +308,14 @@ public class RequestController {
 		
 		// 삭제한 order_id에 해당하는 request_items과 request 테이블 지우기
 		requestService.deleteRequestByOrderId(order_id);
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", true);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();	
 	}
 	
 	@RequestMapping("/gcsRequest")
