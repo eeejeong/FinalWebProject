@@ -15,8 +15,7 @@
 				line-height: 130px;
 				padding-left: 50px;
 				padding-right: 50px;
-			}
-		
+			}		
 			#logo{
 				height:130px;
 				/* line-height:130px; */
