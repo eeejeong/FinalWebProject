@@ -238,10 +238,6 @@ public class RequestController {
 			itemService.updateRequest(supplyItems);			
 		}
 		
-		System.out.println("=================================");
-		System.out.println("여기까지 오기는 함");
-		System.out.println("=================================");
-		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -281,6 +277,11 @@ public class RequestController {
 		double agencyLat = agency.getAgency_latitude();
 		double agencyLng = agency.getAgency_longitude();
 		String agencyId = agency_id;
+		String agencyName = agency.getAgency_name();
+		String mission_waypoint = agency.getMission_waypoint();
+		if(mission_waypoint == null) {
+			mission_waypoint = "";
+		}
 		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
@@ -288,6 +289,8 @@ public class RequestController {
 		jsonObject.put("agencyLat", agencyLat);
 		jsonObject.put("agencyLng", agencyLng);
 		jsonObject.put("agencyId", agencyId);
+		jsonObject.put("waypoint", mission_waypoint);
+		jsonObject.put("agencyName", agencyName);
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();

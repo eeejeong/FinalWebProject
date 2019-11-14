@@ -45,10 +45,12 @@
 			success : function(data) {
 				
 				var json = new Object();
-				json.msgid = 'SET_POSITION_TARGET_GLOBAL_INT';
+				json.msgid = 'missioninfo';
 				json.lat = data.agencyLat;
 				json.lng = data.agencyLng;
 				json.agencyId = data.agencyId;
+				json.waypoint=data.waypoint;
+				json.agencyName=data.agencyName;
 				json.alt = 10;
 			
 				var jsonStr = JSON.stringify(json);

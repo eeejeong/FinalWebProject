@@ -24,7 +24,8 @@
 		<result column="agency_tel" property="agency_tel"/>		
 		<result column="agency_address" property="agency_address"/>
 		<result column="agency_latitude" property="agency_latitude"/>
-		<result column="agency_longitude" property="agency_longitude"/>		
+		<result column="agency_longitude" property="agency_longitude"/>	
+		<result column="mission_waypoint" property="mission_waypoint"/>		
 		<result column="agency_status" property="agency_status"/>	
 	</resultMap>
 	

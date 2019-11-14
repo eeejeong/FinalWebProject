@@ -10,6 +10,27 @@ public class Agency {
 	private String agency_address;
 	private double agency_latitude;
 	private double agency_longitude;
+	private String mission_waypoint;
+	private String mission_writer;
+	private String mission_write_date;
+	public String getMission_waypoint() {
+		return mission_waypoint;
+	}
+	public void setMission_waypoint(String mission_waypoint) {
+		this.mission_waypoint = mission_waypoint;
+	}
+	public String getMission_writer() {
+		return mission_writer;
+	}
+	public void setMission_writer(String mission_writer) {
+		this.mission_writer = mission_writer;
+	}
+	public String getMission_write_date() {
+		return mission_write_date;
+	}
+	public void setMission_write_date(String mission_write_date) {
+		this.mission_write_date = mission_write_date;
+	}
 	private String agency_status;
 	
 	public String getAgency_status() {
