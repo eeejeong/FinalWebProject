@@ -5,10 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>	
+
+<link rel="stylesheet" href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet" href="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.css">
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
+
+<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>	
+
+<script src="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/datepicker-ko.js"></script>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
+<script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
 		
+<%-- 
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.min.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -18,12 +27,11 @@
 	src="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/datepicker-ko.js"></script>
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui-timepicker-addon.css" />
-<link rel="stylesheet"
-	href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.css" />
 <link rel="stylesheet" type="text/css"
 	href="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.css" />
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.min.js"></script>
+--%>
 
 <style>
 div.title {
@@ -50,15 +58,8 @@ div.dropdown {
 
 <script type="text/javascript">
 	
-
-	$(function() {
-		$("#timeInput").timepicker({
-			step : 5, //시간간격 : 5분
-			timeFormat : 'H:i' //시간:분 으로표시
-		});
-	});
-
 	$(document).ready(function() {
+		$.datepicker.setDefaults($.datepicker.regional["ko"]);
 		$("#timeInput").timepicker('setTime', new Date());
 	});
 
@@ -71,6 +72,13 @@ div.dropdown {
 			medicineRequestList(1);
 		}
 	};
+
+	$(function() {
+		$("#timeInput").timepicker({
+			step : 10, //시간간격 : 10분
+			timeFormat : 'H:i' //시간:분 으로표시
+		});
+	});
 	
 	$(function() {
 		$("#dateInput").datepicker({
@@ -80,8 +88,8 @@ div.dropdown {
 			buttonImageOnly : true,
 			buttonText : "날짜 선택"
 		});
-		  $("img.ui-datepicker-trigger").attr("style", "margin: 6px 5px; height: 23px; vertical-align:middle; cursor: Pointer;");
-		  $('#dateInput').insertAfter( $('#dateInput').next('img') );
+		$("img.ui-datepicker-trigger").attr("style", "margin: 6px 5px; height: 23px; vertical-align:middle; cursor: Pointer;");
+		$('#dateInput').insertAfter( $('#dateInput').next('img') );
 	});
 	
     // 이미 담은 물품인지 확인하는 function
@@ -149,6 +157,16 @@ div.dropdown {
 			}
 		});
 	}
+	function searchRequestMedicine() {
+	      $.ajax({
+	         url : 'searchRequestMedicine',
+	         data: {"searchName":$('#searchName').val()},
+	         success : function(data) {
+	            console.log(data)
+	            $('#itemTable').html(data)
+	         }
+	      });
+	   }
 
     // 상단의 목록 중 혈액 목록을 보여주는 function
 	function bloodRequestList() {
@@ -256,6 +274,7 @@ div.dropdown {
 		</div>
 
 		<div id="itemTable"></div>
+		 
 		<br>
 		<div>
 			<div class="title">
@@ -290,7 +309,7 @@ div.dropdown {
 				  <div class="input-group-prepend">
 				    <button class="btn btn-outline-dark" type="button" id="button-addon1" onclick="totalWeight()">총 무게 계산</button>
 				  </div>
-				<input class="form-control mr-sm-2" id="totalWeightInput" name="totalWeightInput" type="text" placeholder="총 무게" aria-label="총 무게" />
+				<input class="form-control mr-sm-2" id="totalWeightInput" name="totalWeightInput" type="text" placeholder="총 무게" aria-label="총 무게" readonly="readonly" />
 				</div>				
 				<h6 style="margin-right: 5px; margin-top: 10px;">g</h6>
 				<input type="button" class="btn btn-mint" onclick="completeRequestBtn(dateInput.value, timeInput.value)" value="요청 완료" />

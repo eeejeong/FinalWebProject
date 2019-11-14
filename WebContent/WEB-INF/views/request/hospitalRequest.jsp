@@ -44,7 +44,7 @@
 			url : 'request/deliveringClicked?order_id=' + order_id + '&agency_id=' + agency_id,
 			success : function(data) {			
 				var json = new Object();
-				json.msgid = 'SET_POSITION_TARGET_GLOBAL_INT';
+				json.msgid = 'missioninfo';
 				json.lat = data.agencyLat;
 				json.lng = data.agencyLng;
 				json.agencyId = data.agencyId;

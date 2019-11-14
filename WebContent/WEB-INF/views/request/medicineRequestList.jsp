@@ -13,7 +13,7 @@
 	      <th scope="col">담기</th>
 	    </tr>
 	  </thead>
-	  <tbody>
+	 <tbody id="ajaxResult">
 	  	<c:forEach items="${medrequestList}" var="med">
 	  		<tr id="reset${reset}">
 	  			<td class="col_sup_id" id="${med.sup_id}" style="vertical-align: middle;">${med.sup_id}</td>
@@ -60,14 +60,14 @@
 		</c:if>
 		<a onclick="medicineRequestList(${totalPageNum})" class="btn btn-outline-dark">맨끝</a>
 	</div>
-	<div>
-		<form class="form-inline my-2 my-lg-0" method="post"
-			action="searchMedicine">
-			<input class="form-control mr-sm-2" id="searchName"
-				name="searchName" type="text" placeholder="Search"
-				aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-		</form>
+	<div class="form-inline my-2 my-lg-0">
+		<!--  <form class="form-inline my-2 my-lg-0" method="post"
+			action="searchMedicine">-->
+			 
+			<input class="form-control mr-sm-2" id="searchName"name="searchName" type="text" placeholder="Search"aria-label="Search" >
+         <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchRequestMedicine()">검색</button>
+		
+		<!--</form>-->
 	</div>
 
 </div>
