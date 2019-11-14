@@ -16,7 +16,7 @@
 
 	$(function() {
 		// MQTT Broker와 연결하기
-		client = new Paho.MQTT.Client(location.hostname, 61624, "clientId" + new Date().getTime());
+		client = new Paho.MQTT.Client("106.253.56.124", 61624, "clientId" + new Date().getTime());
 		client.onMessageArrived = onMessageArrived;
 		client.connect({onSuccess:onConnect});	// 연결이 되면 안에 있는 함수를 자동으로 실행				
 	});

@@ -34,4 +34,8 @@
 	agency_address = #{agency_address}, agency_latitude = #{agency_latitude}, agency_longitude = #{agency_longitude} 
 	where agency_id=#{agency_id} </update>
 	
+	<update id="updateMission" parameterType="map">
+		update agency set mission_waypoint = #{wayPoint}, mission_writer = '안소미', mission_write_date = sysdate where agency_id = #{aID}
+	</update>
+	
 </mapper>
