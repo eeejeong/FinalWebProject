@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 
 @Component
@@ -102,7 +103,11 @@ public class SupplyItemsDao {
 
 	public int updateRequest(SupplyItems supplyItems) {
 		int rows = sqlSessionTemplate.update("supplyItems.updateRequest", supplyItems);
+		return rows;	
+	}
+
+	public int updateCancelledItems(RequestItems item) {
+		int rows = sqlSessionTemplate.update("supplyItems.updateCancelledItems", item);
 		return rows;
-		
 	}
 }

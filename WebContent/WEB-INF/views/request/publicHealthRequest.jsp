@@ -15,6 +15,17 @@
 				var url = 'request/showMap';
 				window.open(url, "showMap", "width=1000, height=800, left=100, top=50"); 
 				}
+		
+			function cancelRequest(order_id) {
+				$.ajax({
+					url : "request/cancelRequest?order_id=" + order_id,
+					success : function(data) {
+						if(data.result) {
+							location.reload();
+						}
+					}
+				});
+			}
 		</script>
 		<style>
 			div.title {
@@ -71,11 +82,11 @@
 			  <thead>
 			    <tr style="background-color:#dcdcdc">
 			      <th scope="col">요청 번호 </th>
-			      <th scope="col">필요시간</th>
+			      <th scope="col">필요 시간</th>
 			      <th scope="col">요청 기관</th>
 			      <th scope="col">접수 날짜</th>
 			      <th scope="col">배송 상태</th>
-			      
+			      <th scope="col">접수 취소</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -91,11 +102,16 @@
 							배송 대기
 						</c:if> 
 						<c:if test="${req.order_status == 'DELIEVERING'}">
-							<button type="button" class="btn btn-outline-info" onclick="showPopup();">배송 중</button>
+							<button type="button" class="btn btn-outline-info" onclick="showPopup()">배송 중</button>
 						</c:if>
 						<c:if test="${req.order_status == 'DELIEVERED'}">
 							배송 완료
 						</c:if>
+				      </td>
+				      <td style="width:auto; vertical-align:middle">
+						<c:if test="${req.order_status == 'REQUESTED'}">
+							<button type="button" class="btn btn-outline-danger" onclick="cancelRequest(${req.order_id})">취소</button>
+						</c:if> 
 				      </td>
 				    </tr>
 				</c:forEach>
@@ -126,7 +142,7 @@
 					<a href="request?pageNo=${endPageNo+1}" class="btn btn-outline-info">다음</a>
 				</c:if>
 				<a href="request?pageNo=${totalPageNum}" class="btn btn-outline-dark">맨끝</a>
-				<a href="request/totalRequestList" class="btn btn-secondary submit_btn">요청 등록</a>
+				<a href="request/totalRequestList" class="btn btn-mint submit_btn">요청 등록</a>
 			</div>
 		</div> 
 		</div>

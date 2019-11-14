@@ -103,4 +103,8 @@
 		update supply_items set sup_amount = sup_amount-#{sup_amount} where sup_id=#{sup_id}
 	</update>
 	
+	<update id="updateCancelledItems" parameterType="com.medirone.web.dto.RequestItems">
+		update supply_items set sup_amount = sup_amount+#{item_amount} where sup_id=#{item_id}
+	</update>
+	
 </mapper>

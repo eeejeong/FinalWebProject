@@ -110,7 +110,7 @@
 			</div>
 			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_medicine.png" alt="백신 관리"/>
 			<div class="dropdown">
-				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="btn btn-pink dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					품목 선택
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -141,10 +141,10 @@
 				      	<input id="sup_name${med.sup_id}"  type="text" class="form-control" value="${med.sup_name}" readonly>
 					  </td>
 				      <td style="width:auto; vertical-align:middle">
-					    <input id="sup_amount${med.sup_id}" type="number" class="form-control" value="${med.sup_amount}" readonly>
+					    <input id="sup_amount${med.sup_id}" type="number" class="form-control" placeholder="${med.sup_amount}" readonly>
 					  </td>
 				      <td style="width:auto; vertical-align:middle">
-				      	<input id="sup_weight${med.sup_id}" type="number" class="form-control" value="${med.sup_weight}" readonly>
+				      	<input id="sup_weight${med.sup_id}" type="number" class="form-control" placeholder="${med.sup_weight}" readonly>
 				      </td>
 				      <td>
 				      <button type="button" class="btn btn-outline-mint" id="updateBtn${med.sup_id}" onclick="update(${med.sup_id})" style="display:inline">수정</button>

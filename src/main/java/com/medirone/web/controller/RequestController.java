@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.medirone.web.dto.Agency;
 import com.medirone.web.dto.Request;
@@ -250,7 +252,6 @@ public class RequestController {
 	
 	@RequestMapping("/medrequest_popuplist")
 	public String medrequest_popuplist(Model model, int order_id) {
-		System.out.println("===============됐나요===============");
 		// 현재 페이지의 게시물 가져오기
 		List<RequestItems> medrequest_popuplist1 = requestService.getMedrequest_popuplist1(order_id);
 		
@@ -298,9 +299,30 @@ public class RequestController {
 	}
 	
 	@GetMapping("/showMap")
-	public String showMap(Model model) {
-
+	public String showMap() {
 		return "/request/showMap";
+	}
+	
+
+	@RequestMapping("/cancelRequest")
+	public void cancelRequest(int order_id, HttpServletResponse response) throws Exception {
+		List<RequestItems> requestItems = requestService.getRequestItemsByOrderId(order_id);
+		
+		// 삭제한 의약품 수량만큼 의약품 테이블 개수 더해주기
+		for(RequestItems item : requestItems) {
+			itemService.updateCancelledItems(item);
+		}
+		
+		// 삭제한 order_id에 해당하는 request_items과 request 테이블 지우기
+		requestService.deleteRequestByOrderId(order_id);
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", true);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();	
 	}
 	
 	@RequestMapping("/gcsRequest")
@@ -363,5 +385,13 @@ public class RequestController {
 		
 		return "/request/gcsRequest";
 	}
+	@RequestMapping("/searchRequestMedicine")
+	   public ModelAndView searchMedicine(String searchName) {
+	      ModelAndView mv = new ModelAndView("/request/searchRequestMedicine");
+	      List<SupplyItems> medicineList = itemService.searchMedicine(searchName);
+	      mv.addObject("medicineList", medicineList);
+	      System.out.println(searchName);
+	      return mv;
+	   }
 	
 }

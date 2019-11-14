@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.medirone.web.dao.SupplyItemsDao;
+import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
 
 @Service
@@ -96,5 +97,9 @@ public class ItemManagementService {
 	public void updateRequest(SupplyItems supplyItems) {
 		medDao.updateRequest(supplyItems);		
 	}
-	
+
+	public void updateCancelledItems(RequestItems item) {
+		medDao.updateCancelledItems(item);
+	}
+
 }

@@ -13,23 +13,21 @@
 	      <th scope="col">담기</th>
 	    </tr>
 	  </thead>
-	  <tbody>
-	 
+	 <tbody id="ajaxResult">
 	  	<c:forEach items="${medrequestList}" var="med">
 	  		<tr id="reset${reset}">
-		<%--<td width="50" style="vertical-align:middle;">
-			     	  <input id="checkbox${med.sup_id}" type="checkbox" name="medicineCheckBox" onclick="checkboxClick(${med.sup_id});"> </td> --%>
 	  			<td class="col_sup_id" id="${med.sup_id}" style="vertical-align: middle;">${med.sup_id}</td>
 	  			<td class="col_sup_name" id="${med.sup_name}" style="vertical-align: middle; width: auto">${med.sup_name}</td>
 	  			<td class="col_sup_weight" id="${med.sup_weight}"style="vertical-align: middle; width: auto">${med.sup_weight}</td>
 	  			<td style="vertical-align: middle; width: auto">
-	  				<input name="inputtext" id="sup_amount${med.sup_id}"  type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능">
-	  			</td>
-	  			
-	  			<td style="vertical-align: middle;">
-	  				<button name="btn" type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" 
-	  				onclick="completeBtnClick(${med.sup_id}, ${med.sup_amount}, $('#sup_amount${med.sup_id}').val());" >담기</button>
-				</td>				
+	  				<input name="inputtext" id="sup_amount${med.sup_id}"  type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능" >
+	  			</td>	  		
+	  			<c:if test="${med.sup_amount != 0}">	
+		  			<td style="vertical-align: middle;">	  				
+		  				<button name="btn" type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" 
+		  				onclick="completeBtnClick(${med.sup_id}, ${med.sup_amount}, $('#sup_amount${med.sup_id}').val());" >담기</button>
+					</td>	
+				</c:if>
 	  		</tr>			  	
 		</c:forEach>
 		 
@@ -62,14 +60,14 @@
 		</c:if>
 		<a onclick="medicineRequestList(${totalPageNum})" class="btn btn-outline-dark">맨끝</a>
 	</div>
-	<div>
-		<form class="form-inline my-2 my-lg-0" method="post"
-			action="searchMedicine">
-			<input class="form-control mr-sm-2" id="searchName"
-				name="searchName" type="text" placeholder="Search"
-				aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-		</form>
+	<div class="form-inline my-2 my-lg-0">
+		<!--  <form class="form-inline my-2 my-lg-0" method="post"
+			action="searchMedicine">-->
+			 
+			<input class="form-control mr-sm-2" id="searchName"name="searchName" type="text" placeholder="Search"aria-label="Search" >
+         <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchRequestMedicine()">검색</button>
+		
+		<!--</form>-->
 	</div>
 
 </div>

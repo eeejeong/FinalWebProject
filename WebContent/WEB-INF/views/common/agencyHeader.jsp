@@ -4,8 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>	
-		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>	
+		<title>Insert title here</title>				
 		<style type="text/css">
 			#wrapper{
 				width:100%;
@@ -16,8 +15,7 @@
 				line-height: 130px;
 				padding-left: 50px;
 				padding-right: 50px;
-			}
-		
+			}		
 			#logo{
 				height:130px;
 				/* line-height:130px; */

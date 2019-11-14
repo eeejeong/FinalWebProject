@@ -36,7 +36,7 @@
 	</resultMap>
 	
 	<select id="selectMedrequest_popuplist1"  parameterType="int"  resultMap="reqitems">
-      	select supply_items.sup_name, request_items.item_amount 
+      	select order_id, supply_items.sup_name, request_items.item_amount 
 		from request_items
 		join supply_items
 		on request_items.item_id = supply_items.sup_id
@@ -64,7 +64,7 @@
 			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
 			from(
 				select order_id, order_need_time, order_agency_id, order_date, order_status
-				from request where order_agency_id=#{agency_id} order by order_need_time asc
+				from request where order_agency_id=#{agency_id} order by order_need_time, order_id
 			)
 			where rownum &lt;= #{endRowNo}
 		)
@@ -77,7 +77,7 @@
 			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
 			from(
 				select order_id, order_need_time, order_agency_id, order_date, order_status
-				from request order by order_need_time asc
+				from request order by order_need_time, order_id
 			)
 			where rownum &lt;= #{endRowNo}
 		)
@@ -93,7 +93,7 @@
 				from request join agency
 				on request.ORDER_AGENCY_ID = agency.AGENCY_ID
 				where ORDER_STATUS = 'DELIEVERING'
-				order by order_need_time asc
+				order by order_need_time, order_id
 			)
 			where rownum &lt;= #{endRowNo}
 		)
@@ -117,5 +117,19 @@
 	<update id="updateStatus" parameterType="int">
 		update request set order_status='DELIEVERING' where order_id=#{order_id}
 	</update>
+	
+	<select id="selectRequestItemsByOrderId" parameterType="int" resultType="com.medirone.web.dto.RequestItems">
+		select * from request_items where order_id = #{order_id}
+	</select>
+	
+	<delete id="deleteRequestItemsByOrderId" parameterType="int">
+		delete from request_items
+		where order_id = #{order_id}
+	</delete>
+	
+	<delete id="deleteRequestByOrderId" parameterType="int">
+		delete from request
+		where order_id = #{order_id}
+	</delete>
 
 </mapper>

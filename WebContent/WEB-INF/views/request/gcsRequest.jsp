@@ -8,10 +8,55 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/paho-mqtt-min.js"></script>
+<script type="text/javascript">
 
+	$(function() {
+		// MQTT Broker와 연결하기
+		client = new Paho.MQTT.Client(location.hostname, 61624, "clientId" + new Date().getTime());
+		client.onMessageArrived = onMessageArrived;
+		client.connect({onSuccess:onConnect});	// 연결이 되면 안에 있는 함수를 자동으로 실행				
+	});
+	
+	// 연결이 완료되었을 때 자동으로 실행(콜백)되는 함수
+	function onConnect() {
+		client.subscribe("/drone/fc/pub");
+	}
+	
+	// 메세지를 수신했을 때 자동으로 실행(콜백)되는 함수
+	function onMessageArrived(message) {
+		
+	}
+	
+	function sendMessage(jsonStr) {		
+		//alert(jsonStr);
+		var message = new Paho.MQTT.Message(jsonStr);
+		message.destinationName = "/drone/request/sub";
+		client.send(message);
+	}
+
+	function deliveringBtn(order_id, agency_id){
+		console.log(agency_id);
+		$.ajax({
+			url : 'request/deliveringClicked?order_id=' + order_id + '&agency_id=' + agency_id,
+			success : function(data) {			
+				var json = new Object();
+				json.msgid = 'missioninfo';
+				json.lat = data.agencyLat;
+				json.lng = data.agencyLng;
+				json.agencyId = data.agencyId;
+				json.alt = 10;
+			
+				var jsonStr = JSON.stringify(json);
+				sendMessage(jsonStr);				
+				location.reload();
+			}
+		});
+		
+	}
+</script>
 <style>
 div.title {
 	width: 100%;
@@ -46,6 +91,7 @@ div.title {
 						<th scope="col">위도</th>
 						<th scope="col">경도</th>
 						<th scope="col">필요 시간</th>
+						<th scope="col">배송하기</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,6 +102,9 @@ div.title {
 								<td style="width: auto; vertical-align: middle">${agencyList[status.index].agency_latitude}</td>
 								<td style="width: auto; vertical-align: middle">${agencyList[status.index].agency_longitude}</td>
 								<td style="width: auto; vertical-align: middle">${list.order_need_time}</td>
+								<td style="width: auto; vertical-align: middle">
+									<button type="button" class="btn btn-outline-mint" onclick="deliveringBtn(${list.order_id}, '${list.order_agency_id}')">배송하기</button>
+								</td>
 							</tr>
 					</c:forEach>
 				</tbody>
