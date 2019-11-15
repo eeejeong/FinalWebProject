@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
@@ -16,7 +16,7 @@
 
 	$(function() {
 		// MQTT Broker와 연결하기
-		client = new Paho.MQTT.Client(location.hostname, 61624, "clientId" + new Date().getTime());
+		client = new Paho.MQTT.Client("106.253.56.124", 61624, "clientId" + new Date().getTime());
 		client.onMessageArrived = onMessageArrived;
 		client.connect({onSuccess:onConnect});	// 연결이 되면 안에 있는 함수를 자동으로 실행				
 	});
@@ -38,13 +38,13 @@
 		client.send(message);
 	}
 
-	function deliveringBtn(order_id, agency_id){
-		console.log(agency_id);
+	function preparingBtn(order_id, agency_id){
 		$.ajax({
-			url : 'request/deliveringClicked?order_id=' + order_id + '&agency_id=' + agency_id,
+			url : 'request/preparingClicked?order_id=' + order_id + '&agency_id=' + agency_id,
 			success : function(data) {			
 				var json = new Object();
 				json.msgid = 'missioninfo';
+				json.orderId = order_id;
 				json.lat = data.agencyLat;
 				json.lng = data.agencyLng;
 				json.agencyId = data.agencyId;
@@ -114,8 +114,11 @@ div.dropdown {
 							<td style="width: auto; vertical-align: middle"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${req.order_date}"></fmt:formatDate> </td>
 							<td style="width: auto; vertical-align: middle">
 								<c:if test="${req.order_status == 'REQUESTED'}">
-									<button type="button" class="btn btn-outline-info" onclick="deliveringBtn(${req.order_id}, '${req.order_agency_id}')">접수</button>
+									<button type="button" class="btn btn-outline-info" onclick="preparingBtn(${req.order_id}, '${req.order_agency_id}')">접수</button>
 								</c:if> 
+								<c:if test="${req.order_status == 'PREPARING'}">
+									배송 준비
+								</c:if>
 								<c:if test="${req.order_status == 'DELIEVERING'}">
 									배송 중
 								</c:if>

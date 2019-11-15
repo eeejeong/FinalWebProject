@@ -23,10 +23,16 @@ public class UpdateController {
 	@Autowired
 	private AgencyService service;
 	
+	private double originalLat;
+	private double originalLng;
+	
 	@GetMapping("/up")
 	public String updateMemberForm(String agency_id, Model model) {
 		Agency agency = service.getAgency(agency_id);
 		Manager manager = service.getManager(agency_id);
+		originalLat = agency.getAgency_latitude();
+		originalLng = agency.getAgency_longitude();
+		
 		model.addAttribute("agency", agency);
 		model.addAttribute("manager", manager);
 		return "member/updateMemberForm";
@@ -34,8 +40,17 @@ public class UpdateController {
 	
 	@PostMapping("/updateSuccess")
 	public String updateMember(Agency agency, Manager manager, HttpSession session) {
+		
+		double newLat = agency.getAgency_latitude();
+		double newLng = agency.getAgency_longitude();
+		boolean newLatLng = false;	// 회원 수정에서 위도, 경도가 바뀌었는지 
+		
+		if(originalLat != newLat || originalLng != newLng) {
+			newLatLng = true;
+		}
+		
 		manager.setManager_agency_id(agency.getAgency_id());
-		service.updateMember(agency, manager);
+		service.updateMember(agency, manager, newLatLng);
 		String nowId = (String)session.getAttribute("agency_Id");
 		
 		return "redirect:/request";

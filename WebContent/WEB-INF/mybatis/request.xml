@@ -85,14 +85,14 @@
 	</select>
 	
 	<select id="selectGcsRequestList"  parameterType="map"  resultMap="requestDetail">		
-		select rn, ORDER_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+		select rn, ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
 		from(
-			select rownum as rn, ORDER_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+			select rownum as rn, ORDER_ID,  ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
 			from(
-				select ORDER_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+				select ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
 				from request join agency
 				on request.ORDER_AGENCY_ID = agency.AGENCY_ID
-				where ORDER_STATUS = 'DELIEVERING'
+				where ORDER_STATUS = 'PREPARING'
 				order by order_need_time, order_id
 			)
 			where rownum &lt;= #{endRowNo}
@@ -111,11 +111,19 @@
 	</select>
 	
 	<select id="selectTotalRowNumGcs" resultType="int">
-		select count(*) from request where order_status='DELIEVERING'
+		select count(*) from request where order_status='PREPARING'
 	</select>
 	
-	<update id="updateStatus" parameterType="int">
+	<update id="updateStatusToPreparing" parameterType="int">
+		update request set order_status='PREPARING' where order_id=#{order_id}
+	</update>
+	
+	<update id="updateStatusToDelivering" parameterType="int">
 		update request set order_status='DELIEVERING' where order_id=#{order_id}
+	</update>
+	
+	<update id="updateStatusToDelivered" parameterType="int">
+		update request set order_status='DELIEVERED' where order_id=#{order_id}
 	</update>
 	
 	<select id="selectRequestItemsByOrderId" parameterType="int" resultType="com.medirone.web.dto.RequestItems">

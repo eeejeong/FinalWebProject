@@ -40,9 +40,14 @@ public class AgencyDao {
 		return manager;
 	}
 	
-	public int updateMember(Agency agency, Manager manager) {
-		int rows = sqlSessionTemplate.update("agency.updateAgencyByAgencyid", agency);
-		sqlSessionTemplate.update("manager.updateManagerByAgencyid", manager);
+	public int updateMember(Agency agency, Manager manager, boolean newLatLng) {
+		int rows;
+		if(newLatLng) {
+			sqlSessionTemplate.update("agency.updateAgencyByAgencyidNewLatLng", agency);
+		} else {
+			sqlSessionTemplate.update("agency.updateAgencyByAgencyid", agency);
+		}		
+		rows = sqlSessionTemplate.update("manager.updateManagerByAgencyid", manager);
 		return rows;
 	}
 

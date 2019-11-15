@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
@@ -313,7 +313,7 @@
 		    		</div>
 		    	</div>	
 		  		<div class="form-group">
-			  		<input type="submit" style="float: right" class="btn btn-pink" value="회원가입"/>
+			  		<input type="submit" style="float: right" class="btn btn-mint" value="회원가입"/>
 			  	</div>		  			  	
 	    	</form>  
 			</div>    	

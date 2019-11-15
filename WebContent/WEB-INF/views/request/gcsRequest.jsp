@@ -6,56 +6,79 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메디론 | MEDIRONE</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/paho-mqtt-min.js"></script>
+<%-- <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/paho-mqtt-min.js"></script> --%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-	$(function() {
-		// MQTT Broker와 연결하기
-		client = new Paho.MQTT.Client(location.hostname, 61624, "clientId" + new Date().getTime());
-		client.onMessageArrived = onMessageArrived;
-		client.connect({onSuccess:onConnect});	// 연결이 되면 안에 있는 함수를 자동으로 실행				
+$(function() {
+	// MQTT Broker와 연결하기
+	client = new Paho.MQTT.Client("106.253.56.124", 61624, "clientId" + new Date().getTime());
+	client.onMessageArrived = onMessageArrived;
+	client.connect({onSuccess:onConnect});	// 연결이 되면 안에 있는 함수를 자동으로 실행	
+});
+
+// 연결이 완료되었을 때 자동으로 실행(콜백)되는 함수
+function onConnect() {
+	client.subscribe("/drone/mission/pub");
+}
+
+// 메세지를 수신했을 때 자동으로 실행(콜백)되는 함수
+function onMessageArrived(message) {
+	var JSONString = message.payloadString;
+	var json = JSON.parse(JSONString);
+	if(json.msgid == "MISSION_START") {		
+		var orderId = json.orderId;
+		$.ajax({
+			url : 'missionStarted',
+			type : 'POST',
+			data : {"orderId" : orderId},			
+			success : function(data) {		
+				console.log(orderID + " 미션 시작");
+			}
+		});	
+	}
+}
+
+
+function sendMessage(jsonStr) {		
+	try { 
+		// java: JSObject. 크롬에서 실행할 때는 없고, webview에서 실행할 때는 있고.
+		if(java) {
+			java.receiveMissionInfo(jsonStr);	
+			java.windowClose();
+		}
+	} catch(err) {
+	}
+	var message = new Paho.MQTT.Message(jsonStr);
+	message.destinationName = "/drone/request/sub";
+	client.send(message);
+}
+
+function deliveringBtn(order_id, agency_id){
+	$.ajax({
+		url : 'deliveringClicked?order_id=' + order_id + '&agency_id=' + agency_id,
+		success : function(data) {		
+			var json = new Object();
+			json.msgid = 'missioninfo';
+			json.orderId = order_id;
+			json.lat = data.agencyLat;
+			json.lng = data.agencyLng;
+			json.agencyId = data.agencyId;
+			json.waypoint = data.waypoint;
+			json.agencyName = data.agencyName;
+			json.alt = 10;
+		
+			var jsonStr = JSON.stringify(json);
+			sendMessage(jsonStr);	
+		}
 	});
 	
-	// 연결이 완료되었을 때 자동으로 실행(콜백)되는 함수
-	function onConnect() {
-		client.subscribe("/drone/fc/pub");
-	}
-	
-	// 메세지를 수신했을 때 자동으로 실행(콜백)되는 함수
-	function onMessageArrived(message) {
-		
-	}
-	
-	function sendMessage(jsonStr) {		
-		//alert(jsonStr);
-		var message = new Paho.MQTT.Message(jsonStr);
-		message.destinationName = "/drone/request/sub";
-		client.send(message);
-	}
-
-	function deliveringBtn(order_id, agency_id){
-		console.log(agency_id);
-		$.ajax({
-			url : 'request/deliveringClicked?order_id=' + order_id + '&agency_id=' + agency_id,
-			success : function(data) {			
-				var json = new Object();
-				json.msgid = 'missioninfo';
-				json.lat = data.agencyLat;
-				json.lng = data.agencyLng;
-				json.agencyId = data.agencyId;
-				json.alt = 10;
-			
-				var jsonStr = JSON.stringify(json);
-				sendMessage(jsonStr);				
-				location.reload();
-			}
-		});
-		
-	}
+}
 </script>
 <style>
 div.title {

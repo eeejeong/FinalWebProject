@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css"

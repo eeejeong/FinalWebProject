@@ -30,8 +30,18 @@
 	</resultMap>
 	
 	<update parameterType="com.medirone.web.dto.Agency" id="updateAgencyByAgencyid"> 
-	update agency set agency_password = #{agency_password}, agency_name = #{agency_name}, agency_tel = #{agency_tel}, 
-	agency_address = #{agency_address}, agency_latitude = #{agency_latitude}, agency_longitude = #{agency_longitude} 
-	where agency_id=#{agency_id} </update>
+	update agency 
+	set agency_password = #{agency_password}, agency_name = #{agency_name}, agency_tel = #{agency_tel}, 
+		agency_address = #{agency_address}, agency_latitude = #{agency_latitude}, agency_longitude = #{agency_longitude} 
+	where agency_id=#{agency_id} 
+	</update>
+	
+	<update parameterType="com.medirone.web.dto.Agency" id="updateAgencyByAgencyidNewLatLng"> 
+	update agency 
+	set agency_password = #{agency_password}, agency_name = #{agency_name}, agency_tel = #{agency_tel}, 
+		agency_address = #{agency_address}, agency_latitude = #{agency_latitude}, agency_longitude = #{agency_longitude},
+		mission_waypoint = null
+	where agency_id=#{agency_id} 
+	</update>
 	
 </mapper>

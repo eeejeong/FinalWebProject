@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>		
+		<meta charset="UTF-8">	
+		<title>메디론 | MEDIRONE</title>
+		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 		<style type="text/css">
 			#header{
 				width:100%;

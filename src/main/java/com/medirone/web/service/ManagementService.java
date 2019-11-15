@@ -19,6 +19,11 @@ public class ManagementService {
 		List<Agency> managementList = managementDao.selectManagementList(startRowNo, endRowNo);
 		return managementList;
 	}
+	
+	public List<Agency> getGcsManagementList(int startRowNo, int endRowNo) {
+		List<Agency> managementList = managementDao.selectGcsManagementList(startRowNo, endRowNo);
+		return managementList;
+	}
 
 	public int getTotalRowNo() {
 		int totalRowNum = managementDao.selectTotalRowNo();
@@ -34,5 +39,12 @@ public class ManagementService {
 		managementDao.updateManagement(agency_id);
 		
 	}
+
+	public int getGcsTotalRowNo() {
+		int totalRowNum = managementDao.selectGcsTotalRowNo();
+		return totalRowNum;
+	}
+
+	
 
 }

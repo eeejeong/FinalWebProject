@@ -4,7 +4,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>				
+		<title>메디론 | MEDIRONE</title>
+		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 		<style type="text/css">
 			#wrapper{
 				width:100%;

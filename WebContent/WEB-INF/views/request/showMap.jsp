@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>	
@@ -32,7 +32,7 @@
 		<script>
 			$(function() {
 				// MQTT Broker와 연결하기
-				client = new Paho.MQTT.Client("tcp://106.253.56.124:1884", 61624, "clientId");
+				client = new Paho.MQTT.Client("106.253.56.124", 61624, "clientId" + new Date().getTime());
 				client.onMessageArrived = onMessageArrived;
 				client.connect({onSuccess:onConnect});	// 연결이 되면 안에 있는 함수를 자동으로 실행				
 			});

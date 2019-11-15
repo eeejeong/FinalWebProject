@@ -61,11 +61,7 @@ public class RequestService {
 		return requestList;
 	}
 
-	public void changeStatus(int order_id) {
-		requestDao.updateStatus(order_id);
-		
-	}
-
+	
 	public List<RequestItems> getRequestItemsByOrderId(int order_id) {
 		List<RequestItems> requestItems = requestDao.selectRequestItemsByOrderId(order_id);
 		return requestItems;
@@ -74,6 +70,20 @@ public class RequestService {
 	public void deleteRequestByOrderId(int order_id) {
 		requestDao.deleteRequestByOrderId(order_id);
 	}
+	
+	public void changeStatusToPreparing(int order_id) {
+		requestDao.updateStatusToPreparing(order_id);
+		
+	}
 
+	public void changeStatusToDelivering(int order_id) {
+		requestDao.updateStatusToDelivering(order_id);
+		
+	}
+
+	public void changeStatusToDelivered(int order_id) {
+		requestDao.updateStatusToDelivered(order_id);
+		
+	}
 
 }

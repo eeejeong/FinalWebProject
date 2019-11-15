@@ -269,10 +269,10 @@ public class RequestController {
 		return "/request/medrequest_popuplist";
 	}
 	
-	
-	@RequestMapping("/deliveringClicked")
-	public void deliveringClicked(int order_id, String agency_id, HttpServletResponse response) throws Exception {
-		requestService.changeStatus(order_id);
+	// 병원 요청 페이지에서 접수 버튼을 눌렀을 때
+	@RequestMapping("/preparingClicked")
+	public void preparingClicked(int order_id, String agency_id, HttpServletResponse response) throws Exception {
+		requestService.changeStatusToPreparing(order_id);	// request 상태를 preparing(배송 준비)으로 
 		Agency agency = agencyService.getAgency(agency_id);
 		
 		double agencyLat = agency.getAgency_latitude();
@@ -291,6 +291,79 @@ public class RequestController {
 		jsonObject.put("agencyLng", agencyLng);
 		jsonObject.put("agencyId", agencyId);
 		jsonObject.put("waypoint", mission_waypoint);
+		jsonObject.put("agencyName", agencyName);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+	}
+	
+	// GCS 요청 페이지에서 배송하기 버튼을 눌렀을 때
+	@RequestMapping("/deliveringClicked")
+	public void deliveringClicked(int order_id, String agency_id, HttpServletResponse response) throws Exception {
+		Agency agency = agencyService.getAgency(agency_id);
+		
+		double agencyLat = agency.getAgency_latitude();
+		double agencyLng = agency.getAgency_longitude();
+		String agencyId = agency_id;
+		String agencyName = agency.getAgency_name();
+		String mission_waypoint = agency.getMission_waypoint();
+		if(mission_waypoint == null) {
+			mission_waypoint = "";
+		}
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("agencyLat", agencyLat);
+		jsonObject.put("agencyLng", agencyLng);
+		jsonObject.put("agencyId", agencyId);
+		jsonObject.put("waypoint", mission_waypoint);
+		jsonObject.put("agencyName", agencyName);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+	}
+	
+	
+	// GCS에서 미션 시작 버튼을 눌렀을 때
+	@RequestMapping("/missionStarted")
+	   public void missionStarted(String orderId, HttpServletResponse response) throws Exception{
+		int order_id = Integer.parseInt(orderId);
+		requestService.changeStatusToDelivering(order_id);	// request 상태를 delivering(배송 중)으로 
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("result", true);	
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+	 }
+	
+	@RequestMapping("/landSuccess")
+	public void landSuccess(int order_id, String agency_id, HttpServletResponse response) throws Exception {
+		requestService.changeStatusToDelivered(order_id);
+		Agency agency = agencyService.getAgency(agency_id);
+		
+		double agencyLat = agency.getAgency_latitude();
+		double agencyLng = agency.getAgency_longitude();
+		String agencyId = agency_id;
+		String agencyName = agency.getAgency_name();
+		String mission_rtl_waypoint = agency.getMission_rtl_waypoint();
+		
+		if(mission_rtl_waypoint == null) {
+			mission_rtl_waypoint = "";
+			agencyLat = 37.4950917;
+			agencyLng = 127.122425;
+		}
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("agencyLat", agencyLat);
+		jsonObject.put("agencyLng", agencyLng);
+		jsonObject.put("agencyId", agencyId);
+		jsonObject.put("rtlwaypoint", mission_rtl_waypoint);
 		jsonObject.put("agencyName", agencyName);
 		pw.print(jsonObject.toString());
 		pw.flush();
@@ -335,6 +408,7 @@ public class RequestController {
 		int pagesPerGroup = 5;
 		// 전체 게시물 수
 		int totalRowNum = requestService.getTotalRowNoGcs();
+
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
 		if (totalRowNum % rowsPerPage != 0)
@@ -385,6 +459,7 @@ public class RequestController {
 		
 		return "/request/gcsRequest";
 	}
+	
 	@RequestMapping("/searchRequestMedicine")
 	   public ModelAndView searchMedicine(String searchName) {
 	      ModelAndView mv = new ModelAndView("/request/searchRequestMedicine");
@@ -392,6 +467,7 @@ public class RequestController {
 	      mv.addObject("medicineList", medicineList);
 	      System.out.println(searchName);
 	      return mv;
-	   }
+	 }
+
 	
 }

@@ -23,9 +23,22 @@ public class MangementDao {
 		List<Agency> managementList = sqlSessionTemplate.selectList("management.selectManagementList", map);
 		return managementList;
 	}
+	
+	public List<Agency> selectGcsManagementList(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<Agency> managementList = sqlSessionTemplate.selectList("management.selectGcsManagementList", map);
+		return managementList;
+	}
 
 	public int selectTotalRowNo() {
 		int totalRowNum = sqlSessionTemplate.selectOne("management.selectTotalRowNum");
+		return totalRowNum;
+	}
+	
+	public int selectGcsTotalRowNo() {
+		int totalRowNum = sqlSessionTemplate.selectOne("management.selectGcsTotalRowNum");
 		return totalRowNum;
 	}
 

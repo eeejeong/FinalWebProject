@@ -4,13 +4,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />		
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
 			.content{
-				height: 1300px;
+				height: 1330px;
 				padding: 50px;
 				}
 		</style>
@@ -194,25 +194,25 @@
 	  		</div>
 	  		
 	  		<div class="form-row">
-	  			<div class="form-group col-md-6">
-	  				<label>주소 </label> <br/>
-			  		<input type="text" id="postcode" placeholder="우편번호">
-					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-mint"><br>
-					<input type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
-					<span id="guide" style="color:#999;display:none"></span>
+		  			<div class="form-group col-md-6">
+		  				<label>주소 </label> <br/>
+				  		<input type="text" id="postcode" placeholder="우편번호">
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-mint"><br>
+						<div style="margin-top: 5px;">
+							<input style="width: 300px" type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
+							<span id="guide" style="color:#999; display:none"></span>	
+							<input style="width: 200px" type="text" id="extraAddress" placeholder="나머지주소"><!-- extraAddr -->
+						</div>
+						<input style="width: 505px; margin-top: 5px;" type="text" id="agency_address" name="agency_address" value="${agency.agency_address}"> <!-- agencyAddr -->
 					
-					<input type="text" id="extraAddress" placeholder="나머지주소"> <!-- extraAddr -->
-					<input type="text" id="agency_address" name="agency_address" value="${agency.agency_address}"> <!-- agencyAddr -->
-					<!-- 상세주소는 팝업창에서 불러올 수 있는 값이 따로 없으므로 데이터 베이스에 넘길 때 (form을 submit할 때) -->
-					<!-- var detailAddr = document.getElementById("detailAddress").value; -->
-					<!-- var agencyAddr = agencyAddr + " " + detailAddr 로 주고 agencyAddr의 값을 넘겨줘야함  -->
-				 </div>	
-			</div>
+					 </div>	
+				</div>
+	  		
 	  		<div class="form-row">
 			    <input type="button" value="위도, 경도 설정" onclick="SearchLatLng()" class="btn btn-outline-dark"/>    
+			     <h6 style="margin-top: 8px; margin-left: 3px">👈버튼을 클릭한 후, 드론의 착륙 지점을 지도에서 클릭하여 주십시오.</h6>
 			</div>
-			
-			<h6>*원하시는 드론의 착륙지점을 지도에서 클릭하여 주십시오</h6>
+
 			<div id="map" style="width:50%;height:350px;"></div>
 			<div class="form-row">
 			    <div class="form-group col-md-6">
@@ -255,12 +255,12 @@
 	  		</div>
 	  		
 	  		<div class="form-group">
-		  		<input type="submit" style="float: right" class="btn btn-pink" value="회원정보수정"/>
+		  		<input type="submit" style="float: right; margin-top: 80px;" class="btn btn-mint" value="회원정보수정"/>
 		  	</div>
     	</form>  
     	</div>
     	
-    	<!-- 카카오 지도 API -->
+    <!-- 카카오 지도 API -->
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0cef5f118d942254be778baadfb2acb4&libraries=services"></script>
 			<script>
 			function SearchLatLng() {

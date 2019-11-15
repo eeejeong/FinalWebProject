@@ -56,7 +56,7 @@ public class AgencyService {
 		return manager;
 	}
 	
-	public void updateMember(Agency agency, Manager manager) {
-		agencyDao.updateMember(agency, manager);
+	public void updateMember(Agency agency, Manager manager, boolean newLatLng) {
+		agencyDao.updateMember(agency, manager, newLatLng);
 	}
 }

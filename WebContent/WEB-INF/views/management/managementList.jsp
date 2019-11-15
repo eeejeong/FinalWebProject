@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 <script type="text/javascript"
 	src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -47,7 +47,7 @@ div.title {
 			<table class="table table-sm">
 				<thead>
 					<tr style="background-color: #dcdcdc">
-						<th scope="col">요청 ID</th>
+						<th scope="col">회원 ID</th>
 						<th scope="col">보건소 명</th>
 						<th scope="col">보건소 주소</th>
 						<th scope="col" style="text-align: center;">거리</th>
@@ -58,7 +58,6 @@ div.title {
 				</thead>
 				<tbody>
 					<c:forEach items="${managementList}" var="mana">
-						<!-- items들어있는 요소 수 만큼 반복... -->
 						<tr>
 							<td style="vertical-align: middle;">${mana.agency_id}</td>
 							<td style="vertical-align: middle;">${mana.agency_name}</td>

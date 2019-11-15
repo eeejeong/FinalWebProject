@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
@@ -27,6 +27,7 @@
 			.form-control{
 				text-align: center;
 			}	
+			
 		</style>
 		
 		<script type="text/javascript">			
@@ -188,8 +189,8 @@
 			    </form>
 			    </div>
 			    <div>
-					<a href="addMedicineForm" class="btn btn-secondary">추가</a>
-					<button type="button" class="btn btn-outline btn-danger" id="deleteBtn" onclick="deleteMed()">삭제</button>
+					<a href="addMedicineForm" class="btn btn-mint">추가</a>
+					<button type="button" class="btn btn-outline-secondary" id="deleteBtn" onclick="deleteMed()">삭제</button>
 				</div>
 			</div>
 		</div> 

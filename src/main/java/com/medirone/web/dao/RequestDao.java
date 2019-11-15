@@ -81,10 +81,6 @@ public class RequestDao {
 		return requestList;
 	}
 	
-	public int updateStatus(int order_id) {
-		int rows = sqlSessionTemplate.update("request.updateStatus", order_id);
-		return rows;
-	}
 
 	public List<RequestItems> selectRequestItemsByOrderId(int order_id) {
 		List<RequestItems> requestItems = sqlSessionTemplate.selectList("request.selectRequestItemsByOrderId", order_id);
@@ -94,6 +90,21 @@ public class RequestDao {
 	public int deleteRequestByOrderId(int order_id) {
 		int rows = sqlSessionTemplate.delete("request.deleteRequestItemsByOrderId", order_id);
 		sqlSessionTemplate.delete("request.deleteRequestByOrderId", order_id);
+		return rows;
+	}	
+
+	public int updateStatusToPreparing(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateStatusToPreparing", order_id);
+		return rows;
+	}
+	
+	public int updateStatusToDelivering(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateStatusToDelivering", order_id);
+		return rows;
+	}
+
+	public int updateStatusToDelivered(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateStatusToDelivered", order_id);
 		return rows;
 	}
 
