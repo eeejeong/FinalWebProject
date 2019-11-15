@@ -70,6 +70,11 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 					String items = (String) jsonObject.get("items");
 					missionDao.updateMission(aID, items);
 				}
+				else if(mid.equals("RtlMISSION_UPLOAD")) {
+					String aID = (String) jsonObject.get("aID");
+					String items = (String) jsonObject.get("items");
+					missionDao.updateRtlMission(aID, items);
+				}
 			}
 			
 			@Override

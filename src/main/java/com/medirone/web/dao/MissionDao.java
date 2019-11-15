@@ -22,4 +22,12 @@ public class MissionDao {
 		return rows;
 	}
 
+	public int updateRtlMission(String aID, String RtlwayPoint) {
+		Map<String, String> map = new HashMap<>();
+		map.put("aID", aID);
+		map.put("RtlwayPoint", RtlwayPoint);
+		int rows = sqlSessionTemplate.update("agency.updateRtlMission", map);
+		return rows;
+	}
+
 }
