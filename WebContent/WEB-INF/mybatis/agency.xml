@@ -44,4 +44,12 @@
 	where agency_id=#{agency_id} 
 	</update>
 	
+	<update id="updateMission" parameterType="map">
+		update agency set mission_waypoint = #{wayPoint}, mission_writer = '안소미', mission_write_date = sysdate where agency_id = #{aID}
+	</update>
+	
+	<update id="updateRtlMission" parameterType="map">
+		update agency set mission_rtl_waypoint = #{RtlwayPoint}, mission_writer = '안소미', mission_write_date = sysdate where agency_id = #{aID}
+	</update>
+	
 </mapper>
