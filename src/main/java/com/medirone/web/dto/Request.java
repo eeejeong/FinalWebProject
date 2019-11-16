@@ -12,9 +12,15 @@ public class Request {
 	private String order_need_time;
 	private OrderStatus order_status;
 	private Date delivered_date;
+	private String delivered_check;
 	private Agency agency;
-
 	
+	public String getDelivered_check() {
+		return delivered_check;
+	}
+	public void setDelivered_check(String delivered_check) {
+		this.delivered_check = delivered_check;
+	}
 	public Agency getAgency() {
 		return agency;
 	}

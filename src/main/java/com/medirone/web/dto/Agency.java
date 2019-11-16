@@ -13,13 +13,8 @@ public class Agency {
 	private String mission_waypoint;
 	private String mission_writer;
 	private String mission_write_date;
-	private String mission_rtl_waypoint;
-	public String getMission_rtl_waypoint() {
-		return mission_rtl_waypoint;
-	}
-	public void setMission_rtl_waypoint(String mission_rtl_waypoint) {
-		this.mission_rtl_waypoint = mission_rtl_waypoint;
-	}
+
+	
 	public String getMission_waypoint() {
 		return mission_waypoint;
 	}

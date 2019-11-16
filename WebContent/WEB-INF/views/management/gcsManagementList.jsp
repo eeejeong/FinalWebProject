@@ -66,21 +66,6 @@
 		});
 	}
 	
-	function showRtlMission(agency_id) {
-		$.ajax({
-			url : 'showRtlMissionClicked?&agency_id=' + agency_id,
-			success : function(data) {		
-				var json = new Object();
-				json.msgid = 'showMission';
-				json.lat = 37.4951330561;
-				json.lng = 127.122456779;
-				json.waypoint = data.waypoint;
-
-				var jsonStr = JSON.stringify(json);
-				sendMessage(jsonStr);	
-			}
-		}); 
-	}
 </script>
 
 <style>
@@ -114,8 +99,7 @@ div.title {
 						<th scope="col" style="text-align: center;">위도</th>
 						<th scope="col" style="text-align: center;">경도</th>
 						<th scope="col" style="text-align: center;">미션 경로</th>
-						<th scope="col" style="text-align: center;">보건소 경로</th>
-						<th scope="col" style="text-align: center;">RTL 경로</th>
+						<th scope="col" style="text-align: center;">경로 불러오기</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -135,9 +119,6 @@ div.title {
 							</td>	
 							<td style="vertical-align: middle; text-align: center;">
 								<button class="btn btn-outline-pink" onclick="showGoingMission('${mana.agency_id}')"> 불러오기</button>
-							</td>
-							<td style="vertical-align: middle; text-align: center;">
-								<button class="btn btn-outline-mint" onclick="showRtlMission('${mana.agency_id}')"> 불러오기</button>
 							</td>
 						</tr>
 					</c:forEach>

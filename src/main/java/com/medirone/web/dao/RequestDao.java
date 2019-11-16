@@ -108,5 +108,15 @@ public class RequestDao {
 		return rows;
 	}
 
+	public int updateStatusToDeliverSuccess(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateStatusToDeliverSuccess", order_id);
+		return rows;
+	}
+
+	public int updateDeliveredDate(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateDeliveredDate", order_id);
+		return rows;
+	}
+
 
 }

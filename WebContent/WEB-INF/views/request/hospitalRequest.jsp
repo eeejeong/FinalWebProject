@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/paho-mqtt-min.js"></script>
 
@@ -59,6 +59,14 @@
 		});
 		
 	}
+	function requested(pageNo) {
+		$.ajax({
+			url : 'requested?pageNo=' + pageNo,
+			success : function(data) {
+				$('#itemTable').html(data)
+			}
+		});
+	}
 </script>
 <style>
 div.title {
@@ -91,6 +99,17 @@ div.dropdown {
 			<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
 			<hr style="color: grey; height: 2px;">
 			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
+		
+		<div class="dropdown">
+			<a class="btn btn-pink dropdown-toggle" href="#" role="button"
+				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 품목 선택 </a>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<button class="dropdown-item" type="button" onclick="">배송요청</button>
+				<button class="dropdown-item" type="button" onclick="">배송준비</button>
+				<button class="dropdown-item" type="button" onclick="">배송중</button>
+				<button class="dropdown-item" type="button" onclick="">배송완료</button>
+			</div>
+		</div>
 		</div>
 		<div>
 			<table style="margin: auto; text-align: center;"
@@ -102,6 +121,7 @@ div.dropdown {
 						<th scope="col">요청 기관</th>
 						<th scope="col">접수 날짜</th>
 						<th scope="col">배송 상태</th>
+						<th scope="col">수취 확인</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -114,16 +134,24 @@ div.dropdown {
 							<td style="width: auto; vertical-align: middle"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${req.order_date}"></fmt:formatDate> </td>
 							<td style="width: auto; vertical-align: middle">
 								<c:if test="${req.order_status == 'REQUESTED'}">
-									<button type="button" class="btn btn-outline-info" onclick="preparingBtn(${req.order_id}, '${req.order_agency_id}')">접수</button>
+									<button type="button" class="btn btn-outline-danger" onclick="preparingBtn(${req.order_id}, '${req.order_agency_id}')">배송 요청</button>
 								</c:if> 
 								<c:if test="${req.order_status == 'PREPARING'}">
-									배송 준비
+									<button type="button" class="btn btn-outline-pink" disabled>배송 준비</button>
 								</c:if>
-								<c:if test="${req.order_status == 'DELIEVERING'}">
-									배송 중
+								<c:if test="${req.order_status == 'DELIVERING'}">
+									<button type="button" class="btn btn-outline-mint" disabled>배송 중</button>
 								</c:if>
-								<c:if test="${req.order_status == 'DELIEVERED'}">
-									배송 완료
+								<c:if test="${req.order_status == 'DELIVERED'}">
+									<button type="button" class="btn btn-outline-secondary" disabled>배송 완료</button>
+								</c:if>
+							</td>
+							<td style="width: auto; vertical-align: middle">
+								<c:if test="${req.delivered_check == 'Y'}">
+									<button type="button" class="btn btn-outline-pink" disabled>수취 확인</button>
+								</c:if> 
+								<c:if test="${req.delivered_check == 'N'}">
+									<button type="button" class="btn btn-outline-mint" disabled>수취 미확인</button>
 								</c:if>
 							</td>
 						</tr>

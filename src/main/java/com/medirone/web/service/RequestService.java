@@ -86,4 +86,9 @@ public class RequestService {
 		
 	}
 
+	public void changeStatusToDeliverSuccess(int order_id) {
+		requestDao.updateStatusToDeliverSuccess(order_id);
+		
+	}
+
 }

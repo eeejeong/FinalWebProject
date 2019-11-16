@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.medirone.web.dao.MissionDao;
+import com.medirone.web.dao.RequestDao;
 
 @Service
 public class DroneService {
@@ -22,6 +23,8 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 
 	@Autowired
 	private MissionDao missionDao;
+	@Autowired
+	private RequestDao requestDao;
 			
 	private MqttClient client;
 	
@@ -64,7 +67,8 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 				byte[] bytes = message.getPayload();
 				String json = new String(bytes);
 				JSONObject jsonObject = new JSONObject(json);
-				String mid = (String) jsonObject.get("msgId");
+				String mid = (String) jsonObject.get("msgid");
+				
 				if(mid.equals("MISSION_UPLOAD")) {
 					String aID = (String) jsonObject.get("aID");
 					String items = (String) jsonObject.get("items");
@@ -75,17 +79,33 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 					String items = (String) jsonObject.get("items");
 					missionDao.updateRtlMission(aID, items);
 				}
+				// 드론이 미션 시작했을 때
+				else if(mid.equals("MISSION_START")) {		
+					logger.debug("===MISSION_START==");
+					int order_id = (Integer)jsonObject.get("orderId");
+					logger.debug(""+order_id);
+					requestDao.updateStatusToDelivering(order_id);	// request 상태를 delivering(배송 중)으로 
+				}
+				// 드론이 Land 후 의약품 분리까지 완료했을 때
+				else if(mid.equals("MISSION_ACTION")) {
+					logger.debug("===MISSION_ACTION==");
+					int order_id = (Integer)jsonObject.get("orderId");
+					logger.debug("mission action 메세지 도착, " + order_id);
+					requestDao.updateStatusToDelivered(order_id);
+					requestDao.updateDeliveredDate(order_id);
+				} 
+											
 			}
 			
 			@Override
 			public void deliveryComplete(IMqttDeliveryToken token) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			
 			@Override
 			public void connectionLost(Throwable cause) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 		});	

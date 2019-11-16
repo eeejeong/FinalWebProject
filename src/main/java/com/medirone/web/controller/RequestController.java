@@ -104,11 +104,13 @@ public class RequestController {
 		
 	}
 
+	// 보건소에서 의약품 요청 등록을 눌렀을 때
 	@RequestMapping("/totalRequestList")
 	public String totalRequestList() {
 		return "/request/totalRequestList";
 	}
 
+	// 보건소에서 백신 목록을 눌렀을 때
 	@RequestMapping("/medicineRequestList")
 	public String medrequestList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
@@ -160,6 +162,7 @@ public class RequestController {
 		return "/request/medicineRequestList";
 	}
 
+	// 보건소에서 혈액 목록 버튼을 눌렀을 때
 	@RequestMapping("/bloodRequestList")
 	public String bloodRequestList(Model model) {
 		// 한 페이지 표시 행 - 혈액 개수는 총 8개
@@ -206,6 +209,7 @@ public class RequestController {
 		pw.close();		
 	}
 	
+	// 보건소에서 요청 완료를 눌렀을 때
 	@RequestMapping("/requestComplete")
 	public void requestComplete(String[] itemArray, String needDate, HttpSession session, HttpServletResponse response) throws Exception {
 		String agency_id = (String) session.getAttribute("agency_Id");
@@ -340,31 +344,15 @@ public class RequestController {
 		pw.close();
 	 }
 	
-	@RequestMapping("/landSuccess")
-	public void landSuccess(int order_id, String agency_id, HttpServletResponse response) throws Exception {
-		requestService.changeStatusToDelivered(order_id);
-		Agency agency = agencyService.getAgency(agency_id);
-		
-		double agencyLat = agency.getAgency_latitude();
-		double agencyLng = agency.getAgency_longitude();
-		String agencyId = agency_id;
-		String agencyName = agency.getAgency_name();
-		String mission_rtl_waypoint = agency.getMission_rtl_waypoint();
-		
-		if(mission_rtl_waypoint == null) {
-			mission_rtl_waypoint = "";
-			agencyLat = 37.4950917;
-			agencyLng = 127.122425;
-		}
-		
+	// 보건소가 수취 확인 버튼을 누르면 실행
+	@RequestMapping("/deliverSuccess")
+	public void deliverSuccess(int order_id, String agency_id, HttpServletResponse response) throws Exception {
+		requestService.changeStatusToDeliverSuccess(order_id);
+				
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("agencyLat", agencyLat);
-		jsonObject.put("agencyLng", agencyLng);
-		jsonObject.put("agencyId", agencyId);
-		jsonObject.put("rtlwaypoint", mission_rtl_waypoint);
-		jsonObject.put("agencyName", agencyName);
+		jsonObject.put("result", true);	
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();
@@ -468,6 +456,57 @@ public class RequestController {
 	      System.out.println(searchName);
 	      return mv;
 	 }
+	
+	@RequestMapping("/requested")
+	public String requested(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+		session.setAttribute("pageNo", pageNo);
+
+		// 페이지당 행 수
+		int rowsPerPage = 10;
+		// 이전, 다음을 클릭했을 때 나오는 페이지 수
+		int pagesPerGroup = 5;
+		// 전체 게시물 수
+		int totalRowNum = itemService.getTotalRowNo();
+		// 전체 페이지 수
+		int totalPageNum = totalRowNum / rowsPerPage;
+		if (totalRowNum % rowsPerPage != 0)
+			totalPageNum++;
+		// 전제 그룹 수
+		int totalGroupNum = totalPageNum / pagesPerGroup;
+		if (totalPageNum % pagesPerGroup != 0)
+			totalGroupNum++;
+
+		// 해당 페이지의 시작 행 번호
+		int startRowNo = (pageNo - 1) * rowsPerPage + 1;
+		// 해당 페이지의 끝 행 번호
+		int endRowNo = pageNo * rowsPerPage;
+		if (pageNo == totalPageNum)
+			endRowNo = totalRowNum;
+
+		// 현재 페이지의 그룹번호
+		int groupNo = (pageNo - 1) / pagesPerGroup + 1;
+		// 현재 그룹의 시작 페이지 번호
+		int startPageNo = (groupNo - 1) * pagesPerGroup + 1;
+		// 현재 그룹의 마지막 페이지 번호
+		int endPageNo = startPageNo + pagesPerGroup - 1;
+		if (groupNo == totalGroupNum)
+			endPageNo = totalPageNum;
+
+		// 현재 페이지의 게시물 가져오기
+		// List<Request> requested = itemService.getMedicineList(startRowNo, endRowNo);
+
+		// JSP로 페이지 정보 넘기기
+		model.addAttribute("pagesPerGroup", pagesPerGroup);
+		model.addAttribute("totalPageNum", totalPageNum);
+		model.addAttribute("totalGroupNum", totalGroupNum);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("startPageNo", startPageNo);
+		model.addAttribute("endPageNo", endPageNo);
+		model.addAttribute("pageNo", pageNo);
+		//model.addAttribute("requested", requested);
+
+		return "/request/requested";
+	}
 
 	
 }
