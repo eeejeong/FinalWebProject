@@ -7,13 +7,13 @@
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" type="image/x-icon" href="<%=application.getContextPath()%>/resources/image/favicon.ico" />
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/js/jquery-3.4.1.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/css/bootstrap.css">
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 		<style>
 			div.title {
 				float: left;
-				box-sizing: border-box; 
-				width: 100%;   
+				width: 100%;
+				box-sizing: border-box;    
 			}
 			div.dropdown {
 				float: right;
@@ -21,7 +21,7 @@
 			}
 			/* 수정 */
 			.content{
-				height: 740px;
+				height: 850px;
 				padding: 50px;
 				}
 			.form-control{
@@ -107,7 +107,7 @@
 			</div>
 			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/items_medicine.png" alt="백신 관리"/>
 			<div class="dropdown">
-				<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="btn btn-pink dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					품목 선택
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -143,8 +143,8 @@
 				      	<input id="sup_weight${med.sup_id}" type="number" class="form-control" value="${med.sup_weight}" readonly>
 				      </td>
 				      <td>
-				      <button type="button" class="btn btn-outline-info" id="updateBtn${med.sup_id}" onclick="update(${med.sup_id})" style="display:inline">수정</button>
-				      <button type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" onclick="complete(${med.sup_id})" style="display:none">완료</button>
+				      <button type="button" class="btn btn-outline-mint" id="updateBtn${med.sup_id}" onclick="update(${med.sup_id})" style="display:inline">수정</button>
+				      <button type="button" class="btn btn-outline-mint" id="completeBtn${med.sup_id}" onclick="complete(${med.sup_id})" style="display:none">완료</button>
 				      </td>
 				    </tr>
 				</c:forEach>
@@ -159,9 +159,9 @@
 				   </form>
 				 </div>
 				 <div>
-					<a href="addMedicineForm" class="btn btn-secondary">추가</a>
-					<button type="button" class="btn btn-outline btn-danger" id="deleteBtn" onclick="deleteMed()">삭제</button>
-					<a href="medicineList" class="btn btn-secondary">목록</a>
+					<a href="addMedicineForm" class="btn btn-mint">추가</a>
+					<button type="button" class="btn btn-outline-secondary" id="deleteBtn" onclick="deleteMed()">삭제</button>
+					<a href="medicineList" class="btn btn-pink">목록</a>
 				</div>
 			</div>
 		</div>

@@ -82,9 +82,9 @@
 	#agency_password{
 		padding-left:45px;
 		background-image : url('<%=application.getContextPath()%>/resources/image/pw_icon.png');
-		background-repeat:no-repeat;
-		background-position:13px center;
-		background-size:20px 50%;
+		background-repeat: no-repeat;
+		background-position: 13px center;
+		background-size: 20px 50%;
 	}
 }
 </style>
@@ -95,11 +95,11 @@ function checkForm(){
 	$(".error").text("");
 	
 	if($("#agency_id").val()==""){
-		$("#errorAgency_id").text("*아이디를 입력하세요.");
+		$("#errorAgency_id").text("* 아이디를 입력하세요.");
 		result = false;
 	}
 	if($("#agency_password").val()==""){
-		$("#errorAgency_password").text("*비밀번호를 입력하세요.");
+		$("#errorAgency_password").text("* 비밀번호를 입력하세요.");
 		result = false;
 	}
 	return result;

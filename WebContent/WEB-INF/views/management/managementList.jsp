@@ -70,7 +70,7 @@ div.title {
 							<td style="text-align: center;">
 							<c:if test="${mana.agency_status=='N'}">
 								<a href="updateManagement?agency_id=${mana.agency_id}"
-									class="btn btn-info">승인</a>
+									class="btn btn-mint">승인</a>
 							</c:if>
 							<c:if test="${mana.agency_status=='Y'}">
 								승인 완료
@@ -79,7 +79,7 @@ div.title {
 							<td style="text-align: center;">
 							<c:if test="${mana.agency_status=='N'}">
 								<a href="deleteManagement?agency_id=${mana.agency_id}"
-									class="btn btn-dark">거절</a>
+									class="btn btn-pink">거절</a>
 							</c:if>
 							</td>
 							
