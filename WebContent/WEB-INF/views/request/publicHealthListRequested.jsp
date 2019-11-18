@@ -16,7 +16,7 @@
 	  </thead>
 	  <tbody>
 		
-		  <c:forEach items="${requestedList}" var="req">
+		  <c:forEach items="${requestList}" var="req">
 		    <tr>
 		      <td style="width:auto; vertical-align:middle"><a href="javascript:popupOpen(${req.order_id});">${req.order_id}</a></td>
 		      <td style="width:auto; vertical-align:middle">${req.order_need_time}</td>
@@ -56,28 +56,28 @@
 </div>
 <div id="con_bottom">
 	 <div id="bottom_btn">
-		<button type="button" onclick="requestedList(1)"  class="btn btn-outline-dark">처음</button>
+		<button type="button" onclick="listRequested(1)"  class="btn btn-outline-dark">처음</button>
 		
 		<c:if test="${groupNo>1}">
-			<button type="button" onclick="requestedList(${startPageNo-1})"  class="btn btn-outline-info">이전</button>
+			<button type="button" onclick="listRequested(${startPageNo-1})"  class="btn btn-outline-info">이전</button>
 		</c:if>
 		
 		<div style="display: inline-block;" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 		  <div class="btn-group mr-2" role="group" aria-label="First group">
 		  	<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
 		  		<c:if test="${pageNo==i}">
-		  			<button type="button"  onclick="requestedList(${i})" class="btn btn-light active">${i}</button>
+		  			<button type="button"  onclick="listRequested(${i})" class="btn btn-light active">${i}</button>
 		  		</c:if>
 		  		<c:if test="${pageNo!=i}">
-		  		<button type="button"  onclick="requestedList(${i})" class="btn btn-light">${i}</button>
+		  		<button type="button"  onclick="listRequested(${i})" class="btn btn-light">${i}</button>
 		  		</c:if>
 		  	</c:forEach>
 		  </div>
 		</div>							
 		<c:if test="${groupNo<totalGroupNum}">
-			<button type="button"  onclick="requestedList(${endPageNo+1})" class="btn btn-outline-info">다음</button>
+			<button type="button"  onclick="listRequested(${endPageNo+1})" class="btn btn-outline-info">다음</button>
 		</c:if>
-		<button type="button"  onclick="requestedList(${totalPageNum})" class="btn btn-outline-dark">맨끝</button>
+		<button type="button"  onclick="listRequested(${totalPageNum})" class="btn btn-outline-dark">맨끝</button>
 		<a href="request/totalRequestList" class="btn btn-mint submit_btn">요청 등록</a>
 	</div>
 </div> 

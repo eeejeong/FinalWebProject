@@ -587,8 +587,8 @@ public class RequestController {
 	}
 
 	//=====배송 요청 필터링 작업======
-	@RequestMapping("/requestedList")
-	public String requestedList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+	@RequestMapping("/listRequested")
+	public String listRequested(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
 
@@ -623,13 +623,13 @@ public class RequestController {
 		if (groupNo == totalGroupNum)
 			endPageNo = totalPageNum;
 
-		List<RequestItems> requestedList = new ArrayList<>();
+		List<RequestItems> requestList = new ArrayList<>();
 
 		// 현재 페이지의 게시물 가져오기
 		if(agency_id.equals("admin")) {					
-			requestedList = requestService.getAdminRequestedList(startRowNo, endRowNo);
+			requestList = requestService.getAdminRequestedList(startRowNo, endRowNo);
 		} else { 
-			requestedList = requestService.getRequestedList(startRowNo, endRowNo, agency_id); 
+			requestList = requestService.getRequestedList(startRowNo, endRowNo, agency_id); 
 		}
 
 
@@ -641,12 +641,12 @@ public class RequestController {
 		model.addAttribute("startPageNo", startPageNo);
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("requestedList", requestedList);
+		model.addAttribute("requestList", requestList);
 
 		if(agency_id.equals("admin")) {			
-			return "/request/hospitalRequestedList";
+			return "/request/hospitalListRequested";
 		} else {
-			return "/request/publicHealthRequestedList";
+			return "/request/publicHealthListRequested";
 		}		
 	}
 	//=========================================================================================================================

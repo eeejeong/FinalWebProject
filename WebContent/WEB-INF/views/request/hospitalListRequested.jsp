@@ -17,7 +17,7 @@
 		</thead>
 		<tbody>
 			
-			<c:forEach items="${requestedList}" var="req">
+			<c:forEach items="${requestList}" var="req">
 			
 				<tr>
 					<td style="width: auto; vertical-align: middle"><a
@@ -56,10 +56,10 @@
 </div>
 <div style="display: flex;">
 	<div style="flex-grow: 1; margin: auto; text-align: center;">
-		<button type="button" onclick="requestedList(1)"  class="btn btn-outline-dark">처음</button>
+		<button type="button" onclick="listRequested(1)"  class="btn btn-outline-dark">처음</button>
 
 		<c:if test="${groupNo>1}">
-			<button type="button" onclick="requestedList(${startPageNo-1})" 
+			<button type="button" onclick="listRequested(${startPageNo-1})" 
 				class="btn btn-outline-info">이전</button>
 		</c:if>
 
@@ -68,19 +68,19 @@
 			<div class="btn-group mr-2" role="group" aria-label="First group">
 				<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
 					<c:if test="${pageNo==i}">
-						<button type="button" onclick="requestedList(${i})" class="btn btn-light active">${i}</button>
+						<button type="button" onclick="listRequested(${i})" class="btn btn-light active">${i}</button>
 					</c:if>
 					<c:if test="${pageNo!=i}">
-						<button type="button" onclick="requestedList(${i})" class="btn btn-light">${i}</button>
+						<button type="button" onclick="listRequested(${i})" class="btn btn-light">${i}</button>
 					</c:if>
 				</c:forEach>
 			</div>
 		</div>
 		<c:if test="${groupNo<totalGroupNum}">
-			<button type="button"  onclick="requestedList(${endPageNo+1})" 
+			<button type="button"  onclick="listRequested(${endPageNo+1})" 
 				class="btn btn-outline-info">다음</button>
 		</c:if>
-		<button type="button" onclick="requestedList(${totalPageNum})"
+		<button type="button" onclick="listRequested(${totalPageNum})"
 			class="btn btn-outline-dark">맨끝</button>
 	</div>
 	
