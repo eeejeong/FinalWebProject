@@ -174,4 +174,38 @@
 		where order_id = #{order_id}
 	</delete>
 
+	<select id="selectTotalRowNumListDelivered" parameterType="String" resultType="int">
+		select count(*) from request where order_agency_id = #{agency_id} and order_status = 'DELIVERED'
+	</select>
+	
+	<select id="selectTotalRowNumAdminListDelivered" parameterType="String" resultType="int">
+		select count(*) from request where order_status = 'DELIVERED'
+	</select>
+	
+	<select id="selectRequestListDelivered"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+				from request where order_agency_id=#{agency_id} and order_status='DELIVERED' order by order_need_time, order_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectAdminRequestListDelivered"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+				from request where order_status='DELIVERED' order by order_need_time, order_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
 </mapper>

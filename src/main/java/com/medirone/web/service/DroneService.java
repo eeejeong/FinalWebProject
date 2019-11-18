@@ -74,10 +74,9 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 					String items = (String) jsonObject.get("items");
 					missionDao.updateMission(aID, items);
 				}
-				else if(mid.equals("RtlMISSION_UPLOAD")) {
-					String aID = (String) jsonObject.get("aID");
-					String items = (String) jsonObject.get("items");
-					missionDao.updateRtlMission(aID, items);
+				else if(mid.equals("MISSION_ACTION")) {
+					int orderId = (Integer) jsonObject.get("orderId");
+					System.out.println(orderId);
 				}
 				// 드론이 미션 시작했을 때
 				else if(mid.equals("MISSION_START")) {		

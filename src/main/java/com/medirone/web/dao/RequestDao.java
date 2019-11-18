@@ -111,7 +111,7 @@ public class RequestDao {
 		int rows = sqlSessionTemplate.update("request.updateDeliveredDate", order_id);
 		return rows;
 	}
-
+	
 	/////////////////////////한별작업///////////////////////////////////
 	public List<RequestItems> selectAdminRequestListByOrderStatus(int startRowNo, int endRowNo) {
 		Map<String, Integer> map = new HashMap<>();
@@ -141,5 +141,32 @@ public class RequestDao {
 		return totalRowNum;
 	}
 	/////////////////////////한별작업 끝///////////////////////////////////
+
+	public int selectTotalRowNoListDelivered(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumAdminListDelivered", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumListDelivered", agency_id);
+		}
+		return totalRowNum;
+	}
+
+	public List<RequestItems> selectAdminRequestListDelivered(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestListDelivered", map);
+		return requestList;
+	}
+
+	public List<RequestItems> selectRequestListDelivered(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestListDelivered", map);
+		return requestList;
+	}
 
 }

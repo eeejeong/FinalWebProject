@@ -176,6 +176,68 @@ public class RequestController {
 		}
 	}
 
+	@RequestMapping("/listDelivered")
+	public String listDelivered(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+		session.setAttribute("pageNo", pageNo);
+		String agency_id = (String) session.getAttribute("agency_Id");
+		
+		// 페이지당 행 수
+		int rowsPerPage = 10;
+		// 이전, 다음을 클릭했을 때 나오는 페이지 수
+		int pagesPerGroup = 5;
+		// 전체 게시물 수
+		int totalRowNum = requestService.getTotalRowNoListDelivered(agency_id);
+		// 전체 페이지 수
+		int totalPageNum = totalRowNum / rowsPerPage;
+		if (totalRowNum % rowsPerPage != 0)
+			totalPageNum++;
+		// 전제 그룹 수
+		int totalGroupNum = totalPageNum / pagesPerGroup;
+		if (totalPageNum % pagesPerGroup != 0)
+			totalGroupNum++;
+
+		// 해당 페이지의 시작 행 번호
+		int startRowNo = (pageNo - 1) * rowsPerPage + 1;
+		// 해당 페이지의 끝 행 번호
+		int endRowNo = pageNo * rowsPerPage;
+		if (pageNo == totalPageNum)
+			endRowNo = totalRowNum;
+
+		// 현재 페이지의 그룹번호
+		int groupNo = (pageNo - 1) / pagesPerGroup + 1;
+		// 현재 그룹의 시작 페이지 번호
+		int startPageNo = (groupNo - 1) * pagesPerGroup + 1;
+		// 현재 그룹의 마지막 페이지 번호
+		int endPageNo = startPageNo + pagesPerGroup - 1;
+		if (groupNo == totalGroupNum)
+			endPageNo = totalPageNum;
+
+		List<RequestItems> requestList = new ArrayList<>();
+		
+		// 현재 페이지의 게시물 가져오기
+		if(agency_id.equals("admin")) {
+			requestList = requestService.getAdminRequestListDelivered(startRowNo, endRowNo);
+		} else {
+			requestList = requestService.getRequestListDelivered(startRowNo, endRowNo, agency_id);
+		}
+
+		// JSP로 페이지 정보 넘기기
+		model.addAttribute("pagesPerGroup", pagesPerGroup);
+		model.addAttribute("totalPageNum", totalPageNum);
+		model.addAttribute("totalGroupNum", totalGroupNum);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("startPageNo", startPageNo);
+		model.addAttribute("endPageNo", endPageNo);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("requestList", requestList);
+		
+		if(agency_id.equals("admin")) {
+			return "/request/hospitalListDelivered";
+		} else {
+			return "/request/publicHealthListDelivered";
+		}
+	}
+
 	// 보건소에서 의약품 요청 등록을 눌렀을 때
 	@RequestMapping("/totalRequestList")
 	public String totalRequestList() {
