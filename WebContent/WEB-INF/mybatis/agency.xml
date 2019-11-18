@@ -41,7 +41,7 @@
 	update agency 
 	set agency_password = #{agency_password}, agency_name = #{agency_name}, agency_tel = #{agency_tel}, 
 		agency_address = #{agency_address}, agency_latitude = #{agency_latitude}, agency_longitude = #{agency_longitude},
-		mission_waypoint = null
+		mission_waypoint = null, mission_writer = null, mission_write_date = null
 	where agency_id=#{agency_id} 
 	</update>
 	

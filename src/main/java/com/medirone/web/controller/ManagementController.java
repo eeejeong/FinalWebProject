@@ -57,6 +57,13 @@ public class ManagementController {
 		int totalRowNum = service.getTotalRowNo();
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -130,6 +137,13 @@ public class ManagementController {
 		int totalRowNum = service.getGcsTotalRowNo();
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수

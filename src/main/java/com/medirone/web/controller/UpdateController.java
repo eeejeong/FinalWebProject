@@ -26,7 +26,7 @@ public class UpdateController {
 	private double originalLat;
 	private double originalLng;
 	
-	@RequestMapping("/up")
+	@RequestMapping("/")
 	public String updateMemberForm(Model model, HttpSession session) {
 		String agency_id = (String) session.getAttribute("agency_Id");
 		Agency agency = service.getAgency(agency_id);

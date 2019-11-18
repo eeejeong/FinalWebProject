@@ -59,14 +59,21 @@ public class RequestController {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
 
+		// 전체 게시물 수
+		int totalRowNum = requestService.getTotalRowNo(agency_id);
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
 		int pagesPerGroup = 5;
-		// 전체 게시물 수
-		int totalRowNum = requestService.getTotalRowNo(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -130,6 +137,13 @@ public class RequestController {
 		int totalRowNum = requestService.getTotalDeliveringRowNum(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -184,14 +198,21 @@ public class RequestController {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
 
+		// 전체 게시물 수
+		int totalRowNum = requestService.getTotalRowNoListDelivered(agency_id);
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
 		int pagesPerGroup = 5;
-		// 전체 게시물 수
-		int totalRowNum = requestService.getTotalRowNoListDelivered(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -205,7 +226,6 @@ public class RequestController {
 		int endRowNo = pageNo * rowsPerPage;
 		if (pageNo == totalPageNum)
 			endRowNo = totalRowNum;
-
 		// 현재 페이지의 그룹번호
 		int groupNo = (pageNo - 1) / pagesPerGroup + 1;
 		// 현재 그룹의 시작 페이지 번호
@@ -214,7 +234,6 @@ public class RequestController {
 		int endPageNo = startPageNo + pagesPerGroup - 1;
 		if (groupNo == totalGroupNum)
 			endPageNo = totalPageNum;
-
 		List<RequestItems> requestList = new ArrayList<>();
 
 		// 현재 페이지의 게시물 가져오기
@@ -267,6 +286,13 @@ public class RequestController {
 		int totalRowNum = itemService.getTotalRowNo();
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -528,6 +554,13 @@ public class RequestController {
 
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -600,6 +633,13 @@ public class RequestController {
 		int totalRowNum = requestService.getTotalRequestedRowNo(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
@@ -663,6 +703,13 @@ public class RequestController {
 		int totalRowNum = requestService.getPreparingTotalRequestedRowNo(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
+		
+		if(totalRowNum == 0) {
+			rowsPerPage = 1;
+			pagesPerGroup = 1;
+			totalPageNum = 1;
+		}
+		
 		if (totalRowNum % rowsPerPage != 0)
 			totalPageNum++;
 		// 전제 그룹 수
