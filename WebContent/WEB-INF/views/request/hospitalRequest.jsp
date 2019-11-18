@@ -91,6 +91,25 @@
 		});
 	}
 	
+	//필터링: 배송중
+	function listDelivering(pageNo) {
+		$.ajax({
+			url: 'request/listDelivering?pageNo=' + pageNo,
+			success : function(data) {
+				$('#requestTable').html(data)
+			}
+		});
+	}
+	
+	// 필터링: 배송 완료
+	function listDelivered(pageNo) {
+		$.ajax({
+			url: 'request/listDelivered?pageNo=' + pageNo,
+			success : function(data) {
+				$('#requestTable').html(data)
+			}
+		});
+	}
 </script>
 <style>
 div.title {
@@ -130,8 +149,8 @@ div.dropdown {
 				<button class="dropdown-item" type="button" onclick="listAll(1)">전체 보기</button>
 				<button class="dropdown-item" type="button" onclick="requestedList(1)">배송 요청</button>
 				<button class="dropdown-item" type="button" onclick="">배송 준비</button>
-				<button class="dropdown-item" type="button" onclick="">배송 중</button>
-				<button class="dropdown-item" type="button" onclick="">배송 완료</button>
+				<button class="dropdown-item" type="button" onclick="listDelivering(1)">배송 중</button>
+				<button class="dropdown-item" type="button" onclick="listDelivered(1)">배송 완료</button>
 			</div>
 		</div>
 		</div>

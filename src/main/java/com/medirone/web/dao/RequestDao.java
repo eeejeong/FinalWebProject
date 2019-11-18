@@ -111,6 +111,16 @@ public class RequestDao {
 		int rows = sqlSessionTemplate.update("request.updateDeliveredDate", order_id);
 		return rows;
 	}
+	
+	/////////////////////////한별작업///////////////////////////////////
+	public List<RequestItems> selectAdminRequestListByOrderStatus(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestListByOrderStatus", map);
+		return requestList;
+	}
+
 
 	//=====배송 요청 필터링 작업======
 	public List<RequestItems> selectAdminRequestedList(int startRowNo, int endRowNo) {
@@ -142,5 +152,53 @@ public class RequestDao {
 		return requestedList;
 	}
 
+
+	
+	public List<RequestItems> selectRequestItemsByOrderStatus(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestItemsByOrderStatus", map);
+		return requestList;
+	}
+	
+	public int selectTotalDeliveringRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalDeliveringRowNumAdmin", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalDeliveringRowNum", agency_id);
+		}
+		return totalRowNum;
+	}
+	/////////////////////////한별작업 끝///////////////////////////////////
+
+	public int selectTotalRowNoListDelivered(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumAdminListDelivered", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumListDelivered", agency_id);
+		}
+		return totalRowNum;
+	}
+
+	public List<RequestItems> selectAdminRequestListDelivered(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestListDelivered", map);
+		return requestList;
+	}
+
+	public List<RequestItems> selectRequestListDelivered(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestListDelivered", map);
+		return requestList;
+	}
 
 }
