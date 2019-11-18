@@ -80,7 +80,7 @@ div.title {
 /* 수정 */
 .content {
 	height: 740px;
-	padding : 50px;
+	padding : 25px;
 }
 
 .form-control {

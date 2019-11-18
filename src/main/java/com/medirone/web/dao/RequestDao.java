@@ -111,6 +111,68 @@ public class RequestDao {
 		int rows = sqlSessionTemplate.update("request.updateDeliveredDate", order_id);
 		return rows;
 	}
+	
+	/////////////////////////한별작업///////////////////////////////////
+	public List<RequestItems> selectAdminRequestListByOrderStatus(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestListByOrderStatus", map);
+		return requestList;
+	}
+
+
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> selectAdminRequestedList(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestedList = sqlSessionTemplate.selectList("request.selectAdminRequestedList", map);
+		return requestedList;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public int selectTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRequestedRowNumAdmin", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRequestedRowNum", agency_id);
+		}
+		return totalRowNum;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> selectRequestedList(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestedList = sqlSessionTemplate.selectList("request.selectRequestedList", map);
+		return requestedList;
+	}
+
+
+	
+	public List<RequestItems> selectRequestItemsByOrderStatus(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestItemsByOrderStatus", map);
+		return requestList;
+	}
+	
+	public int selectTotalDeliveringRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalDeliveringRowNumAdmin", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalDeliveringRowNum", agency_id);
+		}
+		return totalRowNum;
+	}
+	/////////////////////////한별작업 끝///////////////////////////////////
 
 	public int selectTotalRowNoListDelivered(String agency_id) {
 		int totalRowNum = 0;
@@ -139,5 +201,32 @@ public class RequestDao {
 		return requestList;
 	}
 
+	public List<RequestItems> selectAdminList(int startRowNo, int endRowNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdmintRequestListPreparing", map);
+		return requestList;
+	}
+
+	public List<RequestItems> selectPreparingList(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestListPreparing", map);
+		return requestList;
+	}
+
+	public int PreparingTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumAdminListPreparing", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumListPreparing", agency_id);
+		}
+		return totalRowNum;
+		
+	}
 
 }

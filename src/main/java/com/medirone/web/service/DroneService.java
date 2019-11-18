@@ -70,13 +70,12 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 				String mid = (String) jsonObject.get("msgid");
 				
 				if(mid.equals("MISSION_UPLOAD")) {
+					logger.debug("===MISSION_UPLOAD==");
 					String aID = (String) jsonObject.get("aID");
 					String items = (String) jsonObject.get("items");
+					logger.debug("aID: " + aID);
+					logger.debug("items: " + items);
 					missionDao.updateMission(aID, items);
-				}
-				else if(mid.equals("MISSION_ACTION")) {
-					int orderId = (Integer) jsonObject.get("orderId");
-					System.out.println(orderId);
 				}
 				// 드론이 미션 시작했을 때
 				else if(mid.equals("MISSION_START")) {		

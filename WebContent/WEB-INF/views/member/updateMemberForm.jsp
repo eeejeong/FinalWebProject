@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
 			.content{
-				height: 1330px;
+				height: 1350px;
 				padding: 50px;
 				}
 		</style>
@@ -127,6 +127,7 @@
 		                }
 
 		                var guideTextBox = document.getElementById("guide");
+		                <%-- 
 		                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
 		                if(data.autoRoadAddress) {
 		                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
@@ -141,7 +142,7 @@
 		                    guideTextBox.innerHTML = '';
 		                    guideTextBox.style.display = 'none';
 		                }
-		                
+		                --%>
 		                var agencyAddr = roadAddr + " " + extraRoadAddr;
 		                document.getElementById("agency_address").value = agencyAddr;
 		            }
@@ -174,8 +175,8 @@
 	    		<div class="form-group col-md-6">
 	      			<label for="agency_password2">비밀번호 재확인</label>	    
 	      			<input id="agency_password2" name="agency_password2" type="password" class="form-control" value="${agency.agency_password}">
-	      			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-	      			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+	      			<div id="alert-success" style="color: green;">* 비밀번호가 일치합니다.</div>
+		      		<div id="alert-danger" style="color: red;">* 비밀번호가 일치하지 않습니다.</div>	      			
 	    			</div>
 	    		</div>
 	  		

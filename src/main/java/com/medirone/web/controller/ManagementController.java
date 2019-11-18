@@ -176,6 +176,7 @@ public class ManagementController {
 		double agencyLat = agency.getAgency_latitude();
 		double agencyLng = agency.getAgency_longitude();
 		String mission_waypoint = agency.getMission_waypoint();
+		String agencyName = agency.getAgency_name();
 		
 		if(mission_waypoint == null) {
 			mission_waypoint = "";
@@ -184,9 +185,11 @@ public class ManagementController {
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("agencyId", agency_id);
 		jsonObject.put("agencyLat", agencyLat);
 		jsonObject.put("agencyLng", agencyLng);
 		jsonObject.put("waypoint", mission_waypoint);
+		jsonObject.put("agencyName", agencyName);
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();

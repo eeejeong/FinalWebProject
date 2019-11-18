@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<style type="text/css">
 			.content{
-					height: 1500px;
+					height: 1450px;
 					padding: 50px;
 					}
 		</style>
@@ -98,7 +98,9 @@
 					}
 					
 				});				
-			}			
+			}		
+			
+			// 비밀번호 재확인
 			$(function(){ 
 				$("#alert-success").hide(); 
 				$("#alert-danger").hide(); 
@@ -160,6 +162,7 @@
 		                }
 
 		                var guideTextBox = document.getElementById("guide");
+		                <%-- 
 		                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
 		                if(data.autoRoadAddress) {
 		                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
@@ -174,7 +177,7 @@
 		                    guideTextBox.innerHTML = '';
 		                    guideTextBox.style.display = 'none';
 		                }
-		                
+		                --%>
 		                var agencyAddr = roadAddr + " " + extraRoadAddr;
 		                document.getElementById("agency_address").value = agencyAddr;
 		            }
@@ -198,24 +201,27 @@
 	      				<div class="input-group mb-3">		  	
 	  						<input id="agency_id" name="agency_id" type="text" class="form-control" placeholder="아이디를 입력하세요." >
 	  						<div class="input-group-append">
-	    						<input onclick="checkAgencyId()" type="button" class="btn btn-outline-mint" value="중복확인"/>   				
-	  		   				</div>	  	   		
+	    						<input onclick="checkAgencyId()" type="button" class="btn btn-outline-mint" value="중복확인"/>       										
+	  		   				</div>	  	  
+	  		   				
 			  			</div>
-			  			<span id="agency_idError" class="error" style="color:red"></span>
-	    			</div>	    			
+	    			</div>
+	    			 <div class="form-group col-md-6">
+	    			 	<br>
+	    			 	<span id="agency_idError" class="error" style="color:red; margin-left: 5px; position: absolute;  bottom: 25px;"></span> 		
+	    			 </div>			
 	    		</div>
 	    	
 		    	<div class="form-row">
 		    		<div class="form-group col-md-6">
 		     		 	<label for="agency_password">비밀번호</label>
-		 	      		<input id="agency_password" name="agency_password" type="password" class="form-control" placeholder="비밀번호">
-		    			   			
+		 	      		<input id="agency_password" name="agency_password" type="password" class="form-control" placeholder="비밀번호">		    			   			
 		    		</div>
 		    		<div class="form-group col-md-6">
 		      			<label for="agency_password2">비밀번호 재확인</label>	    
 		      			<input id="agency_password2" name="agency_password2" type="password" class="form-control" placeholder="비밀번호 재확인">
-		      			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-		      			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+		      			<div id="alert-success" style="color: green;">* 비밀번호가 일치합니다.</div>
+		      			<div id="alert-danger" style="color: red;">* 비밀번호가 일치하지 않습니다.</div>	      			
 		    			</div>
 		    		</div>
 		  		
@@ -239,11 +245,11 @@
 				  		<input type="text" id="postcode" placeholder="우편번호">
 						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-mint"><br>
 						<div style="margin-top: 5px;">
-							<input style="width: 300px" type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
+							<input style="width: 400px" type="text" id="roadAddress" placeholder="도로명주소"> <!-- roadAddr -->
 							<span id="guide" style="color:#999; display:none"></span>	
-							<input style="width: 200px" type="text" id="extraAddress" placeholder="나머지주소"><!-- extraAddr -->
+							<input style="width: 300px" type="text" id="extraAddress" placeholder="나머지주소"><!-- extraAddr -->
 						</div>
-						<input style="width: 505px; margin-top: 5px;" type="text" id="agency_address" name="agency_address" value=""> <!-- agencyAddr -->
+						<input style="width: 705px; margin-top: 5px;" type="text" id="agency_address" name="agency_address" value=""> <!-- agencyAddr -->
 					
 					 </div>	
 				</div>

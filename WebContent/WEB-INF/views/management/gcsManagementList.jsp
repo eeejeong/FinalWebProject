@@ -56,9 +56,11 @@
 			success : function(data) {		
 				var json = new Object();
 				json.msgid = 'showMission';
+				json.agencyId = data.agencyId;
 				json.lat = data.agencyLat;
 				json.lng = data.agencyLng;
 				json.waypoint = data.waypoint;
+				json.agencyName = data.agencyName;
 
 				var jsonStr = JSON.stringify(json);
 				sendMessage(jsonStr);	
@@ -77,7 +79,7 @@ div.title {
 }
 .content{
 	height: 740px;
-	padding: 50px;
+	padding: 25px;
 	}
 #agencyAddressLink {
 	color: #398AD7; 
@@ -118,7 +120,7 @@ div.title {
 								</c:if>
 							</td>	
 							<td style="vertical-align: middle; text-align: center;">
-								<button class="btn btn-outline-pink" onclick="showGoingMission('${mana.agency_id}')"> 불러오기</button>
+								<button class="btn btn-outline-mint" onclick="showGoingMission('${mana.agency_id}')"> 불러오기</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -127,10 +129,10 @@ div.title {
 		</div>
 		<div style="display: flex;">
 			<div style="flex-grow: 1; margin: auto; text-align: center;">
-				<a href="managementList?pageNo=1" class="btn btn-outline-dark">처음</a>
+				<a href="gcsManagementList?pageNo=1" class="btn btn-outline-dark">처음</a>
 
 				<c:if test="${groupNo>1}">
-					<a href="managementList?pageNo=${startPageNo-1}"
+					<a href="gcsManagementList?pageNo=${startPageNo-1}"
 						class="btn btn-outline-info">이전</a>
 				</c:if>
 
@@ -139,20 +141,20 @@ div.title {
 					<div class="btn-group mr-2" role="group" aria-label="First group">
 						<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
 							<c:if test="${pageNo==i}">
-								<a href="managementList?pageNo=${i}"
+								<a href="gcsManagementList?pageNo=${i}"
 									class="btn btn-light active">${i}</a>
 							</c:if>
 							<c:if test="${pageNo!=i}">
-								<a href="managementList?pageNo=${i}" class="btn btn-light">${i}</a>
+								<a href="gcsManagementList?pageNo=${i}" class="btn btn-light">${i}</a>
 							</c:if>
 						</c:forEach>
 					</div>
 				</div>
 				<c:if test="${groupNo<totalGroupNum}">
-					<a href="managementList?pageNo=${endPageNo+1}"
+					<a href="gcsManagementList?pageNo=${endPageNo+1}"
 						class="btn btn-outline-info">다음</a>
 				</c:if>
-				<a href="managementList?pageNo=${totalPageNum}"
+				<a href="gcsManagementList?pageNo=${totalPageNum}"
 					class="btn btn-outline-dark">맨끝</a>
 			</div>
 		</div>

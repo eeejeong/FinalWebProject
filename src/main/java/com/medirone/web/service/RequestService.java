@@ -66,6 +66,25 @@ public class RequestService {
 		List<RequestItems> requestItems = requestDao.selectRequestItemsByOrderId(order_id);
 		return requestItems;
 	}
+	
+	//////////////////////한별작업///////////////////////////
+	//병원 요청페이지에서 배송중을 눌렀을 때
+	public List<RequestItems> getAdminRequestListByOrderStatus(int startRowNo, int endRowNo) {
+		List<RequestItems> requestList = requestDao.selectAdminRequestListByOrderStatus(startRowNo, endRowNo);
+		return requestList;
+	}
+	
+	//보건소 요청페이지에서 배송중을 눌렀을 때
+	public List<RequestItems> getRequestItemsByOrderStatus(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestItems = requestDao.selectRequestItemsByOrderStatus(startRowNo, endRowNo, agency_id);
+		return requestItems;
+	}
+	
+	public int getTotalDeliveringRowNum(String agency_id) {
+		int totalRowNum = requestDao.selectTotalDeliveringRowNo(agency_id);
+		return totalRowNum;
+	}
+	//////////////////////한별작업 끝///////////////////////////
 
 	public void deleteRequestByOrderId(int order_id) {
 		requestDao.deleteRequestByOrderId(order_id);
@@ -95,6 +114,39 @@ public class RequestService {
 	public List<RequestItems> getRequestListDelivered(int startRowNo, int endRowNo, String agency_id) {
 		List<RequestItems> requestList = requestDao.selectRequestListDelivered(startRowNo, endRowNo, agency_id);
 		return requestList;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> getAdminRequestedList(int startRowNo, int endRowNo) {
+		List<RequestItems> requestedList = requestDao.selectAdminRequestedList(startRowNo, endRowNo);
+		return requestedList;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public int getTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = requestDao.selectTotalRequestedRowNo(agency_id);
+		return totalRowNum;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> getRequestedList(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestedList = requestDao.selectRequestedList(startRowNo, endRowNo, agency_id);
+		return requestedList;
+	}
+
+	public List<RequestItems> getAdminPreparingRequestedList(int startRowNo, int endRowNo) {
+		List<RequestItems> requestList = requestDao.selectAdminList(startRowNo,endRowNo);
+		return requestList;
+	}
+
+	public List<RequestItems> getPreparingRequestedList(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestList = requestDao.selectPreparingList(startRowNo,endRowNo,agency_id);
+		return requestList;
+	}
+
+	public int getPreparingTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = requestDao.PreparingTotalRequestedRowNo(agency_id);
+		return totalRowNum;
 	}
 
 }
