@@ -99,9 +99,7 @@
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	
-	
+		
 	<select id="selectTotalRowNum" parameterType="String" resultType="int">
 		select count(*) from request where order_agency_id = #{agency_id}
 	</select>
@@ -113,25 +111,17 @@
 	<select id="selectTotalRowNumGcs" resultType="int">
 		select count(*) from request where order_status='PREPARING'
 	</select>
-	
-	<update id="updateStatusToPreparing" parameterType="int">
-		update request set order_status='PREPARING' where order_id=#{order_id}
-	</update>
-	
-	<update id="updateStatusToDelivering" parameterType="int">
-		update request set order_status='DELIVERING' where order_id=#{order_id}
-	</update>
-	
-	<update id="updateStatusToDelivered" parameterType="int">
-		update request set order_status='DELIVERED' where order_id=#{order_id}
-	</update>
-	
+
 	<update id="updateStatusToDeliverSuccess" parameterType="int">
 		update request set DELIVERED_CHECK='Y' where order_id=#{order_id}
 	</update>
 	
 	<update id="updateDeliveredDate" parameterType="int">
 		update request set DELIVERED_DATE=sysdate where order_id=#{order_id}
+	</update>
+	
+	<update id="updateOrderStatus" parameterType="map">
+		update request set order_status=#{order_status} where order_id=#{order_id}
 	</update>
 	
 	<select id="selectRequestItemsByOrderId" parameterType="int" resultType="com.medirone.web.dto.RequestItems">

@@ -40,12 +40,22 @@ public class RequestController {
 	private AgencyService agencyService;
 
 	@RequestMapping("")
-	public String medrequest(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session, String agency_id) {
-		session.setAttribute("pageNo", pageNo);
+	public String requestHome(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session, String agency_id) {
 		if(agency_id == null) {
 			agency_id = (String) session.getAttribute("agency_Id");
 		}
-
+		
+		if(agency_id.equals("admin")) {
+			return "/request/hospitalRequest";
+		} else {
+			return "/request/publicHealthRequest";
+		}	
+	}
+	@RequestMapping("/listAll")
+	public String listAll(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+		session.setAttribute("pageNo", pageNo);
+		String agency_id = (String) session.getAttribute("agency_Id");
+		
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
@@ -97,11 +107,10 @@ public class RequestController {
 		model.addAttribute("requestList", requestList);
 		
 		if(agency_id.equals("admin")) {
-			return "/request/hospitalRequest";
+			return "/request/hospitalListAll";
 		} else {
-			return "/request/publicHealthRequest";
-		}
-		
+			return "/request/publicHealthListAll";
+		}		
 	}
 
 	// 보건소에서 의약품 요청 등록을 눌렀을 때
@@ -276,7 +285,8 @@ public class RequestController {
 	// 병원 요청 페이지에서 접수 버튼을 눌렀을 때
 	@RequestMapping("/preparingClicked")
 	public void preparingClicked(int order_id, String agency_id, HttpServletResponse response) throws Exception {
-		requestService.changeStatusToPreparing(order_id);	// request 상태를 preparing(배송 준비)으로 
+		// requestService.changeStatusToPreparing(order_id);	// request 상태를 preparing(배송 준비)으로 
+		requestService.changeOrderStatus(order_id, OrderStatus.PREPARING);
 		Agency agency = agencyService.getAgency(agency_id);
 		
 		double agencyLat = agency.getAgency_latitude();
@@ -327,22 +337,6 @@ public class RequestController {
 		pw.flush();
 		pw.close();
 	}
-	
-	
-	// GCS에서 미션 시작 버튼을 눌렀을 때
-	@RequestMapping("/missionStarted")
-	   public void missionStarted(String orderId, HttpServletResponse response) throws Exception{
-		int order_id = Integer.parseInt(orderId);
-		requestService.changeStatusToDelivering(order_id);	// request 상태를 delivering(배송 중)으로 
-		
-		response.setContentType("application/json;charset=UTF-8");
-		PrintWriter pw = response.getWriter();
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("result", true);	
-		pw.print(jsonObject.toString());
-		pw.flush();
-		pw.close();
-	 }
 	
 	// 보건소가 수취 확인 버튼을 누르면 실행
 	@RequestMapping("/deliverSuccess")

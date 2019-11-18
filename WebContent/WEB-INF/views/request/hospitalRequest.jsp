@@ -14,6 +14,16 @@
 
 <script type="text/javascript">
 
+	window.rCheck = false;
+	
+	//맨 처음 실행에는 전체 요청 목록을 보여줌
+	function first() {
+		if (!rCheck) {
+			rCheck = true;
+			listAll(1);
+		}
+	};
+	
 	$(function() {
 		// MQTT Broker와 연결하기
 		client = new Paho.MQTT.Client("106.253.56.124", 61624, "clientId" + new Date().getTime());
@@ -38,6 +48,7 @@
 		client.send(message);
 	}
 
+	// 배송 접수 버튼을 눌렀을 때
 	function preparingBtn(order_id, agency_id){
 		$.ajax({
 			url : 'request/preparingClicked?order_id=' + order_id + '&agency_id=' + agency_id,
@@ -59,14 +70,17 @@
 		});
 		
 	}
-	function requested(pageNo) {
+	
+	// 필터링: 전체 보기
+	function listAll(pageNo) {
 		$.ajax({
-			url : 'requested?pageNo=' + pageNo,
+			url: 'request/listAll?pageNo=' + pageNo,
 			success : function(data) {
-				$('#itemTable').html(data)
+				$('#requestTable').html(data)
 			}
 		});
 	}
+	
 </script>
 <style>
 div.title {
@@ -91,19 +105,19 @@ div.dropdown {
 </style>
 
 </head>
-<body>
+<body onload="first()">
 	<jsp:include page="../common/agencyHeader.jsp"></jsp:include>
 
 	<div class="content">
 		<div class="title">
 			<img style="height: 40px" src="<%=application.getContextPath()%>/resources/image/title/request.png" alt="요청게시판"/>
 			<hr style="color: grey; height: 2px;">
-			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>
-		
+			<img style="height: 30px; margin-bottom: 10px;" src="<%=application.getContextPath()%>/resources/image/title/request_list.png" alt="요청목록"/>		
 		<div class="dropdown">
 			<a class="btn btn-pink dropdown-toggle" href="#" role="button"
-				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 품목 선택 </a>
+				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 배송 상태 </a>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+				<button class="dropdown-item" type="button" onclick="listAll(1)">전체보기</button>
 				<button class="dropdown-item" type="button" onclick="">배송요청</button>
 				<button class="dropdown-item" type="button" onclick="">배송준비</button>
 				<button class="dropdown-item" type="button" onclick="">배송중</button>
@@ -111,85 +125,10 @@ div.dropdown {
 			</div>
 		</div>
 		</div>
-		<div>
-			<table style="margin: auto; text-align: center;"
-				class="table table-sm">
-				<thead>
-					<tr style="background-color: #dcdcdc">
-						<th scope="col">요청 번호</th>
-						<th scope="col">필요시간</th>
-						<th scope="col">요청 기관</th>
-						<th scope="col">접수 날짜</th>
-						<th scope="col">배송 상태</th>
-						<th scope="col">수취 확인</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${requestList}" var="req">
-						<tr>
-							<td style="width: auto; vertical-align: middle"><a
-								href="javascript:popupOpen(${req.order_id});">${req.order_id}</a></td>
-							<td style="width: auto; vertical-align: middle">${req.order_need_time}</td>
-							<td style="width: auto; vertical-align: middle">${req.order_agency_id}</td>
-							<td style="width: auto; vertical-align: middle"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${req.order_date}"></fmt:formatDate> </td>
-							<td style="width: auto; vertical-align: middle">
-								<c:if test="${req.order_status == 'REQUESTED'}">
-									<button type="button" class="btn btn-outline-danger" onclick="preparingBtn(${req.order_id}, '${req.order_agency_id}')">배송 요청</button>
-								</c:if> 
-								<c:if test="${req.order_status == 'PREPARING'}">
-									<button type="button" class="btn btn-outline-pink" disabled>배송 준비</button>
-								</c:if>
-								<c:if test="${req.order_status == 'DELIVERING'}">
-									<button type="button" class="btn btn-outline-mint" disabled>배송 중</button>
-								</c:if>
-								<c:if test="${req.order_status == 'DELIVERED'}">
-									<button type="button" class="btn btn-outline-secondary" disabled>배송 완료</button>
-								</c:if>
-							</td>
-							<td style="width: auto; vertical-align: middle">
-								<c:if test="${req.delivered_check == 'Y'}">
-									<button type="button" class="btn btn-outline-pink" disabled>수취 확인</button>
-								</c:if> 
-								<c:if test="${req.delivered_check == 'N'}">
-									<button type="button" class="btn btn-outline-mint" disabled>수취 미확인</button>
-								</c:if>
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		<div style="display: flex;">
-			<div style="flex-grow: 1; margin: auto; text-align: center;">
-				<a href="?pageNo=1" class="btn btn-outline-dark">처음</a>
-
-				<c:if test="${groupNo>1}">
-					<a href="?pageNo=${startPageNo-1}"
-						class="btn btn-outline-info">이전</a>
-				</c:if>
-
-				<div style="display: inline-block;" class="btn-toolbar"
-					role="toolbar" aria-label="Toolbar with button groups">
-					<div class="btn-group mr-2" role="group" aria-label="First group">
-						<c:forEach begin="${startPageNo}" end="${endPageNo}" var="i">
-							<c:if test="${pageNo==i}">
-								<a href="?pageNo=${i}" class="btn btn-light active">${i}</a>
-							</c:if>
-							<c:if test="${pageNo!=i}">
-								<a href="?pageNo=${i}" class="btn btn-light">${i}</a>
-							</c:if>
-						</c:forEach>
-					</div>
-				</div>
-				<c:if test="${groupNo<totalGroupNum}">
-					<a href="?pageNo=${endPageNo+1}"
-						class="btn btn-outline-info">다음</a>
-				</c:if>
-				<a href="?pageNo=${totalPageNum}"
-					class="btn btn-outline-dark">맨끝</a>
-			</div>
 			
-		</div>
+		<!-- 필터링 결과가 뿌려지는 테이블 -->
+		<div id="requestTable"></div>
+				
 	</div>
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>

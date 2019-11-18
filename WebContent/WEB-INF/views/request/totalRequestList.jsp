@@ -51,6 +51,7 @@ div.dropdown {
 	
 	window.rCheck = false;
 		
+	// 맨 처음 실행에는 의약품 중 백신 목록을 보여줌
 	function first() {
 		if (!rCheck) {
 			rCheck = true;
@@ -260,8 +261,8 @@ div.dropdown {
 			</div>
 		</div>
 
-		<div id="itemTable"></div>
-		 
+		<div id="itemTable"></div>	
+			 
 		<br>
 		<div>
 			<div class="title">

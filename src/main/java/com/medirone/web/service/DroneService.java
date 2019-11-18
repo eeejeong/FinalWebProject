@@ -84,14 +84,14 @@ private static final Logger logger = LoggerFactory.getLogger(DroneService.class)
 					logger.debug("===MISSION_START==");
 					int order_id = (Integer)jsonObject.get("orderId");
 					logger.debug(""+order_id);
-					requestDao.updateStatusToDelivering(order_id);	// request 상태를 delivering(배송 중)으로 
+					requestDao.updateOrderStatus(order_id, OrderStatus.DELIVERING);	// request 상태를 delivering(배송 중)으로 
 				}
 				// 드론이 Land 후 의약품 분리까지 완료했을 때
 				else if(mid.equals("MISSION_ACTION")) {
 					logger.debug("===MISSION_ACTION==");
 					int order_id = (Integer)jsonObject.get("orderId");
 					logger.debug("mission action 메세지 도착, " + order_id);
-					requestDao.updateStatusToDelivered(order_id);
+					requestDao.updateOrderStatus(order_id, OrderStatus.DELIVERED);	// request 상태를 delivered(배송 완료)로 
 					requestDao.updateDeliveredDate(order_id);
 				} 
 											
