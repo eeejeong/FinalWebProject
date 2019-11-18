@@ -49,8 +49,8 @@
   		 <selectKey keyProperty="order_id" resultType="int" order="BEFORE"> 
 			select ORDER_ID_SEQ.nextval from dual
 		</selectKey> 
-   		insert into Request(order_id, order_agency_id, order_date, order_need_time, order_status, DELIVERED_DATE)
-   		values (#{order_id}, #{order_agency_id}, sysdate, #{order_need_time}, #{order_status}, '')
+   		insert into Request(order_id, order_agency_id, order_date, order_need_time, order_status, DELIVERED_DATE, DELIVERED_CHECK)
+   		values (#{order_id}, #{order_agency_id}, sysdate, #{order_need_time}, #{order_status}, '', 'N')
    </insert>
    
    <insert id="insertRequestItem" parameterType="com.medirone.web.dto.RequestItems">
@@ -59,11 +59,11 @@
    </insert>
 
    <select id="selectRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status 
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 				from request where order_agency_id=#{agency_id} order by order_need_time, order_id
 			)
 			where rownum &lt;= #{endRowNo}
@@ -72,11 +72,11 @@
 	</select>
 	
 	<select id="selectAdminRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status 
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 				from request order by order_need_time, order_id
 			)
 			where rownum &lt;= #{endRowNo}
@@ -99,9 +99,7 @@
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	
-	
+		
 	<select id="selectTotalRowNum" parameterType="String" resultType="int">
 		select count(*) from request where order_agency_id = #{agency_id}
 	</select>
@@ -113,17 +111,17 @@
 	<select id="selectTotalRowNumGcs" resultType="int">
 		select count(*) from request where order_status='PREPARING'
 	</select>
-	
-	<update id="updateStatusToPreparing" parameterType="int">
-		update request set order_status='PREPARING' where order_id=#{order_id}
+
+	<update id="updateStatusToDeliverSuccess" parameterType="int">
+		update request set DELIVERED_CHECK='Y' where order_id=#{order_id}
 	</update>
 	
-	<update id="updateStatusToDelivering" parameterType="int">
-		update request set order_status='DELIEVERING' where order_id=#{order_id}
+	<update id="updateDeliveredDate" parameterType="int">
+		update request set DELIVERED_DATE=sysdate where order_id=#{order_id}
 	</update>
 	
-	<update id="updateStatusToDelivered" parameterType="int">
-		update request set order_status='DELIEVERED' where order_id=#{order_id}
+	<update id="updateOrderStatus" parameterType="map">
+		update request set order_status=#{order_status} where order_id=#{order_id}
 	</update>
 	
 	<select id="selectRequestItemsByOrderId" parameterType="int" resultType="com.medirone.web.dto.RequestItems">

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.medirone.web.dto.Request;
 import com.medirone.web.dto.RequestItems;
 import com.medirone.web.dto.SupplyItems;
+import com.medirone.web.service.OrderStatus;
 
 @Component
 public class RequestDao {
@@ -92,19 +93,22 @@ public class RequestDao {
 		sqlSessionTemplate.delete("request.deleteRequestByOrderId", order_id);
 		return rows;
 	}	
-
-	public int updateStatusToPreparing(int order_id) {
-		int rows = sqlSessionTemplate.update("request.updateStatusToPreparing", order_id);
-		return rows;
-	}
 	
-	public int updateStatusToDelivering(int order_id) {
-		int rows = sqlSessionTemplate.update("request.updateStatusToDelivering", order_id);
+	public int updateOrderStatus(int order_id, OrderStatus status) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("order_id", order_id);
+		map.put("order_status", status);
+		int rows = sqlSessionTemplate.update("request.updateOrderStatus", map);
 		return rows;
 	}
 
-	public int updateStatusToDelivered(int order_id) {
-		int rows = sqlSessionTemplate.update("request.updateStatusToDelivered", order_id);
+	public int updateStatusToDeliverSuccess(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateStatusToDeliverSuccess", order_id);
+		return rows;
+	}
+
+	public int updateDeliveredDate(int order_id) {
+		int rows = sqlSessionTemplate.update("request.updateDeliveredDate", order_id);
 		return rows;
 	}
 

@@ -18,11 +18,11 @@
    </select>
    
    <select id="selectGcsManagementList"  parameterType="map"  resultType="com.medirone.web.dto.Agency">
-      select rn, agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status, MISSION_WAYPOINT, MISSION_RTL_WAYPOINT
+      select rn, agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status, MISSION_WAYPOINT
       from(
-         select rownum as rn, agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status, MISSION_WAYPOINT, MISSION_RTL_WAYPOINT
+         select rownum as rn, agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status, MISSION_WAYPOINT
          from(
-            select agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status, MISSION_WAYPOINT, MISSION_RTL_WAYPOINT
+            select agency_id, agency_name, agency_address, agency_latitude, agency_longitude, agency_date, agency_status, MISSION_WAYPOINT
             from agency 
             where agency_id!='admin' and agency_status='Y'
             order by agency_date desc

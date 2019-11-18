@@ -183,22 +183,4 @@ public class ManagementController {
 			pw.close();
 		}
 		
-		// GCS 회원 관리에서 RTL 미션 불러오기 버튼을 눌렀을 때
-		@RequestMapping("/showRtlMissionClicked")
-		public void showRtlMissionClicked(String agency_id, HttpServletResponse response) throws Exception {
-			Agency agency = agencyService.getAgency(agency_id);
-			String missionRtlWaypoint = agency.getMission_rtl_waypoint();
-			
-			if(missionRtlWaypoint == null) {
-				missionRtlWaypoint = "";
-			}
-			
-			response.setContentType("application/json;charset=UTF-8");
-			PrintWriter pw = response.getWriter();
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("waypoint", missionRtlWaypoint);
-			pw.print(jsonObject.toString());
-			pw.flush();
-			pw.close();
-		}
 }

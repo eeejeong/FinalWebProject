@@ -16,22 +16,7 @@
 <script src="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/datepicker-ko.js"></script>
 <script type="text/javascript" src="<%=application.getContextPath()%>/resources/bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 <script src="//jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
-		
-<%-- 
-<link rel="stylesheet"
-	href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.min.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script
-	src="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-<script
-	src="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/datepicker-ko.js"></script>
-<link rel="stylesheet"
-	href="<%=application.getContextPath()%>/resources/jquery-ui-1.12.1/jquery-ui-timepicker-addon.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.css" />
-<script type="text/javascript"
-	src="<%=application.getContextPath()%>/resources/jquery-timepicker/jquery.timepicker.min.js"></script>
---%>
+
 
 <style>
 div.title {
@@ -66,6 +51,7 @@ div.dropdown {
 	
 	window.rCheck = false;
 		
+	// 맨 처음 실행에는 의약품 중 백신 목록을 보여줌
 	function first() {
 		if (!rCheck) {
 			rCheck = true;
@@ -157,6 +143,8 @@ div.dropdown {
 			}
 		});
 	}
+    
+    // 상단의 백신 목록에서 검색 버튼을 눌렀을 때
 	function searchRequestMedicine() {
 	      $.ajax({
 	         url : 'searchRequestMedicine',
@@ -273,8 +261,8 @@ div.dropdown {
 			</div>
 		</div>
 
-		<div id="itemTable"></div>
-		 
+		<div id="itemTable"></div>	
+			 
 		<br>
 		<div>
 			<div class="title">

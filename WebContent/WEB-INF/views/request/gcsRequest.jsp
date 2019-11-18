@@ -31,17 +31,7 @@ function onConnect() {
 function onMessageArrived(message) {
 	var JSONString = message.payloadString;
 	var json = JSON.parse(JSONString);
-	if(json.msgid == "MISSION_START") {		
-		var orderId = json.orderId;
-		$.ajax({
-			url : 'missionStarted',
-			type : 'POST',
-			data : {"orderId" : orderId},			
-			success : function(data) {		
-				console.log(orderID + " 미션 시작");
-			}
-		});	
-	}
+	
 }
 
 

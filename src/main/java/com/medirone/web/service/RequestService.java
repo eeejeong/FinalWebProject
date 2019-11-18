@@ -71,18 +71,14 @@ public class RequestService {
 		requestDao.deleteRequestByOrderId(order_id);
 	}
 	
-	public void changeStatusToPreparing(int order_id) {
-		requestDao.updateStatusToPreparing(order_id);
+	
+	public void changeOrderStatus(int order_id, OrderStatus status) {
+		requestDao.updateOrderStatus(order_id, status);
 		
 	}
 
-	public void changeStatusToDelivering(int order_id) {
-		requestDao.updateStatusToDelivering(order_id);
-		
-	}
-
-	public void changeStatusToDelivered(int order_id) {
-		requestDao.updateStatusToDelivered(order_id);
+	public void changeStatusToDeliverSuccess(int order_id) {
+		requestDao.updateStatusToDeliverSuccess(order_id);
 		
 	}
 
