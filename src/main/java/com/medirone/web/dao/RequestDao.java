@@ -127,8 +127,8 @@ public class RequestDao {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("startRowNo", startRowNo);
 		map.put("endRowNo", endRowNo);
-		List<RequestItems> requestedList = sqlSessionTemplate.selectList("request.selectAdminRequestedList", map);
-		return requestedList;
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestedList", map);
+		return requestList;
 	}
 
 	//=====배송 요청 필터링 작업======
@@ -148,8 +148,8 @@ public class RequestDao {
 		map.put("startRowNo", startRowNo);
 		map.put("endRowNo", endRowNo);
 		map.put("agency_id", agency_id);
-		List<RequestItems> requestedList = sqlSessionTemplate.selectList("request.selectRequestedList", map);
-		return requestedList;
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestedList", map);
+		return requestList;
 	}
 
 

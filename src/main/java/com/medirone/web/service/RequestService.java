@@ -118,8 +118,8 @@ public class RequestService {
 
 	//=====배송 요청 필터링 작업======
 	public List<RequestItems> getAdminRequestedList(int startRowNo, int endRowNo) {
-		List<RequestItems> requestedList = requestDao.selectAdminRequestedList(startRowNo, endRowNo);
-		return requestedList;
+		List<RequestItems> requestList = requestDao.selectAdminRequestedList(startRowNo, endRowNo);
+		return requestList;
 	}
 
 	//=====배송 요청 필터링 작업======
@@ -130,8 +130,8 @@ public class RequestService {
 
 	//=====배송 요청 필터링 작업======
 	public List<RequestItems> getRequestedList(int startRowNo, int endRowNo, String agency_id) {
-		List<RequestItems> requestedList = requestDao.selectRequestedList(startRowNo, endRowNo, agency_id);
-		return requestedList;
+		List<RequestItems> requestList = requestDao.selectRequestedList(startRowNo, endRowNo, agency_id);
+		return requestList;
 	}
 
 	public List<RequestItems> getAdminPreparingRequestedList(int startRowNo, int endRowNo) {
