@@ -82,4 +82,19 @@ public class RequestService {
 		
 	}
 
+	public int getTotalRowNoListDelivered(String agency_id) {
+		int totalRowNum = requestDao.selectTotalRowNoListDelivered(agency_id);
+		return totalRowNum;
+	}
+
+	public List<RequestItems> getAdminRequestListDelivered(int startRowNo, int endRowNo) {
+		List<RequestItems> requestList = requestDao.selectAdminRequestListDelivered(startRowNo, endRowNo);
+		return requestList;
+	}
+	
+	public List<RequestItems> getRequestListDelivered(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestList = requestDao.selectRequestListDelivered(startRowNo, endRowNo, agency_id);
+		return requestList;
+	}
+
 }

@@ -76,7 +76,16 @@
 					}
 				});
 			}
-					
+			
+			// 필터링: 배송 완료
+			function listDelivered(pageNo) {
+				$.ajax({
+					url: 'request/listDelivered?pageNo=' + pageNo,
+					success : function(data) {
+						$('#requestTable').html(data)
+					}
+				});
+			}
 			
 		</script>
 		<style>
@@ -136,7 +145,7 @@
 				<button class="dropdown-item" type="button" onclick="">배송 요청</button>
 				<button class="dropdown-item" type="button" onclick="">배송 준비</button>
 				<button class="dropdown-item" type="button" onclick="">배송 중</button>
-				<button class="dropdown-item" type="button" onclick="">배송 완료</button>
+				<button class="dropdown-item" type="button" onclick="listDelivered(1)">배송 완료</button>
 			</div>
 		</div>
 		</div>
