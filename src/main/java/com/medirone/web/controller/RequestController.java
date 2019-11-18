@@ -451,16 +451,18 @@ public class RequestController {
 	      return mv;
 	 }
 	
-	@RequestMapping("/requested")
-	public String requested(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+	//=====배송 요청 필터링 작업======
+	@RequestMapping("/requestedList")
+	public String requestedList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
-
+		String agency_id = (String) session.getAttribute("agency_Id");
+		
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
 		int pagesPerGroup = 5;
 		// 전체 게시물 수
-		int totalRowNum = itemService.getTotalRowNo();
+		int totalRowNum = requestService.getTotalRequestedRowNo(agency_id);
 		// 전체 페이지 수
 		int totalPageNum = totalRowNum / rowsPerPage;
 		if (totalRowNum % rowsPerPage != 0)
@@ -486,8 +488,15 @@ public class RequestController {
 		if (groupNo == totalGroupNum)
 			endPageNo = totalPageNum;
 
+		List<RequestItems> requestedList = new ArrayList<>();
+		
 		// 현재 페이지의 게시물 가져오기
-		// List<Request> requested = itemService.getMedicineList(startRowNo, endRowNo);
+		if(agency_id.equals("admin")) {					
+			requestedList = requestService.getAdminRequestedList(startRowNo, endRowNo);
+		} else { 
+			requestedList = requestService.getRequestedList(startRowNo, endRowNo, agency_id); 
+		}
+			 
 
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
@@ -497,9 +506,13 @@ public class RequestController {
 		model.addAttribute("startPageNo", startPageNo);
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
-		//model.addAttribute("requested", requested);
-
-		return "/request/requested";
+		model.addAttribute("requestedList", requestedList);
+		
+		if(agency_id.equals("admin")) {			
+			return "/request/hospitalRequestedList";
+		} else {
+			return "/request/publicHealthRequestedList";
+		}		
 	}
 
 	

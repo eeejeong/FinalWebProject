@@ -82,4 +82,22 @@ public class RequestService {
 		
 	}
 
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> getAdminRequestedList(int startRowNo, int endRowNo) {
+		List<RequestItems> requestedList = requestDao.selectAdminRequestedList(startRowNo, endRowNo);
+		return requestedList;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public int getTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = requestDao.selectTotalRequestedRowNo(agency_id);
+		return totalRowNum;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> getRequestedList(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestedList = requestDao.selectRequestedList(startRowNo, endRowNo, agency_id);
+		return requestedList;
+	}
+
 }

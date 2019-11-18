@@ -137,5 +137,40 @@
 		delete from request
 		where order_id = #{order_id}
 	</delete>
+	<!-- =====배송 요청 필터링 작업====== -->
+	<select id="selectAdminRequestedList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+				from request where order_status='REQUESTED' order by order_need_time, order_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	<!-- =====배송 요청 필터링 작업====== -->
+	<select id="selectTotalRequestedRowNum" parameterType="String" resultType="int">
+		select count(*) from request where order_agency_id = #{agency_id} and order_status='REQUESTED'
+	</select>
+	<!-- =====배송 요청 필터링 작업====== -->
+	<select id="selectTotalRequestedRowNumAdmin" parameterType="String" resultType="int">
+		select count(*) from request where order_status='REQUESTED'
+	</select>
+	
+	<!-- =====배송 요청 필터링 작업====== -->
+	<select id="selectRequestedList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+				from request where order_agency_id=#{agency_id} and order_status='REQUESTED' order by order_need_time, order_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
 
 </mapper>

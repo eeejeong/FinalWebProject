@@ -112,5 +112,35 @@ public class RequestDao {
 		return rows;
 	}
 
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> selectAdminRequestedList(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestedList = sqlSessionTemplate.selectList("request.selectAdminRequestedList", map);
+		return requestedList;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public int selectTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRequestedRowNumAdmin", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRequestedRowNum", agency_id);
+		}
+		return totalRowNum;
+	}
+
+	//=====배송 요청 필터링 작업======
+	public List<RequestItems> selectRequestedList(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestedList = sqlSessionTemplate.selectList("request.selectRequestedList", map);
+		return requestedList;
+	}
+
 
 }
