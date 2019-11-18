@@ -72,7 +72,8 @@ div.dropdown {
 			showOn : "both",
 			buttonImage : "../resources/image/calendar.gif",
 			buttonImageOnly : true,
-			buttonText : "날짜 선택"
+			buttonText : "날짜 선택",
+			minDate: 0
 		});
 		$("img.ui-datepicker-trigger").attr("style", "margin: 6px 5px; height: 23px; vertical-align:middle; cursor: Pointer;");
 		$('#dateInput').insertAfter( $('#dateInput').next('img') );

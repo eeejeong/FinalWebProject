@@ -168,7 +168,7 @@
 				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 배송 상태 </a>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 				<button class="dropdown-item" type="button" onclick="listAll(1)">전체 보기</button>
-				<button class="dropdown-item" type="button" onclick="requestedList(1)">접수완료</button>
+				<button class="dropdown-item" type="button" onclick="requestedList(1)">접수 완료</button>
 				<button class="dropdown-item" type="button" onclick="listPreparing(1)">배송 준비</button>
 				<button class="dropdown-item" type="button" onclick="listDelivering(1)">배송 중</button>
 				<button class="dropdown-item" type="button" onclick="listDelivered(1)">배송 완료</button>
