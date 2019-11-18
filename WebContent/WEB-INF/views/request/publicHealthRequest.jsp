@@ -132,11 +132,11 @@
 			<a class="btn btn-pink dropdown-toggle" href="#" role="button"
 				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 배송 상태 </a>
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-				<button class="dropdown-item" type="button" onclick="listAll(1)">전체보기</button>
-				<button class="dropdown-item" type="button" onclick="">배송요청</button>
-				<button class="dropdown-item" type="button" onclick="">배송준비</button>
-				<button class="dropdown-item" type="button" onclick="">배송중</button>
-				<button class="dropdown-item" type="button" onclick="">배송완료</button>
+				<button class="dropdown-item" type="button" onclick="listAll(1)">전체 보기</button>
+				<button class="dropdown-item" type="button" onclick="">배송 요청</button>
+				<button class="dropdown-item" type="button" onclick="">배송 준비</button>
+				<button class="dropdown-item" type="button" onclick="">배송 중</button>
+				<button class="dropdown-item" type="button" onclick="">배송 완료</button>
 			</div>
 		</div>
 		</div>
