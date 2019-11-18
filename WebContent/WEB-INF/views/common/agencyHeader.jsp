@@ -90,7 +90,7 @@
 						onmouseout="this.src='<%=application.getContextPath()%>/resources/image/agencyInfo/logout.png';" 
 						alt="로그아웃" title="로그아웃" />
 					</a>
-					<a href="<%= request.getContextPath()%>/update/up?agency_id=${agency_Id}">
+					<a href="<%= request.getContextPath()%>/update/up/">
 						<img src="<%=application.getContextPath()%>/resources/image/agencyInfo/member.png" 
 						onmouseover="this.src='<%=application.getContextPath()%>/resources/image/agencyInfo/member_mint.png';" 
 						onmouseout="this.src='<%=application.getContextPath()%>/resources/image/agencyInfo/member.png';" 

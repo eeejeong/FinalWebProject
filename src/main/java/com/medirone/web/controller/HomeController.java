@@ -58,5 +58,10 @@ public class HomeController {
 		session.removeAttribute("agency_Id");
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/error")
+	public String error() {
+		return "common/error";
+	}
 }
 

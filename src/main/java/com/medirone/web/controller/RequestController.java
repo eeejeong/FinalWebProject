@@ -40,11 +40,14 @@ public class RequestController {
 	private AgencyService agencyService;
 
 	@RequestMapping("")
-	public String requestHome(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session, String agency_id) {
-		if(agency_id == null) {
+	public String requestHome(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+		String agency_id;
+		if(session.getAttribute("agency_Id") == null) {
+			return "redirect:/error";
+		} else {
 			agency_id = (String) session.getAttribute("agency_Id");
 		}
-		
+				
 		if(agency_id.equals("admin")) {
 			return "/request/hospitalRequest";
 		} else {
@@ -115,7 +118,14 @@ public class RequestController {
 
 	// 보건소에서 의약품 요청 등록을 눌렀을 때
 	@RequestMapping("/totalRequestList")
-	public String totalRequestList() {
+	public String totalRequestList(HttpSession session) {
+		String agency_id;
+		if(session.getAttribute("agency_Id") == null) {
+			return "redirect:/error";
+		} else {
+			agency_id = (String) session.getAttribute("agency_Id");
+		}
+		
 		return "/request/totalRequestList";
 	}
 

@@ -37,7 +37,16 @@ public class ManagementController {
 	}
 
 	@RequestMapping("/managementList")
-	public String medicineList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+	public String managementList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+		if(session.getAttribute("agency_Id") == null) {
+			return "redirect:/error";
+		} else {
+			String agency_id = (String) session.getAttribute("agency_Id");
+			if(!agency_id.equals("admin")) {
+				return "redirect:/error";
+			}
+		}
+		
 		session.setAttribute("pageNo", pageNo);
 
 		// 페이지당 행 수
@@ -160,27 +169,27 @@ public class ManagementController {
 		return "management/gcsManagementList";
 	}
 	
-		// GCS 회원 관리에서 보건소 가는 미션 불러오기 버튼을 눌렀을 때
-		@RequestMapping("/showMissionClicked")
-		public void showMissionClicked(String agency_id, HttpServletResponse response) throws Exception {
-			Agency agency = agencyService.getAgency(agency_id);
-			double agencyLat = agency.getAgency_latitude();
-			double agencyLng = agency.getAgency_longitude();
-			String mission_waypoint = agency.getMission_waypoint();
-			
-			if(mission_waypoint == null) {
-				mission_waypoint = "";
-			}
-			
-			response.setContentType("application/json;charset=UTF-8");
-			PrintWriter pw = response.getWriter();
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("agencyLat", agencyLat);
-			jsonObject.put("agencyLng", agencyLng);
-			jsonObject.put("waypoint", mission_waypoint);
-			pw.print(jsonObject.toString());
-			pw.flush();
-			pw.close();
+	// GCS 회원 관리에서 보건소 가는 미션 불러오기 버튼을 눌렀을 때
+	@RequestMapping("/showMissionClicked")
+	public void showMissionClicked(String agency_id, HttpServletResponse response) throws Exception {
+		Agency agency = agencyService.getAgency(agency_id);
+		double agencyLat = agency.getAgency_latitude();
+		double agencyLng = agency.getAgency_longitude();
+		String mission_waypoint = agency.getMission_waypoint();
+		
+		if(mission_waypoint == null) {
+			mission_waypoint = "";
 		}
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter pw = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("agencyLat", agencyLat);
+		jsonObject.put("agencyLng", agencyLng);
+		jsonObject.put("waypoint", mission_waypoint);
+		pw.print(jsonObject.toString());
+		pw.flush();
+		pw.close();
+	}
 		
 }

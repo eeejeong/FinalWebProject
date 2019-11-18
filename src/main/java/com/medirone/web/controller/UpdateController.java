@@ -26,8 +26,9 @@ public class UpdateController {
 	private double originalLat;
 	private double originalLng;
 	
-	@GetMapping("/up")
-	public String updateMemberForm(String agency_id, Model model) {
+	@RequestMapping("/up")
+	public String updateMemberForm(Model model, HttpSession session) {
+		String agency_id = (String) session.getAttribute("agency_Id");
 		Agency agency = service.getAgency(agency_id);
 		Manager manager = service.getManager(agency_id);
 		originalLat = agency.getAgency_latitude();

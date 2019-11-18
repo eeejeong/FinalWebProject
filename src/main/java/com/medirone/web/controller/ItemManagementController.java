@@ -33,7 +33,17 @@ public class ItemManagementController {
 	}
 
 	@RequestMapping("/medicineList")
-	public String medicineList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+	public String medicineList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {	
+		if(session.getAttribute("agency_Id") == null) {
+			return "redirect:/error";
+		} else {
+			String agency_id = (String) session.getAttribute("agency_Id");
+			if(!agency_id.equals("admin")) {
+				return "redirect:/error";
+			}
+		}
+		
+		
 		session.setAttribute("pageNo", pageNo);
 
 		// 페이지당 행 수
