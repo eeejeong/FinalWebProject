@@ -66,6 +66,25 @@ public class RequestService {
 		List<RequestItems> requestItems = requestDao.selectRequestItemsByOrderId(order_id);
 		return requestItems;
 	}
+	
+	//////////////////////한별작업///////////////////////////
+	//병원 요청페이지에서 배송중을 눌렀을 때
+	public List<RequestItems> getAdminRequestListByOrderStatus(int startRowNo, int endRowNo) {
+		List<RequestItems> requestList = requestDao.selectAdminRequestListByOrderStatus(startRowNo, endRowNo);
+		return requestList;
+	}
+	
+	//보건소 요청페이지에서 배송중을 눌렀을 때
+	public List<RequestItems> getRequestItemsByOrderStatus(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestItems = requestDao.selectRequestItemsByOrderStatus(startRowNo, endRowNo, agency_id);
+		return requestItems;
+	}
+	
+	public int getTotalDeliveringRowNum(String agency_id) {
+		int totalRowNum = requestDao.selectTotalDeliveringRowNo(agency_id);
+		return totalRowNum;
+	}
+	//////////////////////한별작업 끝///////////////////////////
 
 	public void deleteRequestByOrderId(int order_id) {
 		requestDao.deleteRequestByOrderId(order_id);
@@ -81,5 +100,7 @@ public class RequestService {
 		requestDao.updateStatusToDeliverSuccess(order_id);
 		
 	}
+
+	
 
 }

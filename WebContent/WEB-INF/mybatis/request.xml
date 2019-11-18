@@ -111,6 +111,42 @@
 	<select id="selectTotalRowNumGcs" resultType="int">
 		select count(*) from request where order_status='PREPARING'
 	</select>
+	
+	<!-- 한별작업(배송중) -->
+	<select id="selectRequestItemsByOrderStatus" parameterType="map" resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+				from request where order_agency_id=#{agency_id} and order_status='DELIVERING' order by order_need_time, order_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectAdminRequestListByOrderStatus" parameterType="map"  resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+				from request where order_status='DELIVERING' order by order_need_time, order_id
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	
+	<select id="selectTotalDeliveringRowNum" parameterType="String" resultType="int">
+		select count(*) from request where order_agency_id = #{agency_id} and order_status='DELIVERING'
+	</select>
+	
+	<select id="selectTotalDeliveringRowNumAdmin" parameterType="String" resultType="int">
+		select count(*) from request where order_status='DELIVERING'
+	</select>
+	<!-- 한별작업 끝 -->
 
 	<update id="updateStatusToDeliverSuccess" parameterType="int">
 		update request set DELIVERED_CHECK='Y' where order_id=#{order_id}

@@ -112,5 +112,34 @@ public class RequestDao {
 		return rows;
 	}
 
+	/////////////////////////한별작업///////////////////////////////////
+	public List<RequestItems> selectAdminRequestListByOrderStatus(int startRowNo, int endRowNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdminRequestListByOrderStatus", map);
+		return requestList;
+	}
+
+	
+	public List<RequestItems> selectRequestItemsByOrderStatus(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestItemsByOrderStatus", map);
+		return requestList;
+	}
+	
+	public int selectTotalDeliveringRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalDeliveringRowNumAdmin", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalDeliveringRowNum", agency_id);
+		}
+		return totalRowNum;
+	}
+	/////////////////////////한별작업 끝///////////////////////////////////
 
 }
