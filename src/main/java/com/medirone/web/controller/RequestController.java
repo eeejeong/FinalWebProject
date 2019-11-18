@@ -32,10 +32,10 @@ public class RequestController {
 
 	@Autowired
 	private ItemManagementService itemService;
-	
+
 	@Autowired
 	private RequestService requestService;
-	
+
 	@Autowired
 	private AgencyService agencyService;
 
@@ -44,7 +44,7 @@ public class RequestController {
 		if(agency_id == null) {
 			agency_id = (String) session.getAttribute("agency_Id");
 		}
-		
+
 		if(agency_id.equals("admin")) {
 			return "/request/hospitalRequest";
 		} else {
@@ -55,7 +55,7 @@ public class RequestController {
 	public String listAll(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
-		
+
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
@@ -88,7 +88,7 @@ public class RequestController {
 			endPageNo = totalPageNum;
 
 		List<RequestItems> requestList = new ArrayList<>();
-		
+
 		// 현재 페이지의 게시물 가져오기
 		if(agency_id.equals("admin")) {
 			requestList = requestService.getAdminRequestList(startRowNo, endRowNo);
@@ -105,20 +105,20 @@ public class RequestController {
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("requestList", requestList);
-		
+
 		if(agency_id.equals("admin")) {
 			return "/request/hospitalListAll";
 		} else {
 			return "/request/publicHealthListAll";
 		}		
 	}
-	
+
 	//요청목록에서 배송중을 눌렀을 때
 	@RequestMapping("/listDelivering")
 	public String listDelivering(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
-		
+
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
@@ -151,7 +151,7 @@ public class RequestController {
 			endPageNo = totalPageNum;
 
 		List<RequestItems> requestList = new ArrayList<>();
-		
+
 		// 현재 페이지의 게시물 가져오기
 		if(agency_id.equals("admin")) {
 			requestList = requestService.getAdminRequestListByOrderStatus(startRowNo, endRowNo);
@@ -168,7 +168,7 @@ public class RequestController {
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("requestList", requestList);
-		
+
 		if(agency_id.equals("admin")) {
 			return "/request/hospitalListDelivering";
 		} else {
@@ -180,7 +180,7 @@ public class RequestController {
 	public String listDelivered(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
-		
+
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
@@ -213,7 +213,7 @@ public class RequestController {
 			endPageNo = totalPageNum;
 
 		List<RequestItems> requestList = new ArrayList<>();
-		
+
 		// 현재 페이지의 게시물 가져오기
 		if(agency_id.equals("admin")) {
 			requestList = requestService.getAdminRequestListDelivered(startRowNo, endRowNo);
@@ -230,7 +230,7 @@ public class RequestController {
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("requestList", requestList);
-		
+
 		if(agency_id.equals("admin")) {
 			return "/request/hospitalListDelivered";
 		} else {
@@ -321,11 +321,11 @@ public class RequestController {
 		model.addAttribute("bloodList", bloodList);
 		return "/request/bloodRequestList";
 	}
-	
+
 	@RequestMapping("/searchItemById")
 	public void searchItemById(String sup_id, HttpServletResponse response) throws Exception {
 		SupplyItems item = itemService.getItemById(sup_id);
-		
+
 		JSONObject jsonObject = new JSONObject();
 		if(item.getSup_class() == 1) {
 			jsonObject.put("sup_class", "백신");
@@ -335,14 +335,14 @@ public class RequestController {
 		jsonObject.put("sup_name", item.getSup_name());
 		jsonObject.put("sup_weight", item.getSup_weight());
 		String json = jsonObject.toString();
-		
+
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		pw.write(json);
 		pw.flush();
 		pw.close();		
 	}
-	
+
 	// 보건소에서 요청 완료를 눌렀을 때
 	@RequestMapping("/requestComplete")
 	public void requestComplete(String[] itemArray, String needDate, HttpSession session, HttpServletResponse response) throws Exception {
@@ -351,18 +351,18 @@ public class RequestController {
 		request.setOrder_agency_id(agency_id);
 		request.setOrder_need_time(needDate);
 		request.setOrder_status(OrderStatus.REQUESTED);
-		
+
 		// Request DB에 insert
 		requestService.addRequest(request);
-		
+
 		for(String item : itemArray) {
 			String[] itemProp= item.split("&&");
 			RequestItems requestItem = new RequestItems();
 			SupplyItems supplyItems = new SupplyItems();
-			
+
 			requestItem.setItem_id(Integer.parseInt(itemProp[0]));
 			supplyItems.setSup_id(Integer.parseInt(itemProp[0]));
-					
+
 			if(itemProp[1].equals("백신")) {
 				requestItem.setItem_class(1);
 				supplyItems.setSup_class(1);
@@ -370,14 +370,14 @@ public class RequestController {
 				requestItem.setItem_class(2);
 				supplyItems.setSup_class(2);
 			}
-			
+
 			requestItem.setItem_amount(Integer.parseInt(itemProp[3]));
 			supplyItems.setSup_amount(Integer.parseInt(itemProp[3]));
-			
+
 			requestService.addRequestItems(requestItem);
 			itemService.updateRequest(supplyItems);			
 		}
-		
+
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -385,14 +385,14 @@ public class RequestController {
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();	
-		
+
 	}
-	
+
 	@RequestMapping("/medrequest_popuplist")
 	public String medrequest_popuplist(Model model, int order_id) {
 		// 현재 페이지의 게시물 가져오기
 		List<RequestItems> medrequest_popuplist1 = requestService.getMedrequest_popuplist1(order_id);
-		
+
 		//의약품 이름 출력하기
 		//의약품 이름 배열 만들기
 		List<String> sup_names = new ArrayList<String>();
@@ -403,17 +403,17 @@ public class RequestController {
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("medrequest_popuplist1", medrequest_popuplist1);
 		model.addAttribute("sup_names", sup_names);
-		
+
 		return "/request/medrequest_popuplist";
 	}
-	
+
 	// 병원 요청 페이지에서 접수 버튼을 눌렀을 때
 	@RequestMapping("/preparingClicked")
 	public void preparingClicked(int order_id, String agency_id, HttpServletResponse response) throws Exception {
 		// requestService.changeStatusToPreparing(order_id);	// request 상태를 preparing(배송 준비)으로 
 		requestService.changeOrderStatus(order_id, OrderStatus.PREPARING);
 		Agency agency = agencyService.getAgency(agency_id);
-		
+
 		double agencyLat = agency.getAgency_latitude();
 		double agencyLng = agency.getAgency_longitude();
 		String agencyId = agency_id;
@@ -422,7 +422,7 @@ public class RequestController {
 		if(mission_waypoint == null) {
 			mission_waypoint = "";
 		}
-		
+
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -435,12 +435,12 @@ public class RequestController {
 		pw.flush();
 		pw.close();
 	}
-	
+
 	// GCS 요청 페이지에서 배송하기 버튼을 눌렀을 때
 	@RequestMapping("/deliveringClicked")
 	public void deliveringClicked(int order_id, String agency_id, HttpServletResponse response) throws Exception {
 		Agency agency = agencyService.getAgency(agency_id);
-		
+
 		double agencyLat = agency.getAgency_latitude();
 		double agencyLng = agency.getAgency_longitude();
 		String agencyId = agency_id;
@@ -449,7 +449,7 @@ public class RequestController {
 		if(mission_waypoint == null) {
 			mission_waypoint = "";
 		}
-		
+
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -462,12 +462,12 @@ public class RequestController {
 		pw.flush();
 		pw.close();
 	}
-	
+
 	// 보건소가 수취 확인 버튼을 누르면 실행
 	@RequestMapping("/deliverSuccess")
 	public void deliverSuccess(int order_id, String agency_id, HttpServletResponse response) throws Exception {
 		requestService.changeStatusToDeliverSuccess(order_id);
-				
+
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -475,27 +475,27 @@ public class RequestController {
 		pw.print(jsonObject.toString());
 		pw.flush();
 		pw.close();
-		
+
 	}
-	
+
 	@GetMapping("/showMap")
 	public String showMap() {
 		return "/request/showMap";
 	}
-	
+
 
 	@RequestMapping("/cancelRequest")
 	public void cancelRequest(int order_id, HttpServletResponse response) throws Exception {
 		List<RequestItems> requestItems = requestService.getRequestItemsByOrderId(order_id);
-		
+
 		// 삭제한 의약품 수량만큼 의약품 테이블 개수 더해주기
 		for(RequestItems item : requestItems) {
 			itemService.updateCancelledItems(item);
 		}
-		
+
 		// 삭제한 order_id에 해당하는 request_items과 request 테이블 지우기
 		requestService.deleteRequestByOrderId(order_id);
-		
+
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
@@ -504,11 +504,11 @@ public class RequestController {
 		pw.flush();
 		pw.close();	
 	}
-	
+
 	@RequestMapping("/gcsRequest")
 	public String gcsRequest(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
-		
+
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
@@ -542,16 +542,16 @@ public class RequestController {
 			endPageNo = totalPageNum;
 
 		List<Request> requestList = new ArrayList<>();
-		
+
 		// 현재 페이지의 게시물 가져오기
 		requestList = requestService.getGcsRequestList(startRowNo, endRowNo);
-		
+
 		List<Agency> agencyList = new ArrayList<Agency>();
 		for(int i = 0; i < requestList.size(); i++) {
 			agencyList.add(requestList.get(i).getAgency());
 		}
-	
-		
+
+
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
 		model.addAttribute("totalPageNum", totalPageNum);
@@ -560,28 +560,28 @@ public class RequestController {
 		model.addAttribute("startPageNo", startPageNo);
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
-		
+
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("agencyList", agencyList);
-		
+
 		return "/request/gcsRequest";
 	}
-	
+
 	@RequestMapping("/searchRequestMedicine")
-	   public ModelAndView searchMedicine(String searchName) {
-	      ModelAndView mv = new ModelAndView("/request/searchRequestMedicine");
-	      List<SupplyItems> medicineList = itemService.searchMedicine(searchName);
-	      mv.addObject("medicineList", medicineList);
-	      System.out.println(searchName);
-	      return mv;
-	 }
-	
+	public ModelAndView searchMedicine(String searchName) {
+		ModelAndView mv = new ModelAndView("/request/searchRequestMedicine");
+		List<SupplyItems> medicineList = itemService.searchMedicine(searchName);
+		mv.addObject("medicineList", medicineList);
+		System.out.println(searchName);
+		return mv;
+	}
+
 	//=====배송 요청 필터링 작업======
 	@RequestMapping("/requestedList")
 	public String requestedList(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
 		session.setAttribute("pageNo", pageNo);
 		String agency_id = (String) session.getAttribute("agency_Id");
-		
+
 		// 페이지당 행 수
 		int rowsPerPage = 10;
 		// 이전, 다음을 클릭했을 때 나오는 페이지 수
@@ -614,14 +614,14 @@ public class RequestController {
 			endPageNo = totalPageNum;
 
 		List<RequestItems> requestedList = new ArrayList<>();
-		
+
 		// 현재 페이지의 게시물 가져오기
 		if(agency_id.equals("admin")) {					
 			requestedList = requestService.getAdminRequestedList(startRowNo, endRowNo);
 		} else { 
 			requestedList = requestService.getRequestedList(startRowNo, endRowNo, agency_id); 
 		}
-			 
+
 
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("pagesPerGroup", pagesPerGroup);
@@ -632,13 +632,74 @@ public class RequestController {
 		model.addAttribute("endPageNo", endPageNo);
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("requestedList", requestedList);
-		
+
 		if(agency_id.equals("admin")) {			
 			return "/request/hospitalRequestedList";
 		} else {
 			return "/request/publicHealthRequestedList";
 		}		
 	}
+	//=========================================================================================================================
+	@RequestMapping("/preparingList")
+	public String preparingRequest(Model model, @RequestParam(defaultValue = "1") int pageNo, HttpSession session) {
+		session.setAttribute("pageNo", pageNo);
+		String agency_id = (String) session.getAttribute("agency_Id");
 
-	
+		// 페이지당 행 수
+		int rowsPerPage = 10;
+		// 이전, 다음을 클릭했을 때 나오는 페이지 수
+		int pagesPerGroup = 5;
+		// 전체 게시물 수
+		int totalRowNum = requestService.getPreparingTotalRequestedRowNo(agency_id);
+		// 전체 페이지 수
+		int totalPageNum = totalRowNum / rowsPerPage;
+		if (totalRowNum % rowsPerPage != 0)
+			totalPageNum++;
+		// 전제 그룹 수
+		int totalGroupNum = totalPageNum / pagesPerGroup;
+		if (totalPageNum % pagesPerGroup != 0)
+			totalGroupNum++;
+
+		// 해당 페이지의 시작 행 번호
+		int startRowNo = (pageNo - 1) * rowsPerPage + 1;
+		// 해당 페이지의 끝 행 번호
+		int endRowNo = pageNo * rowsPerPage;
+		if (pageNo == totalPageNum)
+			endRowNo = totalRowNum;
+
+		// 현재 페이지의 그룹번호
+		int groupNo = (pageNo - 1) / pagesPerGroup + 1;
+		// 현재 그룹의 시작 페이지 번호
+		int startPageNo = (groupNo - 1) * pagesPerGroup + 1;
+		// 현재 그룹의 마지막 페이지 번호
+		int endPageNo = startPageNo + pagesPerGroup - 1;
+		if (groupNo == totalGroupNum)
+			endPageNo = totalPageNum;
+
+		List<RequestItems> requestList = new ArrayList<>();
+
+		// 현재 페이지의 게시물 가져오기
+		if(agency_id.equals("admin")) {					
+			requestList = requestService.getAdminPreparingRequestedList(startRowNo, endRowNo);
+		} else { 
+			requestList = requestService.getPreparingRequestedList(startRowNo, endRowNo, agency_id); 
+		}
+
+
+		// JSP로 페이지 정보 넘기기
+		model.addAttribute("pagesPerGroup", pagesPerGroup);
+		model.addAttribute("totalPageNum", totalPageNum);
+		model.addAttribute("totalGroupNum", totalGroupNum);
+		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("startPageNo", startPageNo);
+		model.addAttribute("endPageNo", endPageNo);
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("requestList", requestList);
+
+		if(agency_id.equals("admin")) {			
+			return "/request/hospitalListPreparing";
+		} else {
+			return "/request/publicHealthListPreparing";
+		}		
+	}
 }

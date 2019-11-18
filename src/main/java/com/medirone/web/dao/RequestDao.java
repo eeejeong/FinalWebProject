@@ -201,4 +201,32 @@ public class RequestDao {
 		return requestList;
 	}
 
+	public List<RequestItems> selectAdminList(int startRowNo, int endRowNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectAdmintRequestListPreparing", map);
+		return requestList;
+	}
+
+	public List<RequestItems> selectPreparingList(int startRowNo, int endRowNo, String agency_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNo", startRowNo);
+		map.put("endRowNo", endRowNo);
+		map.put("agency_id", agency_id);
+		List<RequestItems> requestList = sqlSessionTemplate.selectList("request.selectRequestListPreparing", map);
+		return requestList;
+	}
+
+	public int PreparingTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = 0;
+		if(agency_id.equals("admin")) {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumAdminListPreparing", agency_id);
+		} else {
+			totalRowNum = sqlSessionTemplate.selectOne("request.selectTotalRowNumListPreparing", agency_id);
+		}
+		return totalRowNum;
+		
+	}
+
 }

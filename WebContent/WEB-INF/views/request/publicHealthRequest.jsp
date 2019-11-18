@@ -105,6 +105,14 @@
 					}
 				});
 			}
+			function listPreparing(pageNo) {
+				$.ajax({
+					url: 'request/preparingList?pageNo=' + pageNo,
+					success : function(data) {
+						$('#requestTable').html(data)
+					}
+				});
+			}
 		</script>
 		<style>
 			div.title {
@@ -161,7 +169,7 @@
 			<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 				<button class="dropdown-item" type="button" onclick="listAll(1)">전체 보기</button>
 				<button class="dropdown-item" type="button" onclick="requestedList(1)">접수완료</button>
-				<button class="dropdown-item" type="button" onclick="">배송 준비</button>
+				<button class="dropdown-item" type="button" onclick="listPreparing(1)">배송 준비</button>
 				<button class="dropdown-item" type="button" onclick="listDelivering(1)">배송 중</button>
 				<button class="dropdown-item" type="button" onclick="listDelivered(1)">배송 완료</button>
 			</div>

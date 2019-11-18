@@ -1,246 +1,353 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="request">
-	<resultMap type="com.medirone.web.dto.SupplyItems" id="supitems">
-		<result column="sup_id" property="sup_id"/>
-		<result column="sup_name" property="sup_name"/>
-		<result column="sup_weight" property="sup_weight"/>
-		<result column="sup_class" property="sup_class"/>
-		<result column="sup_amount" property="sup_amount"/>
-		<result column="sup_hospital_id" property="sup_hospital_id"/>
+	<resultMap type="com.medirone.web.dto.SupplyItems"
+		id="supitems">
+		<result column="sup_id" property="sup_id" />
+		<result column="sup_name" property="sup_name" />
+		<result column="sup_weight" property="sup_weight" />
+		<result column="sup_class" property="sup_class" />
+		<result column="sup_amount" property="sup_amount" />
+		<result column="sup_hospital_id" property="sup_hospital_id" />
 	</resultMap>
-	
-	<resultMap type="com.medirone.web.dto.RequestItems" id="reqitems">
-		<result column="order_id" property="order_id"/>
-		<result column="item_class" property="item_class"/>
-		<result column="item_id" property="item_id"/>
-		<result column="item_amount" property="item_amount"/>
-		<collection property="supplyitems" resultMap="supitems" ></collection>
+
+	<resultMap type="com.medirone.web.dto.RequestItems"
+		id="reqitems">
+		<result column="order_id" property="order_id" />
+		<result column="item_class" property="item_class" />
+		<result column="item_id" property="item_id" />
+		<result column="item_amount" property="item_amount" />
+		<collection property="supplyitems" resultMap="supitems"></collection>
 	</resultMap>
-	
+
 	<resultMap type="com.medirone.web.dto.Agency" id="agency">
-		<result column="agency_id" property="agency_id"/>
-		<result column="agency_name" property="agency_name"/>
-		<result column="agency_latitude" property="agency_latitude"/>
-		<result column="agency_longitude" property="agency_longitude"/>
+		<result column="agency_id" property="agency_id" />
+		<result column="agency_name" property="agency_name" />
+		<result column="agency_latitude" property="agency_latitude" />
+		<result column="agency_longitude" property="agency_longitude" />
 	</resultMap>
-	
-	<resultMap type="com.medirone.web.dto.Request" id="requestDetail">
-		<result column="order_id" property="order_id"/>
-		<result column="order_agency_id" property="order_agency_id"/>
-		<result column="order_date" property="order_date"/>
-		<result column="order_need_time" property="order_need_time"/>
-		<result column="order_status" property="order_status"/>
-		<result column="delivered_date" property="delivered_date"/>	
-		<collection property="agency" resultMap="agency" ></collection>
+
+	<resultMap type="com.medirone.web.dto.Request"
+		id="requestDetail">
+		<result column="order_id" property="order_id" />
+		<result column="order_agency_id" property="order_agency_id" />
+		<result column="order_date" property="order_date" />
+		<result column="order_need_time" property="order_need_time" />
+		<result column="order_status" property="order_status" />
+		<result column="delivered_date" property="delivered_date" />
+		<collection property="agency" resultMap="agency"></collection>
 	</resultMap>
-	
-	<select id="selectMedrequest_popuplist1"  parameterType="int"  resultMap="reqitems">
-      	select order_id, supply_items.sup_name, request_items.item_amount 
+
+	<select id="selectMedrequest_popuplist1" parameterType="int"
+		resultMap="reqitems">
+		select order_id, supply_items.sup_name, request_items.item_amount
 		from request_items
 		join supply_items
-		on request_items.item_id = supply_items.sup_id
+		on request_items.item_id =
+		supply_items.sup_id
 		where request_items.order_id = #{order_id}
-		and supply_items.sup_id = request_items.item_id
-   </select>
-   
+		and
+		supply_items.sup_id = request_items.item_id
+	</select>
 
-   <insert id="insertRequest" parameterType="com.medirone.web.dto.Request">
-  		 <selectKey keyProperty="order_id" resultType="int" order="BEFORE"> 
+
+	<insert id="insertRequest"
+		parameterType="com.medirone.web.dto.Request">
+		<selectKey keyProperty="order_id" resultType="int"
+			order="BEFORE">
 			select ORDER_ID_SEQ.nextval from dual
-		</selectKey> 
-   		insert into Request(order_id, order_agency_id, order_date, order_need_time, order_status, DELIVERED_DATE, DELIVERED_CHECK)
-   		values (#{order_id}, #{order_agency_id}, sysdate, #{order_need_time}, #{order_status}, '', 'N')
-   </insert>
-   
-   <insert id="insertRequestItem" parameterType="com.medirone.web.dto.RequestItems">
-   		insert into Request_Items(order_id, item_class, item_id, item_amount)
-   		values (ORDER_ID_SEQ.currval, #{item_class}, #{item_id}, #{item_amount})
-   </insert>
+		</selectKey>
+		insert into Request(order_id, order_agency_id, order_date,
+		order_need_time, order_status, DELIVERED_DATE, DELIVERED_CHECK)
+		values (#{order_id}, #{order_agency_id}, sysdate, #{order_need_time},
+		#{order_status}, '', 'N')
+	</insert>
 
-   <select id="selectRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+	<insert id="insertRequestItem"
+		parameterType="com.medirone.web.dto.RequestItems">
+		insert into Request_Items(order_id, item_class, item_id, item_amount)
+		values (ORDER_ID_SEQ.currval, #{item_class}, #{item_id}, #{item_amount})
+	</insert>
+
+	<select id="selectRequestList" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status , delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_agency_id=#{agency_id} order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_agency_id=#{agency_id} order by order_need_time,
+		order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	<select id="selectAdminRequestList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+
+	<select id="selectAdminRequestList" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status, delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request order by order_need_time, order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	<select id="selectGcsRequestList"  parameterType="map"  resultMap="requestDetail">		
-		select rn, ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+
+	<select id="selectGcsRequestList" parameterType="map"
+		resultMap="requestDetail">
+		select rn, ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE,
+		AGENCY_LONGITUDE, ORDER_NEED_TIME
 		from(
-			select rownum as rn, ORDER_ID,  ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
-			from(
-				select ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
-				from request join agency
-				on request.ORDER_AGENCY_ID = agency.AGENCY_ID
-				where ORDER_STATUS = 'PREPARING'
-				order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME,
+		AGENCY_LATITUDE, AGENCY_LONGITUDE, ORDER_NEED_TIME
+		from(
+		select ORDER_ID, ORDER_AGENCY_ID, AGENCY_NAME, AGENCY_LATITUDE,
+		AGENCY_LONGITUDE, ORDER_NEED_TIME
+		from request join agency
+		on request.ORDER_AGENCY_ID = agency.AGENCY_ID
+		where ORDER_STATUS = 'PREPARING'
+		order by order_need_time, order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-		
-	<select id="selectTotalRowNum" parameterType="String" resultType="int">
-		select count(*) from request where order_agency_id = #{agency_id}
+
+	<select id="selectTotalRowNum" parameterType="String"
+		resultType="int">
+		select count(*) from request where order_agency_id =
+		#{agency_id}
 	</select>
-	
-	<select id="selectTotalRowNumAdmin" parameterType="String" resultType="int">
+
+	<select id="selectTotalRowNumAdmin" parameterType="String"
+		resultType="int">
 		select count(*) from request
 	</select>
-	
+
 	<select id="selectTotalRowNumGcs" resultType="int">
-		select count(*) from request where order_status='PREPARING'
+		select count(*)
+		from request where order_status='PREPARING'
 	</select>
-	
+
 	<!-- 한별작업(배송중) -->
-	<select id="selectRequestItemsByOrderStatus" parameterType="map" resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+	<select id="selectRequestItemsByOrderStatus" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status , delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_agency_id=#{agency_id} and order_status='DELIVERING' order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_agency_id=#{agency_id} and
+		order_status='DELIVERING' order by order_need_time, order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	<select id="selectAdminRequestListByOrderStatus" parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+
+	<select id="selectAdminRequestListByOrderStatus"
+		parameterType="map" resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time,
+		order_agency_id, order_date, order_status, delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_status='DELIVERING' order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_status='DELIVERING' order by order_need_time,
+		order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	<select id="selectTotalDeliveringRowNum" parameterType="String" resultType="int">
-		select count(*) from request where order_agency_id = #{agency_id} and order_status='DELIVERING'
+
+	<select id="selectTotalDeliveringRowNum" parameterType="String"
+		resultType="int">
+		select count(*) from request where order_agency_id =
+		#{agency_id} and order_status='DELIVERING'
 	</select>
-	
-	<select id="selectTotalDeliveringRowNumAdmin" parameterType="String" resultType="int">
-		select count(*) from request where order_status='DELIVERING'
+
+	<select id="selectTotalDeliveringRowNumAdmin"
+		parameterType="String" resultType="int">
+		select count(*) from request where
+		order_status='DELIVERING'
 	</select>
 	<!-- 한별작업 끝 -->
 
 	<update id="updateStatusToDeliverSuccess" parameterType="int">
-		update request set DELIVERED_CHECK='Y' where order_id=#{order_id}
+		update
+		request set DELIVERED_CHECK='Y' where order_id=#{order_id}
 	</update>
-	
+
 	<update id="updateDeliveredDate" parameterType="int">
-		update request set DELIVERED_DATE=sysdate where order_id=#{order_id}
+		update request
+		set DELIVERED_DATE=sysdate where order_id=#{order_id}
 	</update>
-	
+
 	<update id="updateOrderStatus" parameterType="map">
-		update request set order_status=#{order_status} where order_id=#{order_id}
+		update request set
+		order_status=#{order_status} where order_id=#{order_id}
 	</update>
-	
-	<select id="selectRequestItemsByOrderId" parameterType="int" resultType="com.medirone.web.dto.RequestItems">
+
+	<select id="selectRequestItemsByOrderId" parameterType="int"
+		resultType="com.medirone.web.dto.RequestItems">
 		select * from request_items where order_id = #{order_id}
 	</select>
-	
+
 	<delete id="deleteRequestItemsByOrderId" parameterType="int">
-		delete from request_items
+		delete
+		from request_items
 		where order_id = #{order_id}
 	</delete>
-	
+
 	<delete id="deleteRequestByOrderId" parameterType="int">
-		delete from request
+		delete from
+		request
 		where order_id = #{order_id}
 	</delete>
 	<!-- =====배송 요청 필터링 작업====== -->
-	<select id="selectAdminRequestedList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+	<select id="selectAdminRequestedList" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status, delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_status='REQUESTED' order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_status='REQUESTED' order by order_need_time,
+		order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
 	<!-- =====배송 요청 필터링 작업====== -->
-	<select id="selectTotalRequestedRowNum" parameterType="String" resultType="int">
-		select count(*) from request where order_agency_id = #{agency_id} and order_status='REQUESTED'
+	<select id="selectTotalRequestedRowNum" parameterType="String"
+		resultType="int">
+		select count(*) from request where order_agency_id =
+		#{agency_id} and order_status='REQUESTED'
 	</select>
 	<!-- =====배송 요청 필터링 작업====== -->
-	<select id="selectTotalRequestedRowNumAdmin" parameterType="String" resultType="int">
-		select count(*) from request where order_status='REQUESTED'
+	<select id="selectTotalRequestedRowNumAdmin"
+		parameterType="String" resultType="int">
+		select count(*) from request where
+		order_status='REQUESTED'
 	</select>
-	
+
 	<!-- =====배송 요청 필터링 작업====== -->
-	<select id="selectRequestedList"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+	<select id="selectRequestedList" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status , delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_agency_id=#{agency_id} and order_status='REQUESTED' order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_agency_id=#{agency_id} and
+		order_status='REQUESTED' order by order_need_time, order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
 
-	<select id="selectTotalRowNumListDelivered" parameterType="String" resultType="int">
-		select count(*) from request where order_agency_id = #{agency_id} and order_status = 'DELIVERED'
+	<select id="selectTotalRowNumListDelivered"
+		parameterType="String" resultType="int">
+		select count(*) from request where
+		order_agency_id = #{agency_id} and order_status = 'DELIVERED'
 	</select>
-	
-	<select id="selectTotalRowNumAdminListDelivered" parameterType="String" resultType="int">
-		select count(*) from request where order_status = 'DELIVERED'
+
+	<select id="selectTotalRowNumAdminListDelivered"
+		parameterType="String" resultType="int">
+		select count(*) from request where
+		order_status = 'DELIVERED'
 	</select>
-	
-	<select id="selectRequestListDelivered"  parameterType="map"  resultType="com.medirone.web.dto.Request">
-		select rn, order_id, order_need_time, order_agency_id, order_date, order_status , delivered_check
+
+	<select id="selectRequestListDelivered" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status , delivered_check
 		from(
-			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_agency_id=#{agency_id} and order_status='DELIVERED' order by order_need_time, order_id
-			)
-			where rownum &lt;= #{endRowNo}
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_agency_id=#{agency_id} and
+		order_status='DELIVERED' order by order_need_time, order_id
+		)
+		where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
-	<select id="selectAdminRequestListDelivered"  parameterType="map"  resultType="com.medirone.web.dto.Request">
+
+	<select id="selectAdminRequestListDelivered" parameterType="map"
+		resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id,
+		order_date, order_status, delivered_check
+		from(
+		select rownum as rn, order_id, order_need_time, order_agency_id, order_date,
+		order_status, delivered_check
+		from(
+		select order_id, order_need_time, order_agency_id, order_date, order_status,
+		delivered_check
+		from request where order_status='DELIVERED' order by order_need_time,
+		order_id
+		)
+		where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	<select id="selectAdmintRequestListPreparing" parameterType="map" resultType="com.medirone.web.dto.Request">
 		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 		from(
 			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
 			from(
-				select order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
-				from request where order_status='DELIVERED' order by order_need_time, order_id
+				select order_id, order_agency_id,order_date,order_need_time, order_status,delivered_date, delivered_check
+				from request
+				where order_status = 'PREPARING'
 			)
 			where rownum &lt;= #{endRowNo}
 		)
 		where rn &gt;= #{startRowNo}
 	</select>
-	
+	<select id="selectRequestListPreparing" parameterType="map" resultType="com.medirone.web.dto.Request">
+		select rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+		from(
+			select rownum as rn, order_id, order_need_time, order_agency_id, order_date, order_status, delivered_check
+			from(
+				select order_id, order_agency_id,order_date,order_need_time, order_status,delivered_date,delivered_check
+				from request
+				where order_status = 'PREPARING' and order_agency_id = #{agency_id}
+			)
+			where rownum &lt;= #{endRowNo}
+		)
+		where rn &gt;= #{startRowNo}
+	</select>
+	<select id="selectTotalRowNumAdminListPreparing" parameterType="String" resultType="int">
+		select count(*) from request where order_status = 'PREPARING'
+	</select>
+	<select id="selectTotalRowNumListPreparing" parameterType="String" resultType="int">
+		select count(*) from request where order_agency_id =#{agency_id} and order_status = 'PREPARING'
+	</select>
 </mapper>

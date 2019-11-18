@@ -134,4 +134,19 @@ public class RequestService {
 		return requestedList;
 	}
 
+	public List<RequestItems> getAdminPreparingRequestedList(int startRowNo, int endRowNo) {
+		List<RequestItems> requestList = requestDao.selectAdminList(startRowNo,endRowNo);
+		return requestList;
+	}
+
+	public List<RequestItems> getPreparingRequestedList(int startRowNo, int endRowNo, String agency_id) {
+		List<RequestItems> requestList = requestDao.selectPreparingList(startRowNo,endRowNo,agency_id);
+		return requestList;
+	}
+
+	public int getPreparingTotalRequestedRowNo(String agency_id) {
+		int totalRowNum = requestDao.PreparingTotalRequestedRowNo(agency_id);
+		return totalRowNum;
+	}
+
 }
