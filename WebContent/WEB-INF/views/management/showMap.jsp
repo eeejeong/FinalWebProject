@@ -27,11 +27,11 @@
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0cef5f118d942254be778baadfb2acb4&libraries=services"></script>
 		<script>
 		    var mapContainer = document.getElementById('map'); // 지도를 표시할 div  
-		    var centerLat = (37.4950924317002 + ${lat}) / 2;
-		    var centerLng = (127.12253304316587 + ${lng}) / 2;
+		    var centerLat = (37.5475514728 + ${lat}) / 2;
+		    var centerLng = (127.1199171344 + ${lng}) / 2;
 		    mapOption = {
 		        center : new daum.maps.LatLng(centerLat, centerLng), // 지도의 중심좌표
-		        level : 7
+		        level : 3
 		    // 지도의 확대 레벨
 		    };
 		 
@@ -39,10 +39,12 @@
 		    var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다 
 		    var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 		 
+		    map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
+		    
 		    // 마커를 표시할 위치와 title 객체 배열입니다 
 		    var positions = [ {
 		        title : "코사병원",
-		        latlng : new daum.maps.LatLng(37.4950924317002, 127.12253304316587)
+		        latlng : new daum.maps.LatLng(37.5475514728, 127.1199171344)
 		    }, {
 		        title : "회원 위치",
 		        latlng : new daum.maps.LatLng(${lat}, ${lng})

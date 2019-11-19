@@ -53,4 +53,8 @@
 		update agency set mission_rtl_waypoint = #{RtlwayPoint}, mission_writer = '안소미', mission_write_date = sysdate where agency_id = #{aID}
 	</update>
 	
+	<select id="selectAgencyMissionByAid" parameterType="string" resultType="string">
+		select mission_waypoint from agency where agency_id=#{aID}
+	</select>
+	
 </mapper>

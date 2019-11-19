@@ -63,6 +63,7 @@
 				    	};
 						
 				    	map = new kakao.maps.Map(mapContainer, mapOption);
+				    	map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);
 					}
 					
 					//드론 위치로 지도 이동

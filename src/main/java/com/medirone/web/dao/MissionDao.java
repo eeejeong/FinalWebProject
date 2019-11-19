@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.medirone.web.dto.Agency;
+
 
 @Component
 public class MissionDao {
@@ -22,12 +24,9 @@ public class MissionDao {
 		return rows;
 	}
 
-	public int updateRtlMission(String aID, String RtlwayPoint) {
-		Map<String, String> map = new HashMap<>();
-		map.put("aID", aID);
-		map.put("RtlwayPoint", RtlwayPoint);
-		int rows = sqlSessionTemplate.update("agency.updateRtlMission", map);
-		return rows;
+	public Agency selectAgencyMission(String aID) {
+		Agency agency = sqlSessionTemplate.selectOne("agency.selectAllByAgencyid", aID);
+		return agency;
 	}
 
 }

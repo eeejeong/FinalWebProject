@@ -28,6 +28,9 @@ public class UpdateController {
 	
 	@RequestMapping("/")
 	public String updateMemberForm(Model model, HttpSession session) {
+		if(session.getAttribute("agency_Id") == null) {
+			return "redirect:/error";
+		} 
 		String agency_id = (String) session.getAttribute("agency_Id");
 		Agency agency = service.getAgency(agency_id);
 		Manager manager = service.getManager(agency_id);

@@ -130,8 +130,8 @@ div.title {
      
       var list = $('h6');
            for(var i = 0; i < list.length; i++){
-              var lat = "37.4950924317002";
-              var lng = "127.12253304316587";
+              var lat = "37.5475514728";
+              var lng = "127.1199171344";
               var lat2 = list.eq(i).data("lat");
               var lng2 = list.eq(i).data("lng");
               var result = meter1(lat,lng,lat2,lng2);

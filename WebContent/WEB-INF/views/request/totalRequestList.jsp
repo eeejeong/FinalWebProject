@@ -119,6 +119,7 @@ div.dropdown {
 								+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
 								+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
 								+ "</tr>");
+							totalWeight();
 						}
 					});
 				}
@@ -132,6 +133,7 @@ div.dropdown {
 		$('#completeBtn' + sup_id).css("display", "inline");
 		$("#sup_amount" + sup_id).prop("readonly", false);
 		$("#completeBtn" + sup_id).prop("disabled", false);
+		totalWeight();
 		tr.remove();
 	}
 
