@@ -59,6 +59,9 @@
 					success: function(data) {
 						alert("삭제 완료");   
 						location.replace("http://localhost:8080/FinalWebProject/itemManagement/bloodList");
+					},
+					error: function() {
+						alert("누가 신청한 혈액이야! 짜식아! 뭐라카노!");
 					}
 				});		
 			}
