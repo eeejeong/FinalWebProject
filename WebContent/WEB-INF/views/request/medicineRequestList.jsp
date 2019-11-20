@@ -22,12 +22,14 @@
 	  			<td style="vertical-align: middle; width: auto">
 	  				<input name="inputtext" id="sup_amount${med.sup_id}"  type="number" class="form-control" placeholder="최대 ${med.sup_amount}개 선택 가능" >
 	  			</td>	  		
-	  			<c:if test="${med.sup_amount != 0}">	
+	  				
 		  			<td style="vertical-align: middle;">	  				
+		  				<c:if test="${med.sup_amount != 0}">
 		  				<button name="btn" type="button" class="btn btn-outline-info" id="completeBtn${med.sup_id}" 
 		  				onclick="completeBtnClick(${med.sup_id}, ${med.sup_amount}, $('#sup_amount${med.sup_id}').val());" >담기</button>
+					</c:if>
 					</td>	
-				</c:if>
+				
 	  		</tr>			  	
 		</c:forEach>
 		 

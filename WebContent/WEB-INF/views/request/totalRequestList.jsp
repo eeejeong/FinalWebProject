@@ -42,6 +42,8 @@ div.dropdown {
 </style>
 
 <script type="text/javascript">
+
+	var totalWeight = 0;
 	
 	$(document).ready(function() {
 		$.datepicker.setDefaults($.datepicker.regional["ko"]);
@@ -100,6 +102,7 @@ div.dropdown {
 		$("input[name=inputtext]").val("");
 		$("input[name=inputtext1]").val("");
 		
+		
 		if(checkRegistered(sup_id)) {	
 			if (request_amount == "") {
 				alert("수량을 입력해주세요.");
@@ -110,16 +113,21 @@ div.dropdown {
 					$.ajax({
 						url : "searchItemById?sup_id=" + sup_id,
 						success : function(data) {
-							$("#resultList").append(
-								"<tr>"
-								+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
-								+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
-								+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
-								+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
-								+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
-								+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
-								+ "</tr>");
-							totalWeight();
+							if(totalWeight + data.sup_weight * request_amount <= 3000) { 
+								$("#resultList").append(
+										"<tr>"
+										+ '<td> <input name="col1" class="form-control" value="' + sup_id + '" readonly/> </td>'
+										+ '<td> <input name="col2" class="form-control" value="' + data.sup_class + '" readonly/> </td>'
+										+ '<td> <input name="col3" class="form-control" value="' + data.sup_name + '" readonly/> </td>'
+										+ '<td> <input name="col4" class="form-control" value="' + request_amount + '" readonly/> </td>'
+										+ '<td> <input name="col5" id="eachTotalWeight" class="form-control" value="' + (data.sup_weight * request_amount) + '" readonly/> </td>'
+										+ '<td> <input name="delete" onclick="deleteRow(this,' + sup_id + ','+(data.sup_weight * request_amount)+');" type="button" class="btn btn-outline-danger" value="삭제 "/></td>'
+										+ "</tr>");
+								totalWeight = totalWeight + data.sup_weight * request_amount;
+								$('#totalWeightInput').val(totalWeight);
+							} else {
+								alert("최대 무게 3KG을 넘었습니다.");
+							}
 						}
 					});
 				}
@@ -128,13 +136,14 @@ div.dropdown {
 	}
     
     // 하단의 담은 목록 중 삭제 버튼을 눌렀을 때 실행하는 function
-	function deleteRow(obj, sup_id) {
-		var tr = $(obj).parent().parent();
+	function deleteRow(obj, sup_id, sup_weight) {
+		var tr = $(obj).parent().parent();	
+		totalWeight = totalWeight - sup_weight;
 		$('#completeBtn' + sup_id).css("display", "inline");
 		$("#sup_amount" + sup_id).prop("readonly", false);
 		$("#completeBtn" + sup_id).prop("disabled", false);
-		totalWeight();
 		tr.remove();
+		$('#totalWeightInput').val(totalWeight);
 	}
 
     // 상단의 목록 중 백신 목록을 보여주는 function
@@ -168,11 +177,13 @@ div.dropdown {
 			}
 		});
 	}
-
+    
+	
+	
     // 담은 목록의 총 무게를 합하는 function
-	function totalWeight() {
+	function calculateTotalWeight() {
 		var $dataRows = $("#requestTable tr:not('#titleRow')");
-		var totalWeight = 0;
+		totalWeight = 0;
 		$dataRows.each(function() {
 			$(this).find('#eachTotalWeight').each(function(i) {
 				totalWeight += parseInt($(this).val());
@@ -198,7 +209,7 @@ div.dropdown {
 
     // 요청 완료 버튼을 눌렀을 때 확인하는 function
 	function completeRequestBtn(date, time) {
-		var checkTotalWeight = totalWeight();
+		var checkTotalWeight = calculateTotalWeight();
 		var checkDateTime = dateTime(date, time);
 		if (checkTotalWeight && checkDateTime) {
 			var needDate = date + " " + time;
@@ -298,7 +309,7 @@ div.dropdown {
 				<input class="form-control" id="timeInput" type="text" name="timeInput" placeholder="시간선택" style="width:150px; margin-right: 9px"/>
 				<div style="height: 20px;" class="input-group mb-3">
 				  <div class="input-group-prepend">
-				    <button class="btn btn-outline-dark" type="button" id="button-addon1" onclick="totalWeight()">총 무게 계산</button>
+				    <button class="btn btn-outline-dark" type="button" id="button-addon1" onclick="calculateTotalWeight()">총 무게 계산</button>
 				  </div>
 				<input class="form-control mr-sm-2" id="totalWeightInput" name="totalWeightInput" type="text" placeholder="총 무게" aria-label="총 무게" readonly="readonly" />
 				</div>				
