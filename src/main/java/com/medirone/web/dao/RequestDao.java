@@ -44,6 +44,10 @@ public class RequestDao {
 	
 	public List<RequestItems> selectMedrequest_popuplist1(int order_id) {
 		List<RequestItems> medrequest_popuplist1 = sqlSessionTemplate.selectList("request.selectMedrequest_popuplist1", order_id);
+		System.out.println("DAO: " + medrequest_popuplist1.size());
+		for(RequestItems item : medrequest_popuplist1) {
+			System.out.println(item);
+		}
 		return medrequest_popuplist1;
 	}
 

@@ -439,6 +439,7 @@ public class RequestController {
 		// JSP로 페이지 정보 넘기기
 		model.addAttribute("medrequest_popuplist1", medrequest_popuplist1);
 		model.addAttribute("sup_names", sup_names);
+		System.out.println(medrequest_popuplist1.size());
 
 		return "/request/medrequest_popuplist";
 	}

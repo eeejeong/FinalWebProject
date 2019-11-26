@@ -106,6 +106,11 @@ function checkForm(){
 	
 }
 
+function clearError(){	
+	$(".error").text("");
+	
+}
+
 </script>
 </head>
 <body>
@@ -126,7 +131,7 @@ function checkForm(){
 					<form method="post" action="login" onsubmit="return checkForm()">
 						<div class="form-group">
 							<label for="agency_id">ID</label> 
-							<input id="agency_id" type="text" name="agency_id" class="form-control" placeholder="" /> 
+							<input id="agency_id" type="text" name="agency_id" oninput="clearError()" class="form-control" placeholder="" /> 
 							<span id="errorAgency_id" class="error" style="color: red">${errorAgency_id}</span>
 						</div>
 			

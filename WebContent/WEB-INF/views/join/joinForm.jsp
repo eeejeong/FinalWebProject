@@ -38,15 +38,15 @@
 					result = false;
 				}
 				if($("#agency_address").val() == ""){
-					$("#agency_addressError").text("* 보건소 주소을 입력하세요.");
+					$("#agency_addressError").text("* 보건소 주소를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_latitude").val() == ""){
-					$("#agency_latitudeError").text("* 보건소 위도을 입력하세요.");
+					$("#agency_latitudeError").text("* 보건소 위도를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_longitude").val() == ""){
-					$("#agency_longitudeError").text("* 보건소 경도을 입력하세요.");
+					$("#agency_longitudeError").text("* 보건소 경도를 입력하세요.");
 					result = false;
 				}
 				if($("#manager_id").val() == ""){
@@ -62,15 +62,15 @@
 					result = false;
 				}
 				if($("#manager_tel").val() == ""){
-					$("#manager_telError").text("* 담당자 전화번호을 입력하세요.");
+					$("#manager_telError").text("* 담당자 전화번호를 입력하세요.");
 					result = false;
 				}
 				if(!$("#checkbox1").prop("checked")){
-					$("#checkbox1Error").text("* 개인정보 동의 해주세요.");
+					$("#checkbox1Error").text("* 개인정보 약관에 동의해주세요.");
 					result = false;
 				}
 				if(!$("#checkbox2").prop("checked")){
-					$("#checkbox2Error").text("* 이용약관 동의 해주세요.");
+					$("#checkbox2Error").text("* 이용약관에 동의해주세요.");
 					result = false;
 				}
 								
@@ -301,7 +301,8 @@
 		    	<div class="form-row">
 		    		<div class="form-group col-md-6">
 		     		 	<label>개인정보 처리 방침</label>
-		      			<textarea class="form-control" rows="4" readonly>개인정보 영구 보관합니다.</textarea>
+		      			<textarea class="form-control" rows="4" readonly>정보통신망법 규정에 따라 메디론에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적을 안내 드립니다. 자세히 읽은 후 동의하여 주시기 바랍니다.
+		      			</textarea>
 		      			<div class="form-check form-check-inline">
 						  <input class="form-check-input" type="checkbox" id="checkbox1" value="option1">
 						  <label class="form-check-label" for="checkbox1">개인정보 동의</label>
@@ -310,7 +311,8 @@
 		    		</div>
 		    		<div class="form-group col-md-6">
 		      			<label>이용 약관</label>
-		      			<textarea class="form-control" rows="4" readonly>드론 한대 날리는데 1천만원.</textarea>
+		      			<textarea class="form-control" rows="4" readonly>본 약관은 메디론과 메디론 서비스를 이용하는 회원과의 관계를 설명합니다. 메디론 회원으로 가입하실 경우, 본 약관 및 관련 운영 정책을 확인하거나 동의하게 됩니다. 
+		      			</textarea>
 		      			<div class="form-check form-check-inline">
 						  <input class="form-check-input" type="checkbox" id="checkbox2" value="option1">
 						  <label class="form-check-label" for="checkbox2">이용약관 동의</label>

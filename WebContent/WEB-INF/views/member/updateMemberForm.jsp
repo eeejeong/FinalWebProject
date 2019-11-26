@@ -22,43 +22,43 @@
 				$(".error").css("color", "red");
 				//입력값 검사
 				if($("#agency_password").val() == ""){
-					$("#agency_passwordError").text("*비밀번호를 입력하세요.");
+					$("#agency_passwordError").text("* 비밀번호를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_name").val() == ""){
-					$("#agency_nameError").text("*보건소 이름을 입력하세요.");
+					$("#agency_nameError").text("* 보건소 이름을 입력하세요.");
 					result = false;
 				}
 				if($("#agency_tel").val() == ""){
-					$("#agency_telError").text("*보건소 전화번호를 입력하세요.");
+					$("#agency_telError").text("* 보건소 전화번호를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_address").val() == ""){
-					$("#agency_addressError").text("*보건소 주소을 입력하세요.");
+					$("#agency_addressError").text("* 보건소 주소를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_latitude").val() == ""){
-					$("#agency_latitudeError").text("*보건소 위도을 입력하세요.");
+					$("#agency_latitudeError").text("* 보건소 위도를 입력하세요.");
 					result = false;
 				}
 				if($("#agency_longitude").val() == ""){
-					$("#agency_longitudeError").text("*보건소 경도을 입력하세요.");
+					$("#agency_longitudeError").text("* 보건소 경도를 입력하세요.");
 					result = false;
 				}
 				if($("#manager_id").val() == ""){
-					$("#manager_idError").text("*담당자 사번을 입력하세요.");
+					$("#manager_idError").text("* 담당자 사번을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_name").val() == ""){
-					$("#manager_nameError").text("*담당자 이름을 입력하세요.");
+					$("#manager_nameError").text("* 담당자 이름을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_email").val() == ""){
-					$("#manager_emailError").text("*담당자 이메일을 입력하세요.");
+					$("#manager_emailError").text("* 담당자 이메일을 입력하세요.");
 					result = false;
 				}
 				if($("#manager_tel").val() == ""){
-					$("#manager_telError").text("*담당자 전화번호을 입력하세요.");
+					$("#manager_telError").text("* 담당자 전화번호를 입력하세요.");
 					result = false;
 				}
 								

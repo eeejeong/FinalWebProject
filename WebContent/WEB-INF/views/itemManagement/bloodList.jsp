@@ -57,11 +57,11 @@
 					url: 'deleteBlood',
 					data: {"deleteBlood": deleteBlood},
 					success: function(data) {
-						alert("삭제 완료");   
-						location.replace("http://localhost:8080/FinalWebProject/itemManagement/bloodList");
+						alert("삭제 완료"); 
+						location.href = "http://" + location.host +  "/FinalWebProject/itemManagement/bloodList";
 					},
 					error: function() {
-						alert("누가 신청한 혈액이야! 짜식아! 뭐라카노!");
+						alert("이미 요청된 혈액이므로 삭제할 수 없습니다.");
 					}
 				});		
 			}

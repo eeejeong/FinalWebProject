@@ -59,11 +59,11 @@
 						url: 'deleteMedicine',
 						data: {"deleteMedicine": deleteMedicine},
 						success: function(data) {
-							alert("삭제 완료");   
-							location.replace("http://localhost:8080/FinalWebProject/itemManagement/medicineList");
+							alert("삭제 완료");  
+							location.href = "http://" + location.host +  "/FinalWebProject/itemManagement/medicineList";
 						},
 						error: function() {
-							alert("누가 신청한 의약품이야! 짜식아! 뭐라카노!");
+							alert("이미 요청된 백신이므로 삭제할 수 없습니다.");
 						}
 					});		
 				}
